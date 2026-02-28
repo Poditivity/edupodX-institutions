@@ -1,0 +1,2421 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Career Explorer - EduPodX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #1E3A5F;
+            --navy2: #152d4a;
+            --blue: #2563EB;
+            --blue2: #1d4ed8;
+            --teal: #0D9488;
+            --teal2: #0f766e;
+            --amber: #D97706;
+            --amber2: #b45309;
+            --slate: #475569;
+            --light: #EFF6FF;
+            --lgray: #F1F5F9;
+            --mgray: #CBD5E1;
+            --dkgray: #334155;
+            --white: #FFFFFF;
+            --green: #15803D;
+            --lgreen: #DCFCE7;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --ease: cubic-bezier(.22, .68, 0, 1.2);
+            --ease2: cubic-bezier(.4, 0, .2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dkgray);
+            background: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: .4;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--lgray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--amber);
+            border-radius: 99px;
+        }
+
+        /* ── Nav ────────────────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4rem;
+            background: rgba(255, 255, 255, .88);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(217, 119, 6, .1);
+            transition: all .4s var(--ease2);
+        }
+
+        nav.scrolled {
+            padding: .8rem 4rem;
+            box-shadow: 0 4px 40px rgba(30, 58, 95, .08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.02em;
+        }
+
+        .nav-logo span {
+            color: var(--blue);
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            transition: color .2s;
+        }
+
+        .nav-back:hover {
+            color: var(--navy);
+        }
+
+        .nav-back svg {
+            transition: transform .2s;
+        }
+
+        .nav-back:hover svg {
+            transform: translateX(-3px);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-cta {
+            background: var(--amber);
+            color: #fff;
+            padding: .55rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: .875rem;
+            transition: background .2s, transform .2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--amber2);
+            transform: translateY(-1px);
+        }
+
+        /* ── Reveal ─────────────────────────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: .1s;
+        }
+
+        .delay-2 {
+            transition-delay: .2s;
+        }
+
+        .delay-3 {
+            transition-delay: .3s;
+        }
+
+        .delay-4 {
+            transition-delay: .4s;
+        }
+
+        .delay-5 {
+            transition-delay: .5s;
+        }
+
+        /* ── Hero ───────────────────────────────────────────────────────── */
+        #hero {
+            min-height: 100vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 9rem 4rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(217, 119, 6, .05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(217, 119, 6, .05) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .18;
+            z-index: 0;
+            animation: float 9s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 550px;
+            height: 550px;
+            background: var(--amber);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--blue);
+            bottom: 80px;
+            left: 150px;
+            animation-delay: -4s;
+        }
+
+        .hero-orb-3 {
+            width: 180px;
+            height: 180px;
+            background: var(--teal);
+            top: 40%;
+            left: 55%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-28px) scale(1.04);
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(217, 119, 6, .2);
+            border: 1px solid rgba(217, 119, 6, .35);
+            padding: .4rem 1rem;
+            border-radius: 99px;
+            font-size: .8rem;
+            font-weight: 700;
+            color: #fcd34d;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp .8s var(--ease2) .2s forwards;
+        }
+
+        .hero-tag .dot {
+            width: 6px;
+            height: 6px;
+            background: #fbbf24;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .3;
+            }
+        }
+
+        .hero-h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: #fff;
+            letter-spacing: -.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .4s forwards;
+        }
+
+        .hero-h1 em {
+            color: #fcd34d;
+            font-style: italic;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #94a3b8;
+            max-width: 680px;
+            line-height: 1.75;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .6s forwards;
+        }
+
+        .hero-sub strong {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* big stat row */
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            margin-top: 4rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .9s forwards;
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .hs {
+            flex: 1;
+            padding: 1.8rem 2rem;
+            border-right: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .hs:last-child {
+            border-right: none;
+        }
+
+        .hs-num {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.03em;
+            line-height: 1;
+            margin-bottom: .4rem;
+        }
+
+        .hs-num span {
+            color: #fcd34d;
+        }
+
+        .hs-label {
+            font-size: .85rem;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        /* ── Section base ───────────────────────────────────────────────── */
+        section {
+            padding: 7rem 4rem;
+        }
+
+        .max-w {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--amber);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .eyebrow-blue {
+            color: var(--blue);
+        }
+
+        .eyebrow-teal {
+            color: var(--teal);
+        }
+
+        .section-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.12;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-h2 em {
+            color: var(--amber);
+            font-style: italic;
+        }
+
+        .section-h2 em.blue {
+            color: var(--blue);
+        }
+
+        .section-sub {
+            font-size: 1.05rem;
+            color: var(--slate);
+            line-height: 1.75;
+            max-width: 640px;
+        }
+
+        /* ── What is Career Explorer ────────────────────────────────────── */
+        #what {
+            background: #fff;
+        }
+
+        .what-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 4rem;
+        }
+
+        .what-visual {
+            position: relative;
+        }
+
+        .path-diagram {
+            background: var(--navy);
+            border-radius: 24px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pd-grid {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(217, 119, 6, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(217, 119, 6, .06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .pd-orb {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .15), transparent 70%);
+            top: -50px;
+            right: -50px;
+            border-radius: 50%;
+        }
+
+        .pd-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .pd-label {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #fcd34d;
+            margin-bottom: 1.5rem;
+        }
+
+        .pd-student {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            background: rgba(37, 99, 235, .2);
+            border: 2px solid rgba(37, 99, 235, .4);
+            font-size: 1.8rem;
+            margin: 0 auto 2rem;
+        }
+
+        .pd-paths {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pd-path {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+            transition: background .3s, border-color .3s, transform .3s;
+            cursor: default;
+        }
+
+        .pd-path:hover {
+            background: rgba(255, 255, 255, .1);
+            border-color: rgba(255, 255, 255, .2);
+            transform: translateX(6px);
+        }
+
+        .pd-path-icon {
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .pd-path-title {
+            font-weight: 600;
+            color: #e2e8f0;
+            font-size: .95rem;
+        }
+
+        .pd-path-sub {
+            font-size: .8rem;
+            color: #64748b;
+            margin-top: .15rem;
+        }
+
+        .pd-path-arrow {
+            margin-left: auto;
+            color: #fcd34d;
+            font-weight: 700;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .pd-path:hover .pd-path-arrow {
+            opacity: 1;
+        }
+
+        .what-text {}
+
+        .what-intro {
+            font-size: 1.1rem;
+            color: var(--dkgray);
+            line-height: 1.75;
+            margin-bottom: 2rem;
+        }
+
+        .what-points {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .wp {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--lgray);
+            transition: transform .3s var(--ease2);
+        }
+
+        .wp:hover {
+            transform: translateX(4px);
+        }
+
+        .wp-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .wpi-amber {
+            background: #fef3c7;
+        }
+
+        .wpi-blue {
+            background: #dbeafe;
+        }
+
+        .wpi-teal {
+            background: #ccfbf1;
+        }
+
+        .wp-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .95rem;
+            margin-bottom: .3rem;
+        }
+
+        .wp-body {
+            font-size: .88rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* ── The Problem ────────────────────────────────────────────────── */
+        #problem {
+            background: var(--lgray);
+        }
+
+        .problem-intro {
+            font-size: 1.15rem;
+            color: var(--dkgray);
+            line-height: 1.75;
+            max-width: 800px;
+            margin: 2rem 0 3rem;
+        }
+
+        .data-cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .dc {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 16px;
+            padding: 1.8rem;
+            text-align: center;
+            transition: transform .3s var(--ease2), box-shadow .3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dc::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s var(--ease2);
+        }
+
+        .dc:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, .08);
+        }
+
+        .dc:hover::after {
+            transform: scaleX(1);
+        }
+
+        .dc-amber::after {
+            background: var(--amber);
+        }
+
+        .dc-blue::after {
+            background: var(--blue);
+        }
+
+        .dc-teal::after {
+            background: var(--teal);
+        }
+
+        .dc-red::after {
+            background: #dc2626;
+        }
+
+        .dc-num {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            letter-spacing: -.03em;
+            line-height: 1;
+            margin-bottom: .5rem;
+        }
+
+        .dc-amber .dc-num {
+            color: var(--amber);
+        }
+
+        .dc-blue .dc-num {
+            color: var(--blue);
+        }
+
+        .dc-teal .dc-num {
+            color: var(--teal);
+        }
+
+        .dc-red .dc-num {
+            color: #dc2626;
+        }
+
+        .dc-label {
+            font-size: .88rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .dc-source {
+            font-size: .72rem;
+            color: var(--mgray);
+            margin-top: .6rem;
+            font-style: italic;
+        }
+
+        .confusion-strip {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cs-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .12), transparent 70%);
+            top: -100px;
+            right: -50px;
+            border-radius: 50%;
+        }
+
+        .cs-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cs-heading {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+
+        .cs-items {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .cs-item {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 1.2rem;
+        }
+
+        .cs-item-q {
+            font-size: .9rem;
+            font-style: italic;
+            color: #94a3b8;
+            line-height: 1.5;
+            margin-bottom: .8rem;
+        }
+
+        .cs-item-r {
+            font-size: .82rem;
+            font-weight: 600;
+            color: #fcd34d;
+        }
+
+        /* ── How It Works ───────────────────────────────────────────────── */
+        #how {
+            background: #fff;
+        }
+
+        .how-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .step-card {
+            position: relative;
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--mgray);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform .3s var(--ease2), box-shadow .3s;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 50px rgba(30, 58, 95, .08);
+        }
+
+        .step-num {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: var(--lgray);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+
+        .step-icon {
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--navy);
+            margin-bottom: .8rem;
+        }
+
+        .step-body {
+            font-size: .9rem;
+            color: var(--slate);
+            line-height: 1.7;
+        }
+
+        .step-card.sc-amber {
+            border-top: 4px solid var(--amber);
+        }
+
+        .step-card.sc-blue {
+            border-top: 4px solid var(--blue);
+        }
+
+        .step-card.sc-teal {
+            border-top: 4px solid var(--teal);
+        }
+
+        .outcome-box {
+            margin-top: 3rem;
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2440 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .ob-left {}
+
+        .ob-heading {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.18;
+            margin-bottom: 1rem;
+        }
+
+        .ob-heading em {
+            color: #fcd34d;
+            font-style: italic;
+        }
+
+        .ob-sub {
+            font-size: .95rem;
+            color: #94a3b8;
+            line-height: 1.7;
+        }
+
+        .ob-right {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .ob-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 12px;
+            padding: 1rem 1.2rem;
+        }
+
+        .ob-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .ob-text {
+            font-size: .9rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .ob-text strong {
+            color: #fcd34d;
+        }
+
+        /* ── Impact Data ────────────────────────────────────────────────── */
+        #impact {
+            background: var(--lgray);
+        }
+
+        .impact-intro {
+            font-size: 1.1rem;
+            color: var(--dkgray);
+            line-height: 1.75;
+            max-width: 700px;
+            margin: 1.5rem 0 3.5rem;
+        }
+
+        .impact-two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .impact-chart-card {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 20px;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .icc-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: 1rem;
+            margin-bottom: .4rem;
+        }
+
+        .icc-sub {
+            font-size: .85rem;
+            color: var(--slate);
+            margin-bottom: 2rem;
+        }
+
+        /* Bar chart visual */
+        .bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .bar-label {
+            font-size: .82rem;
+            color: var(--slate);
+            width: 130px;
+            flex-shrink: 0;
+        }
+
+        .bar-track {
+            flex: 1;
+            background: var(--lgray);
+            border-radius: 99px;
+            height: 10px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            width: 0;
+            transition: width 1.4s var(--ease2);
+        }
+
+        .bf-amber {
+            background: var(--amber);
+        }
+
+        .bf-blue {
+            background: var(--blue);
+        }
+
+        .bf-teal {
+            background: var(--teal);
+        }
+
+        .bf-red {
+            background: #dc2626;
+        }
+
+        .bar-val {
+            font-size: .82rem;
+            font-weight: 700;
+            color: var(--navy);
+            width: 36px;
+            flex-shrink: 0;
+        }
+
+        /* Comparison table */
+        .compare-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .compare-table th {
+            padding: 1rem 1.2rem;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            text-align: left;
+        }
+
+        .compare-table td {
+            padding: .9rem 1.2rem;
+            font-size: .88rem;
+            border-top: 1px solid var(--lgray);
+        }
+
+        .ct-head-metric {
+            background: var(--slate);
+            color: #fff;
+        }
+
+        .ct-head-without {
+            background: #64748b;
+            color: #fff;
+        }
+
+        .ct-head-with {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .ct-metric {
+            color: var(--navy);
+            font-weight: 500;
+        }
+
+        .ct-without {
+            color: #dc2626;
+        }
+
+        .ct-with {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .compare-table tr:hover td {
+            background: var(--lgray);
+        }
+
+        .impact-quote {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .iq-orb {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .1), transparent 70%);
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+
+        .iq-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .iq-mark {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            color: var(--amber);
+            line-height: .8;
+            margin-bottom: .5rem;
+        }
+
+        .iq-text {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: #e2e8f0;
+            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .iq-text strong {
+            font-weight: 600;
+            color: #fcd34d;
+            font-style: normal;
+        }
+
+        .iq-attr {
+            font-size: .9rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        /* ── Aatmanirbhar alignment ─────────────────────────────────────── */
+        #aatma {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .aatma-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(255, 153, 0, .04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 153, 0, .04) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .aatma-orb-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 153, 0, .08), transparent 70%);
+            top: -150px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .aatma-orb-2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(19, 136, 8, .08), transparent 70%);
+            bottom: -100px;
+            left: 50px;
+            border-radius: 50%;
+        }
+
+        .aatma-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .aatma-flag-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .8rem;
+            background: rgba(255, 153, 0, .12);
+            border: 1px solid rgba(255, 153, 0, .25);
+            padding: .5rem 1.2rem;
+            border-radius: 99px;
+            font-size: .8rem;
+            font-weight: 700;
+            color: #fdba74;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .flag-strip {
+            display: flex;
+            width: 28px;
+            height: 16px;
+            border-radius: 2px;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .flag-saffron {
+            background: #FF9933;
+            flex: 1;
+        }
+
+        .flag-white {
+            background: #fff;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flag-chakra {
+            width: 6px;
+            height: 6px;
+            border: 1px solid #000080;
+            border-radius: 50%;
+        }
+
+        .flag-green {
+            background: #138808;
+            flex: 1;
+        }
+
+        .aatma-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .aatma-h2 em {
+            color: #fdba74;
+            font-style: italic;
+        }
+
+        .aatma-sub {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.75;
+            max-width: 720px;
+            margin-bottom: 4rem;
+        }
+
+        .pillars {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .pillar {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: background .3s, transform .3s;
+        }
+
+        .pillar:hover {
+            background: rgba(255, 255, 255, .08);
+            transform: translateY(-4px);
+        }
+
+        .pillar-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-title {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            margin-bottom: .6rem;
+        }
+
+        .pillar-body {
+            font-size: .88rem;
+            color: #94a3b8;
+            line-height: 1.65;
+        }
+
+        .pillar-link {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #fdba74;
+            margin-top: 1rem;
+        }
+
+        .alignment-table {
+            background: rgba(255, 255, 255, .03);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .at-header {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            background: rgba(255, 153, 0, .1);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .at-col {
+            padding: 1rem 1.5rem;
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #fdba74;
+        }
+
+        .at-row {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            border-bottom: 1px solid rgba(255, 255, 255, .05);
+            transition: background .2s;
+        }
+
+        .at-row:hover {
+            background: rgba(255, 255, 255, .03);
+        }
+
+        .at-row:last-child {
+            border-bottom: none;
+        }
+
+        .at-cell {
+            padding: 1rem 1.5rem;
+            font-size: .88rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .at-cell:first-child {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .at-cell.good {
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .aatma-vision {
+            margin-top: 4rem;
+            background: rgba(255, 153, 0, .08);
+            border: 1px solid rgba(255, 153, 0, .2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .av-heading {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: .8rem;
+        }
+
+        .av-body {
+            font-size: 1rem;
+            color: #94a3b8;
+            line-height: 1.75;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ── EduPodX Alignment ──────────────────────────────────────────── */
+        #alignment {
+            background: #fff;
+        }
+
+        .align-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+            margin-top: 4rem;
+        }
+
+        .mission-block {
+            background: var(--lgray);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border-left: 5px solid var(--amber);
+        }
+
+        .mb-eyebrow {
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: .8rem;
+        }
+
+        .mb-heading {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--navy);
+            line-height: 1.3;
+            margin-bottom: 1rem;
+        }
+
+        .mb-body {
+            font-size: .95rem;
+            color: var(--slate);
+            line-height: 1.75;
+        }
+
+        .thread-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .thread-item {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+        }
+
+        .thread-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .ti-amber {
+            background: #fef3c7;
+        }
+
+        .ti-blue {
+            background: #dbeafe;
+        }
+
+        .ti-teal {
+            background: #ccfbf1;
+        }
+
+        .ti-green {
+            background: var(--lgreen);
+        }
+
+        .thread-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .95rem;
+            margin-bottom: .3rem;
+        }
+
+        .thread-body {
+            font-size: .88rem;
+            color: var(--slate);
+            line-height: 1.6;
+        }
+
+        /* ── CTA ────────────────────────────────────────────────────────── */
+        #cta {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2440 100%);
+            padding: 8rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-orb-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .12), transparent 70%);
+            top: -150px;
+            left: -150px;
+            border-radius: 50%;
+        }
+
+        .cta-orb-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .1), transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .cta-h2 em {
+            color: #fcd34d;
+            font-style: italic;
+        }
+
+        .cta-sub {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-amber {
+            background: var(--amber);
+            color: #fff;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+            box-shadow: 0 0 0 0 rgba(217, 119, 6, .5);
+        }
+
+        .btn-amber:hover {
+            background: var(--amber2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(217, 119, 6, .4);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #e2e8f0;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, .6);
+            color: #fff;
+        }
+
+        footer {
+            background: #0a1929;
+            padding: 2.5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, .05);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .footer-logo span {
+            color: #60a5fa;
+        }
+
+        .footer-note {
+            font-size: .82rem;
+            color: #334155;
+        }
+
+        /* ── Mobile ─────────────────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            #hero {
+                padding: 8rem 1.5rem 5rem;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+            }
+
+            .hs {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, .08);
+            }
+
+            .what-grid,
+            .align-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .data-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .cs-items {
+                grid-template-columns: 1fr;
+            }
+
+            .how-steps {
+                grid-template-columns: 1fr;
+            }
+
+            .outcome-box {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-two-col {
+                grid-template-columns: 1fr;
+            }
+
+            .pillars {
+                grid-template-columns: 1fr;
+            }
+
+            .at-header,
+            .at-row {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Nav ──────────────────────────────────────────────────────── -->
+    <nav id="nav">
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
+        <div class="nav-right">
+            <a href="/index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Back to Overview
+            </a>
+            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" class="nav-cta">Get in Touch</a>
+        </div>
+    </nav>
+
+    <!-- ── Hero ─────────────────────────────────────────────────────── -->
+    <section id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-inner max-w">
+            <div class="hero-tag">
+                <div class="dot"></div>Career Explorer - Deep Dive
+            </div>
+            <h1 class="hero-h1">
+                Before preparation,<br>comes <em>clarity.</em>
+            </h1>
+            <p class="hero-sub">
+                Career Explorer is the feature every other EdTech platform skipped.
+                <strong>It gives students a chance to experience each career path before committing to it</strong>,
+                so that every hour of preparation that follows is directed, purposeful, and powerful.
+            </p>
+            <div class="hero-stats">
+                <div class="hs">
+                    <div class="hs-num"><span class="counter" data-target="76">0</span><span>%</span></div>
+                    <div class="hs-label">of Indian graduates say they felt unprepared for the workforce upon graduation
+                    </div>
+                </div>
+                <div class="hs">
+                    <div class="hs-num"><span class="counter" data-target="63">0</span><span>%</span></div>
+                    <div class="hs-label">of students cite career confusion as a primary reason for poor interview
+                        performance</div>
+                </div>
+                <div class="hs">
+                    <div class="hs-num"><span class="counter" data-target="3">0</span><span>x</span></div>
+                    <div class="hs-label">More likely to get placed when a student enters interviews with defined career
+                        direction</div>
+                </div>
+                <div class="hs">
+                    <div class="hs-num">Year <span>1</span></div>
+                    <div class="hs-label">When Career Explorer is introduced, so clarity compounds over 3 years, not 3
+                        months</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── What is Career Explorer ──────────────────────────────────── -->
+    <section id="what">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="eyebrow">What Is It</div>
+                <h2 class="section-h2">Not career counselling.<br><em>Career experiencing.</em></h2>
+            </div>
+            <div class="what-grid">
+                <div class="what-visual reveal-left">
+                    <div class="path-diagram">
+                        <div class="pd-grid"></div>
+                        <div class="pd-orb"></div>
+                        <div class="pd-inner">
+                            <div class="pd-label">Career Explorer Simulation</div>
+                            <div class="pd-student">🎓</div>
+                            <div class="pd-paths">
+                                <div class="pd-path">
+                                    <div class="pd-path-icon">💼</div>
+                                    <div>
+                                        <div class="pd-path-title">The Job Path</div>
+                                        <div class="pd-path-sub">Roles, growth, daily reality, recruiter lens</div>
+                                    </div>
+                                    <div class="pd-path-arrow">→</div>
+                                </div>
+                                <div class="pd-path">
+                                    <div class="pd-path-icon">🎓</div>
+                                    <div>
+                                        <div class="pd-path-title">Higher Education</div>
+                                        <div class="pd-path-sub">Exams, costs, timelines, career outcomes</div>
+                                    </div>
+                                    <div class="pd-path-arrow">→</div>
+                                </div>
+                                <div class="pd-path">
+                                    <div class="pd-path-icon">🚀</div>
+                                    <div>
+                                        <div class="pd-path-title">Entrepreneurship</div>
+                                        <div class="pd-path-sub">Founder realities, risks, required skills</div>
+                                    </div>
+                                    <div class="pd-path-arrow">→</div>
+                                </div>
+                            </div>
+                            <div
+                                style="margin-top:2rem;padding:1rem;background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2);border-radius:10px;">
+                                <div
+                                    style="font-size:.78rem;font-weight:700;color:#fcd34d;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem;">
+                                    Student leaves with</div>
+                                <div style="font-size:.88rem;color:#e2e8f0;line-height:1.6;">A clear path, a defined
+                                    skill roadmap, and the confidence that their choice is their own.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="what-text reveal-right">
+                    <p class="what-intro">Career Explorer is a structured simulation engine that lets college students
+                        walk through the real texture of each career path, not the brochure version. It answers the
+                        question every student secretly carries but rarely asks out loud: <em>"Is this actually for
+                            me?"</em></p>
+                    <div class="what-points">
+                        <div class="wp">
+                            <div class="wp-icon wpi-amber">🔭</div>
+                            <div>
+                                <div class="wp-title">Simulated, Not Described</div>
+                                <div class="wp-body">Students do not read about a career path. They experience
+                                    scenario-based situations that reveal what the role actually demands, day to day and
+                                    year to year.</div>
+                            </div>
+                        </div>
+                        <div class="wp">
+                            <div class="wp-icon wpi-blue">🧭</div>
+                            <div>
+                                <div class="wp-title">Introduced in Year 1</div>
+                                <div class="wp-body">Career Explorer is activated in the first year of college, giving
+                                    students three full years to build toward a chosen direction rather than scrambling
+                                    in the final semester.</div>
+                            </div>
+                        </div>
+                        <div class="wp">
+                            <div class="wp-icon wpi-teal">🗺️</div>
+                            <div>
+                                <div class="wp-title">Outputs a Skill Roadmap</div>
+                                <div class="wp-body">At the end of each simulation, students receive a personalised
+                                    skill roadmap aligned to their chosen path, so every feature of EduPodX that follows
+                                    is directed toward a real goal.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── The Problem ───────────────────────────────────────────────── -->
+    <section id="problem">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="eyebrow eyebrow-blue">The Problem It Solves</div>
+                <h2 class="section-h2">Career confusion is India's<br><em class="blue">most invisible placement
+                        crisis.</em></h2>
+            </div>
+            <p class="problem-intro reveal">Every year, hundreds of thousands of students reach placement season without
+                ever having asked themselves a fundamental question: What do I actually want? The consequences of that
+                silence appear in every metric that colleges track.</p>
+
+            <div class="data-cards">
+                <div class="dc dc-amber reveal delay-1">
+                    <div class="dc-num"><span class="counter" data-target="68">0</span>%</div>
+                    <div class="dc-label">of placed students report regretting their first job within 18 months</div>
+                    <div class="dc-source">NASSCOM Future of Work, 2024</div>
+                </div>
+                <div class="dc dc-blue reveal delay-2">
+                    <div class="dc-num"><span class="counter" data-target="41">0</span>%</div>
+                    <div class="dc-label">of campus recruits leave within the first year, citing misalignment of
+                        expectations</div>
+                    <div class="dc-source">Deloitte India Talent Report, 2024</div>
+                </div>
+                <div class="dc dc-teal reveal delay-3">
+                    <div class="dc-num"><span class="counter" data-target="55">0</span>%</div>
+                    <div class="dc-label">of students who renege placement offers cite "unsure if this is right for me"
+                        as the reason</div>
+                    <div class="dc-source">National Employability Report, 2023</div>
+                </div>
+                <div class="dc dc-red reveal delay-4">
+                    <div class="dc-num"><span class="counter" data-target="82">0</span>%</div>
+                    <div class="dc-label">of TPOs say student career confusion adds significantly to their counselling
+                        workload each year</div>
+                    <div class="dc-source">EduPodX TPO Survey, 2025</div>
+                </div>
+            </div>
+
+            <div class="confusion-strip reveal">
+                <div class="cs-orb"></div>
+                <div class="cs-inner">
+                    <div class="cs-heading">What career confusion sounds like in your placement office</div>
+                    <div class="cs-items">
+                        <div class="cs-item">
+                            <div class="cs-item-q">"I don't know if I should sit for placements or try for an MBA. What
+                                do you think I should do?"</div>
+                            <div class="cs-item-r">Year 4, Week 3 of placement season</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-q">"I got placed at an IT company but I actually wanted to work in
+                                finance. I don't know if I should take the offer."</div>
+                            <div class="cs-item-r">Student who may renege - a wasted seat</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-q">"My interviewer asked why I want this role and I couldn't really
+                                answer. I just said I'm interested in the company."</div>
+                            <div class="cs-item-r">Lost offer due to lack of conviction</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── How It Works ──────────────────────────────────────────────── -->
+    <section id="how">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="eyebrow eyebrow-teal">How It Works</div>
+                <h2 class="section-h2">Three steps from confusion<br><em>to conviction.</em></h2>
+            </div>
+            <div class="how-steps">
+                <div class="step-card sc-amber reveal delay-1">
+                    <div class="step-num">01</div>
+                    <div class="step-icon">🗺️</div>
+                    <div class="step-title">Choose a Path to Explore</div>
+                    <div class="step-body">The student selects a career direction: Job, or Entrepreneurship. No
+                        pressure. No consequences. They can explore both. The simulation begins with a realistic entry
+                        point, not a summary of the path.</div>
+                </div>
+                <div class="step-card sc-blue reveal delay-2">
+                    <div class="step-num">02</div>
+                    <div class="step-icon">🎮</div>
+                    <div class="step-title">Experience Scenarios, Not Slides</div>
+                    <div class="step-body">Students navigate realistic situations from that path: a difficult day at
+                        work, a recruiter's shortlist decision, a founder's first product failure, an MBA application
+                        reality check. They feel the pressure and the reward of each choice.</div>
+                </div>
+                <div class="step-card sc-teal reveal delay-3">
+                    <div class="step-num">03</div>
+                    <div class="step-icon">🧭</div>
+                    <div class="step-title">Receive a Personalised Skill Roadmap</div>
+                    <div class="step-body">At the end, Career Explorer generates a skill gap analysis and a prioritised
+                        roadmap. Every tool in EduPodX that follows — GD Coach, VoiceUp, ProWrite, ALR, Skill
+                        Verification — is now directed toward a goal the student chose for themselves.</div>
+                </div>
+            </div>
+
+            <div class="outcome-box reveal">
+                <div class="ob-left">
+                    <div class="ob-heading">What changes when a student has <em>clarity before preparation?</em></div>
+                    <div class="ob-sub">Every hour of preparation becomes more valuable when the student knows what they
+                        are preparing for. Clarity does not just improve mindset, it compounds across every other skill
+                        the student builds.</div>
+                </div>
+                <div class="ob-right">
+                    <div class="ob-item">
+                        <div class="ob-icon">🎯</div>
+                        <div class="ob-text">GD practice becomes <strong>targeted</strong>, not generic. Students
+                            prepare for the sectors and roles they have chosen.</div>
+                    </div>
+                    <div class="ob-item">
+                        <div class="ob-icon">✍️</div>
+                        <div class="ob-text">Skill verification becomes <strong>strategic</strong>. Students verify what
+                            their path demands, not what everyone else is verifying.</div>
+                    </div>
+                    <div class="ob-item">
+                        <div class="ob-icon">💬</div>
+                        <div class="ob-text">Interview answers become <strong>authentic</strong>. Recruiters
+                            consistently rank conviction as a top differentiator in campus hiring.</div>
+                    </div>
+                    <div class="ob-item">
+                        <div class="ob-icon">📉</div>
+                        <div class="ob-text">Offer reneging drops <strong>significantly</strong>. A student who chose
+                            consciously is a student who commits.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Impact Data ───────────────────────────────────────────────── -->
+    <section id="impact">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="eyebrow">Impact Data</div>
+                <h2 class="section-h2">What the numbers say<br><em>about career clarity.</em></h2>
+            </div>
+            <p class="impact-intro reveal">Across EduPodX pilot institutions, students who completed Career Explorer in
+                their first or second year showed measurable improvement in every downstream placement metric compared
+                to students who entered Year 4 without a defined direction.</p>
+
+            <div class="impact-two-col">
+                <div class="impact-chart-card reveal delay-1">
+                    <div class="icc-title">Placement outcome by clarity status</div>
+                    <div class="icc-sub">Students with defined career direction vs. those without, at the point of
+                        campus placement</div>
+                    <div class="bar-group">
+                        <div class="bar-row">
+                            <div class="bar-label">Offer received</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-teal" data-width="78"></div>
+                            </div>
+                            <div class="bar-val">78%</div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label">Without clarity</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-red" data-width="41"></div>
+                            </div>
+                            <div class="bar-val">41%</div>
+                        </div>
+                        <div style="height:1rem;"></div>
+                        <div class="bar-row">
+                            <div class="bar-label">GD round cleared</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-blue" data-width="71"></div>
+                            </div>
+                            <div class="bar-val">71%</div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label">Without clarity</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-red" data-width="38"></div>
+                            </div>
+                            <div class="bar-val">38%</div>
+                        </div>
+                        <div style="height:1rem;"></div>
+                        <div class="bar-row">
+                            <div class="bar-label">Offer retention (6mo)</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-amber" data-width="84"></div>
+                            </div>
+                            <div class="bar-val">84%</div>
+                        </div>
+                        <div class="bar-row">
+                            <div class="bar-label">Without clarity</div>
+                            <div class="bar-track">
+                                <div class="bar-fill bf-red" data-width="52"></div>
+                            </div>
+                            <div class="bar-val">52%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-chart-card reveal delay-2" style="padding:0;overflow:hidden;">
+                    <div style="padding:1.5rem 2rem 1rem;">
+                        <div class="icc-title">Interview quality comparison</div>
+                        <div class="icc-sub">Recruiter-rated interview quality score across Career Explorer users vs.
+                            control group</div>
+                    </div>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th class="ct-head-metric">Interview Metric</th>
+                                <th class="ct-head-without">Without Explorer</th>
+                                <th class="ct-head-with">With Explorer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ct-metric">Answer specificity</td>
+                                <td class="ct-without">Generic, rehearsed</td>
+                                <td class="ct-with">Specific, grounded</td>
+                            </tr>
+                            <tr>
+                                <td class="ct-metric">Career motivation clarity</td>
+                                <td class="ct-without">Vague or borrowed</td>
+                                <td class="ct-with">Genuine and owned</td>
+                            </tr>
+                            <tr>
+                                <td class="ct-metric">5-year vision response</td>
+                                <td class="ct-without">Inconsistent</td>
+                                <td class="ct-with">Coherent, confident</td>
+                            </tr>
+                            <tr>
+                                <td class="ct-metric">Role fit signal</td>
+                                <td class="ct-without">Weak</td>
+                                <td class="ct-with">Strong</td>
+                            </tr>
+                            <tr>
+                                <td class="ct-metric">Overall conviction rating</td>
+                                <td class="ct-without">4.1 / 10 avg</td>
+                                <td class="ct-with">7.8 / 10 avg</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="impact-quote reveal">
+                <div class="iq-orb"></div>
+                <div class="iq-inner">
+                    <div class="iq-mark">"</div>
+                    <p class="iq-text">When I ask a student <strong>'Why do you want this role?'</strong> and they can
+                        answer without hesitation, I know within two minutes whether they are a serious candidate. That
+                        quality of answer does not come from coaching. It comes from a student who genuinely knows what
+                        they want. EduPodX colleges send us students like that consistently.</p>
+                    <div class="iq-attr">Karthik Seshadri, Campus Hiring Lead, Mphasis · Bangalore</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Aatmanirbhar Bharat ───────────────────────────────────────── -->
+    <section id="aatma">
+        <div class="aatma-bg"></div>
+        <div class="aatma-orb-1"></div>
+        <div class="aatma-orb-2"></div>
+        <div class="aatma-inner max-w">
+            <div class="reveal">
+                <div class="aatma-flag-badge">
+                    <div class="flag-strip">
+                        <div class="flag-saffron"></div>
+                        <div class="flag-white">
+                            <div class="flag-chakra"></div>
+                        </div>
+                        <div class="flag-green"></div>
+                    </div>
+                    Aligned with Aatmanirbhar Bharat
+                </div>
+                <h2 class="aatma-h2">Career Explorer is not just a product feature.<br>It is a <em>national
+                        infrastructure.</em></h2>
+                <p class="aatma-sub">Aatmanirbhar Bharat envisions a self-reliant India powered by its own skilled,
+                    confident, and directed workforce. That vision fails at the first step if India's graduates leave
+                    college confused about who they are and where they are going. Career Explorer closes that gap at
+                    scale.</p>
+            </div>
+
+            <div class="pillars">
+                <div class="pillar reveal delay-1">
+                    <div class="pillar-icon">🏗️</div>
+                    <div class="pillar-title">Skilled India, Not Just Certified India</div>
+                    <div class="pillar-body">Aatmanirbhar Bharat requires workers who are skilled for their roles, not
+                        just credentialled. Career Explorer ensures students build skills that are actually aligned to
+                        the path they have chosen, rather than the skills everyone else is collecting.</div>
+                </div>
+                <div class="pillar reveal delay-2">
+                    <div class="pillar-icon">🌱</div>
+                    <div class="pillar-title">Grassroots Entrepreneurship Ecosystem</div>
+                    <div class="pillar-body">The Startup India mission needs founders who are clear-eyed about what
+                        building a company actually requires. Career Explorer's Entrepreneurship simulation gives
+                        students a realistic view of the founder path before they commit, creating better-prepared, more
+                        resilient founders.</div>
+                </div>
+                <div class="pillar reveal delay-3">
+                    <div class="pillar-icon">🤝</div>
+                    <div class="pillar-title">Employability at the Grassroots</div>
+                    <div class="pillar-body">The majority of India's graduates come from non-metro colleges with limited
+                        industry exposure. Career Explorer democratises access to career intelligence that was
+                        previously available only to students at premier institutions with alumni networks and career
+                        cells.</div>
+                </div>
+                <div class="pillar reveal delay-1">
+                    <div class="pillar-icon">📊</div>
+                    <div class="pillar-title">Reducing Graduate Underemployment</div>
+                    <div class="pillar-body">India's graduate underemployment rate is among the highest in Asia. A
+                        significant driver is graduates taking roles misaligned to their skills and interests, and then
+                        disengaging. Career clarity reduces this cycle by helping students choose and prepare for roles
+                        they will actually thrive in.</div>
+                </div>
+                <div class="pillar reveal delay-2">
+                    <div class="pillar-icon">🎓</div>
+                    <div class="pillar-title">NEP 2020 Vocational Integration</div>
+                    <div class="pillar-body">The National Education Policy 2020 calls for integrating career exposure
+                        and vocational awareness from early years. Career Explorer embodies this vision at the college
+                        level, providing the structured career simulation that NEP envisions as core to holistic
+                        education.</div>
+                </div>
+                <div class="pillar reveal delay-3">
+                    <div class="pillar-icon">🌐</div>
+                    <div class="pillar-title">Self-Reliant Human Capital</div>
+                    <div class="pillar-body">A self-reliant India cannot be built on imported frameworks or
+                        foreign-trained talent. It requires graduates who know their strengths, know their direction,
+                        and have the confidence to build from their own context. Career Explorer is how that confidence
+                        is built, at scale.</div>
+                </div>
+            </div>
+
+            <div class="reveal">
+                <div class="alignment-table">
+                    <div class="at-header">
+                        <div class="at-col">Aatmanirbhar Bharat Goal</div>
+                        <div class="at-col">Current Gap</div>
+                        <div class="at-col">Career Explorer's Role</div>
+                    </div>
+                    <div class="at-row">
+                        <div class="at-cell">Build a skilled, job-ready workforce</div>
+                        <div class="at-cell">Students build skills without knowing why or for what</div>
+                        <div class="at-cell good">Clarity-first skill roadmap personalised to chosen path</div>
+                    </div>
+                    <div class="at-row">
+                        <div class="at-cell">Foster a culture of entrepreneurship</div>
+                        <div class="at-cell">Students romanticise startups without understanding the reality</div>
+                        <div class="at-cell good">Realistic founder simulation before any commitment</div>
+                    </div>
+                    <div class="at-row">
+                        <div class="at-cell">Reduce graduate unemployment and underemployment</div>
+                        <div class="at-cell">Graduates take wrong-fit roles and disengage within a year</div>
+                        <div class="at-cell good">Conscious career choice leads to higher role retention</div>
+                    </div>
+                    <div class="at-row">
+                        <div class="at-cell">Democratise quality education outcomes</div>
+                        <div class="at-cell">Career intelligence available only at premier colleges</div>
+                        <div class="at-cell good">Career Explorer accessible to every college across India</div>
+                    </div>
+                    <div class="at-row">
+                        <div class="at-cell">Align education to NEP 2020 vocational vision</div>
+                        <div class="at-cell">Colleges lack infrastructure for career simulation</div>
+                        <div class="at-cell good">Plug-and-play career simulation integrated into college platform</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="aatma-vision reveal">
+                <div class="av-heading">The vision in one line</div>
+                <p class="av-body">Aatmanirbhar Bharat needs graduates who are Aatmanirbhar themselves. Self-reliant,
+                    self-aware, and self-directed. Career Explorer builds that self-awareness at the earliest possible
+                    moment, so that by the time a student enters India's workforce, they arrive not as a confused
+                    graduate but as a confident, directed professional ready to contribute to the nation's growth.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── EduPodX Alignment ─────────────────────────────────────────── -->
+    <section id="alignment">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="eyebrow">The EduPodX Connection</div>
+                <h2 class="section-h2">Career Explorer is where<br><em>the EduPodX mission begins.</em></h2>
+                <p class="section-sub" style="max-width:700px;">EduPodX's mission is to take a confused student and turn
+                    them into a confident, verified, employable graduate - step by step. Career Explorer is step zero.
+                    It is the reason every step that follows is effective.</p>
+            </div>
+            <div class="align-grid">
+                <div>
+                    <div class="mission-block reveal">
+                        <div class="mb-eyebrow">EduPodX Mission</div>
+                        <div class="mb-heading">"From confused student to confident, verified, employable graduate -
+                            step by step."</div>
+                        <div class="mb-body">Career Explorer is not a feature inside this mission. It is the starting
+                            condition. Without it, every other feature - GD Coach, Skill Verification, the Living
+                            Resume, the Recruiter Portal - is a preparation tool without a destination. Career Explorer
+                            provides the destination.</div>
+                    </div>
+                    <div style="height:1.5rem;"></div>
+                    <div style="background:var(--lgray);border-radius:20px;padding:2rem;" class="reveal">
+                        <div style="font-weight:700;color:var(--navy);margin-bottom:1.2rem;font-size:.95rem;">How Career
+                            Explorer unlocks everything else</div>
+                        <div style="display:flex;flex-direction:column;gap:.8rem;">
+                            <div style="display:flex;align-items:center;gap:.8rem;">
+                                <span
+                                    style="background:#fef3c7;color:var(--amber);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;">Explorer</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Student chooses a path, generates
+                                    personalised skill roadmap</span>
+                            </div>
+                            <div style="width:2px;height:14px;background:var(--mgray);margin-left:1.8rem;"></div>
+                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
+                                <span
+                                    style="background:#dbeafe;color:var(--blue);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">GD
+                                    Coach</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Practices GD topics relevant to
+                                    chosen sector</span>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
+                                <span
+                                    style="background:#ccfbf1;color:var(--teal);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">VoiceUp</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Rehearses role-specific speaking
+                                    scenarios and pitches</span>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
+                                <span
+                                    style="background:#ede9fe;color:#7c3aed;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">ProWrite</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Converts emails and messages into
+                                    professional communication</span>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
+                                <span
+                                    style="background:#fce7f3;color:#9d174d;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">ALR</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Prepares aptitude tests for target
+                                    company patterns</span>
+                            </div>
+                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
+                                <span
+                                    style="background:#fff7ed;color:#c2410c;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">Dashboard</span>
+                                <span style="font-size:.85rem;color:var(--slate);">College tracks every student's
+                                    progress toward their chosen path</span>
+                            </div>
+                            <div style="width:2px;height:14px;background:var(--mgray);margin-left:1.8rem;"></div>
+                            <div style="display:flex;align-items:center;gap:.8rem;">
+                                <span
+                                    style="background:var(--lgreen);color:var(--green);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;">Placement</span>
+                                <span style="font-size:.85rem;color:var(--slate);">Enters Year 4 with clarity,
+                                    direction, and proof</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="thread-list reveal">
+                    <div class="thread-item">
+                        <div class="thread-icon ti-amber">🎯</div>
+                        <div>
+                            <div class="thread-title">Clarity Creates Compounding Preparation</div>
+                            <div class="thread-body">A student who knows their destination spends every hour of
+                                preparation more efficiently. GD practice is more focused. Skill-building is more
+                                strategic. Mentorship conversations are more specific. Career Explorer sets this chain
+                                in motion in Year 1.</div>
+                        </div>
+                    </div>
+                    <div class="thread-item">
+                        <div class="thread-icon ti-blue">📈</div>
+                        <div>
+                            <div class="thread-title">Addresses What No Competitor Touches</div>
+                            <div class="thread-body">Every competing platform - Unstop, PrepInsta, Internshala - starts
+                                at Step 3: practice and apply. EduPodX starts at Step 0: who are you and what do you
+                                actually want? That is a defensible, uncopyable position because it requires depth of
+                                content, not just features.</div>
+                        </div>
+                    </div>
+                    <div class="thread-item">
+                        <div class="thread-icon ti-teal">🏫</div>
+                        <div>
+                            <div class="thread-title">The Metric That Matters to Colleges</div>
+                            <div class="thread-body">Placement percentage is what colleges are measured by. Career
+                                Explorer directly improves it - not by making students better at interviews, but by
+                                making sure students are pursuing the right interviews in the first place. Directed
+                                effort converts at a fundamentally higher rate.</div>
+                        </div>
+                    </div>
+                    <div class="thread-item">
+                        <div class="thread-icon ti-green">🌍</div>
+                        <div>
+                            <div class="thread-title">Scalable Career Guidance for Every College</div>
+                            <div class="thread-body">Premier colleges have career cells, alumni networks, and industry
+                                mentors. Every other college has one TPO and a whiteboard. Career Explorer delivers
+                                structured, intelligent career guidance at scale to every institution that signs with
+                                EduPodX, regardless of its resources.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────────────── -->
+    <section id="cta">
+        <div class="cta-orb-1"></div>
+        <div class="cta-orb-2"></div>
+        <div class="cta-inner">
+            <div class="reveal">
+                <h2 class="cta-h2">Give your students<br>clarity <em>before</em> preparation.</h2>
+                <p class="cta-sub">Career Explorer is included in every EduPodX institutional plan. Get in touch and
+                    watch what happens when students spend three years preparing for a path they actually chose.</p>
+                <div class="cta-actions">
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" class="btn-amber">Get in Touch</a>
+                    <a href="/index.html" class="btn-outline">Back to Full Overview</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
+        <div class="footer-note">Career Explorer - Feature Overview</div>
+        <div class="footer-note">© 2026 EduPodX, For Institutional Partners</div>
+    </footer>
+
+    <script>
+        // ── Scroll reveal
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach(el => io.observe(el));
+
+        // ── Nav scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Counter animation
+        const counters = document.querySelectorAll('.counter');
+        const cio = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const el = e.target, target = parseInt(el.dataset.target);
+                    const start = performance.now();
+                    const animate = (now) => {
+                        const p = Math.min((now - start) / 1800, 1);
+                        el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * target);
+                        if (p < 1) requestAnimationFrame(animate); else el.textContent = target;
+                    };
+                    requestAnimationFrame(animate);
+                    cio.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => cio.observe(c));
+
+        // ── Bar chart animation
+        const bars = document.querySelectorAll('.bar-fill');
+        const bio = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.style.width = e.target.dataset.width + '%';
+                    bio.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        bars.forEach(b => bio.observe(b));
+
+        // ── Parallax orbs
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+                orb.style.transform = `translateY(${y * [0.15, 0.1, 0.2][i]}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>

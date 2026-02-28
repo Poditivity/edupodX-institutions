@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EduPodX: From Confused Student to Confident Graduate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
+    <style>
+        /* ── Reset & Base ─────────────────────────────────────────────────── */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #1E3A5F;
+            --navy2: #152d4a;
+            --blue: #2563EB;
+            --blue2: #1d4ed8;
+            --teal: #0D9488;
+            --teal2: #0f766e;
+            --amber: #D97706;
+            --amber2: #b45309;
+            --slate: #475569;
+            --light: #EFF6FF;
+            --lgray: #F1F5F9;
+            --mgray: #CBD5E1;
+            --dkgray: #334155;
+            --white: #FFFFFF;
+            --green: #15803D;
+            --lgreen: #DCFCE7;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --ease: cubic-bezier(.22, .68, 0, 1.2);
+            --ease2: cubic-bezier(.4, 0, .2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dkgray);
+            background: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        /* ── Noise overlay ────────────────────────────────────────────────── */
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: .4;
+        }
+
+        /* ── Scrollbar ────────────────────────────────────────────────────── */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--lgray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--blue);
+            border-radius: 99px;
+        }
+
+        /* ── Nav ──────────────────────────────────────────────────────────── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4rem;
+            background: rgba(255, 255, 255, .85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(37, 99, 235, .1);
+            transition: all .4s var(--ease2);
+        }
+
+        nav.scrolled {
+            padding: .8rem 4rem;
+            box-shadow: 0 4px 40px rgba(30, 58, 95, .08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.02em;
+        }
+
+        .nav-logo span {
+            color: var(--blue);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            transition: color .2s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--blue);
+            transition: width .3s var(--ease2);
+        }
+
+        .nav-links a:hover {
+            color: var(--navy);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            background: var(--blue);
+            color: #fff !important;
+            padding: .55rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: .875rem;
+            transition: background .2s, transform .2s;
+            display: inline-block;
+        }
+
+        .nav-cta:hover {
+            background: var(--blue2);
+            transform: translateY(-1px);
+        }
+
+        .nav-cta::after {
+            display: none !important;
+        }
+
+        /* ── Animate on scroll ────────────────────────────────────────────── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: .1s;
+        }
+
+        .delay-2 {
+            transition-delay: .2s;
+        }
+
+        .delay-3 {
+            transition-delay: .3s;
+        }
+
+        .delay-4 {
+            transition-delay: .4s;
+        }
+
+        .delay-5 {
+            transition-delay: .5s;
+        }
+
+        /* ── Hero ─────────────────────────────────────────────────────────── */
+        #hero {
+            min-height: 100vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 9rem 4rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg-grid {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background-image:
+                linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: .18;
+            z-index: 0;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: var(--blue);
+            top: -100px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--teal);
+            bottom: 50px;
+            left: 200px;
+            animation-delay: -3s;
+        }
+
+        .hero-orb-3 {
+            width: 200px;
+            height: 200px;
+            background: var(--amber);
+            top: 40%;
+            left: 60%;
+            animation-delay: -6s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-30px) scale(1.05);
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(37, 99, 235, .2);
+            border: 1px solid rgba(37, 99, 235, .3);
+            padding: .4rem 1rem;
+            border-radius: 99px;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #93c5fd;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp .8s var(--ease2) .2s forwards;
+        }
+
+        .hero-eyebrow .dot {
+            width: 6px;
+            height: 6px;
+            background: #60a5fa;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: .4;
+            }
+        }
+
+        .hero-h1 {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            color: #fff;
+            letter-spacing: -.03em;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .4s forwards;
+        }
+
+        .hero-h1 .accent {
+            color: #60a5fa;
+            font-style: italic;
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #94a3b8;
+            max-width: 640px;
+            line-height: 1.7;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .6s forwards;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .8s forwards;
+        }
+
+        .btn-primary {
+            background: var(--blue);
+            color: #fff;
+            padding: .9rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+            display: inline-block;
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, .4);
+        }
+
+        .btn-primary:hover {
+            background: var(--blue2);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, .4);
+        }
+
+        .btn-ghost {
+            color: #94a3b8;
+            padding: .9rem 1.5rem;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+        }
+
+        .btn-ghost:hover {
+            color: #fff;
+        }
+
+        .btn-ghost svg {
+            transition: transform .2s;
+        }
+
+        .btn-ghost:hover svg {
+            transform: translateX(4px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 5rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) 1s forwards;
+        }
+
+        .hero-stat {}
+
+        .hero-stat-num {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.03em;
+        }
+
+        .hero-stat-num span {
+            color: #60a5fa;
+        }
+
+        .hero-stat-label {
+            font-size: .85rem;
+            color: #64748b;
+            margin-top: .3rem;
+        }
+
+        .hero-stat-divider {
+            width: 1px;
+            background: rgba(255, 255, 255, .1);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .5rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) 1.4s forwards;
+        }
+
+        .hero-scroll span {
+            font-size: .75rem;
+            color: #475569;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 50px;
+            background: linear-gradient(to bottom, #2563eb, transparent);
+            animation: scrollDown 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollDown {
+            0% {
+                transform: scaleY(0);
+                transform-origin: top;
+                opacity: 1;
+            }
+
+            50% {
+                transform: scaleY(1);
+                transform-origin: top;
+            }
+
+            51% {
+                transform: scaleY(1);
+                transform-origin: bottom;
+            }
+
+            100% {
+                transform: scaleY(0);
+                transform-origin: bottom;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── Logos strip ──────────────────────────────────────────────────── */
+        #logos {
+            background: var(--lgray);
+            padding: 2.5rem 4rem;
+            border-bottom: 1px solid var(--mgray);
+        }
+
+        .logos-label {
+            text-align: center;
+            font-size: .8rem;
+            font-weight: 600;
+            color: var(--slate);
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .logos-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3.5rem;
+            flex-wrap: wrap;
+        }
+
+        .logo-chip {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--slate);
+            opacity: .6;
+            letter-spacing: -.01em;
+            transition: opacity .2s;
+        }
+
+        .logo-chip:hover {
+            opacity: 1;
+        }
+
+        /* ── Section base ─────────────────────────────────────────────────── */
+        section {
+            padding: 7rem 4rem;
+        }
+
+        .section-eyebrow {
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.15;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .section-h2 em {
+            color: var(--blue);
+            font-style: italic;
+        }
+
+        .section-sub {
+            font-size: 1.1rem;
+            color: var(--slate);
+            line-height: 1.7;
+            max-width: 620px;
+        }
+
+        .max-w {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* ── Problem section ──────────────────────────────────────────────── */
+        #problem {
+            background: #fff;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .pain-card {
+            background: var(--lgray);
+            border: 1px solid var(--mgray);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s var(--ease2), box-shadow .3s;
+        }
+
+        .pain-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(37, 99, 235, .04), transparent);
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .pain-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, .08);
+        }
+
+        .pain-card:hover::before {
+            opacity: 1;
+        }
+
+        .pain-num {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--mgray);
+            line-height: 1;
+            margin-bottom: .8rem;
+        }
+
+        .pain-title {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--navy);
+            margin-bottom: .6rem;
+        }
+
+        .pain-body {
+            font-size: .9rem;
+            color: var(--slate);
+            line-height: 1.65;
+        }
+
+        .pain-card.wide {
+            grid-column: span 2;
+        }
+
+        /* ── Career Explorer ──────────────────────────────────────────────── */
+        #clarity {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clarity-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(37, 99, 235, .08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(37, 99, 235, .08) 1px, transparent 1px);
+            background-size: 80px 80px;
+        }
+
+        .clarity-orb-1 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(13, 148, 136, .15), transparent 70%);
+            top: -200px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .clarity-orb-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .1), transparent 70%);
+            bottom: -100px;
+            left: 100px;
+            border-radius: 50%;
+        }
+
+        .clarity-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .clarity-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            background: rgba(217, 119, 6, .15);
+            border: 1px solid rgba(217, 119, 6, .3);
+            padding: .4rem 1rem;
+            border-radius: 99px;
+            font-size: .78rem;
+            font-weight: 700;
+            color: #fcd34d;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        .clarity-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.1;
+            letter-spacing: -.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .clarity-h2 em {
+            color: #fcd34d;
+            font-style: italic;
+        }
+
+        .clarity-sub {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            max-width: 600px;
+            margin-bottom: 4rem;
+        }
+
+        .clarity-statement {
+            background: rgba(217, 119, 6, .1);
+            border-left: 4px solid var(--amber);
+            padding: 1.5rem 2rem;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 4rem;
+        }
+
+        .clarity-statement p {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: #e2e8f0;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* Path simulator */
+        .path-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .path-tab {
+            padding: .7rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: .9rem;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, .1);
+            color: #94a3b8;
+            background: transparent;
+            transition: all .3s var(--ease2);
+        }
+
+        .path-tab:hover {
+            border-color: rgba(255, 255, 255, .3);
+            color: #e2e8f0;
+        }
+
+        .path-tab.active {
+            color: #fff;
+        }
+
+        .path-tab[data-path="job"].active {
+            background: var(--blue);
+            border-color: var(--blue);
+        }
+
+        .path-tab[data-path="startup"].active {
+            background: var(--amber);
+            border-color: var(--amber);
+        }
+
+        .path-panel {
+            display: none;
+        }
+
+        .path-panel.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .path-info {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .path-info-title {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 1rem;
+        }
+
+        .path-info-body {
+            font-size: .95rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .path-outcomes {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: .6rem;
+        }
+
+        .path-outcomes li {
+            display: flex;
+            align-items: flex-start;
+            gap: .7rem;
+            font-size: .9rem;
+            color: #cbd5e1;
+        }
+
+        .path-outcomes li::before {
+            content: '→';
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: .1rem;
+        }
+
+        .path-outcomes li::before {
+            color: #60a5fa;
+        }
+
+        .path-panel[data-path="ms"] .path-outcomes li::before {
+            color: #5eead4;
+        }
+
+        .path-panel[data-path="startup"] .path-outcomes li::before {
+            color: #fcd34d;
+        }
+
+        .impact-table {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .impact-row {
+            display: grid;
+            grid-template-columns: 2fr 1.5fr 1.5fr;
+            border-bottom: 1px solid rgba(255, 255, 255, .06);
+            transition: background .2s;
+        }
+
+        .impact-row:hover {
+            background: rgba(255, 255, 255, .03);
+        }
+
+        .impact-row:last-child {
+            border-bottom: none;
+        }
+
+        .impact-cell {
+            padding: .9rem 1.2rem;
+            font-size: .85rem;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        .impact-cell:first-child {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        .impact-cell.bad {
+            color: #f87171;
+        }
+
+        .impact-cell.good {
+            color: #4ade80;
+            font-weight: 500;
+        }
+
+        .impact-head {
+            background: rgba(255, 255, 255, .06);
+        }
+
+        .impact-head .impact-cell {
+            font-weight: 700;
+            font-size: .8rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        /* ── Platform section ─────────────────────────────────────────────── */
+        #platform {
+            background: var(--lgray);
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 20px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform .3s var(--ease2), box-shadow .3s;
+            cursor: default;
+        }
+
+        .feature-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform .4s var(--ease2);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 50px rgba(30, 58, 95, .1);
+        }
+
+        .feature-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .fc-blue::after {
+            background: var(--blue);
+        }
+
+        .fc-teal::after {
+            background: var(--teal);
+        }
+
+        .fc-amber::after {
+            background: var(--amber);
+        }
+
+        .fc-navy::after {
+            background: var(--navy);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .ic-blue {
+            background: #dbeafe;
+        }
+
+        .ic-teal {
+            background: #ccfbf1;
+        }
+
+        .ic-amber {
+            background: #fef3c7;
+        }
+
+        .ic-navy {
+            background: var(--light);
+        }
+
+        .feature-num {
+            font-family: var(--font-display);
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: .5rem;
+        }
+
+        .feature-num.c-blue {
+            color: var(--blue);
+        }
+
+        .feature-num.c-teal {
+            color: var(--teal);
+        }
+
+        .feature-num.c-amber {
+            color: var(--amber);
+        }
+
+        .feature-num.c-navy {
+            color: var(--navy);
+        }
+
+        .feature-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--navy);
+            margin-bottom: .6rem;
+        }
+
+        .feature-body {
+            font-size: .9rem;
+            color: var(--slate);
+            line-height: 1.65;
+            margin-bottom: 1rem;
+        }
+
+        .feature-result {
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--green);
+            display: flex;
+            align-items: flex-start;
+            gap: .5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--lgray);
+        }
+
+        .feature-result::before {
+            content: '✓';
+            flex-shrink: 0;
+        }
+
+        /* ── Before / After ───────────────────────────────────────────────── */
+        #bafore {
+            background: #fff;
+        }
+
+        .ba-grid {
+            display: grid;
+            grid-template-columns: 1fr 80px 1fr;
+            gap: 0;
+            margin-top: 4rem;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--mgray);
+        }
+
+        .ba-col-header {
+            padding: 1.2rem 2rem;
+            font-weight: 700;
+            font-size: .9rem;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .ba-col-before {
+            background: var(--slate);
+            color: #fff;
+        }
+
+        .ba-col-arrow {
+            background: var(--lgray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .ba-col-after {
+            background: var(--teal);
+            color: #fff;
+        }
+
+        .ba-row {
+            display: contents;
+        }
+
+        .ba-cell {
+            padding: 1.4rem 2rem;
+            border-top: 1px solid var(--mgray);
+            font-size: .92rem;
+            line-height: 1.6;
+            display: flex;
+            align-items: center;
+        }
+
+        .ba-cell-before {
+            background: #f8fafc;
+            color: var(--slate);
+        }
+
+        .ba-cell-mid {
+            background: var(--lgray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid var(--mgray);
+        }
+
+        .ba-cell-mid span {
+            color: var(--blue);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .ba-cell-after {
+            background: var(--lgreen);
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        /* ── Testimonials ─────────────────────────────────────────────────── */
+        #proof {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .proof-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .1;
+        }
+
+        .proof-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--blue);
+            top: -100px;
+            left: -100px;
+        }
+
+        .proof-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: var(--teal);
+            bottom: -50px;
+            right: 100px;
+        }
+
+        .proof-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .tcard {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: transform .3s var(--ease2), background .3s;
+        }
+
+        .tcard:hover {
+            transform: translateY(-4px);
+            background: rgba(255, 255, 255, .08);
+        }
+
+        .tcard-quote {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--blue);
+            line-height: 1;
+            margin-bottom: .8rem;
+        }
+
+        .tcard-text {
+            font-size: .95rem;
+            color: #cbd5e1;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+
+        .tcard-author {
+            font-weight: 700;
+            color: #fff;
+            font-size: .9rem;
+        }
+
+        .tcard-role {
+            font-size: .82rem;
+            color: #64748b;
+            margin-top: .2rem;
+        }
+
+        .tcard-type {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: .25rem .7rem;
+            border-radius: 99px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+        }
+
+        .tcard-tpo {
+            background: rgba(37, 99, 235, .2);
+            color: #93c5fd;
+        }
+
+        .tcard-student {
+            background: rgba(13, 148, 136, .2);
+            color: #5eead4;
+        }
+
+        .tcard-recruiter {
+            background: rgba(217, 119, 6, .2);
+            color: #fcd34d;
+        }
+
+        /* Case study */
+        .case-study {
+            margin-top: 4rem;
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .cs-header {
+            background: rgba(37, 99, 235, .15);
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            padding: 1.2rem 2rem;
+            font-weight: 700;
+            font-size: .85rem;
+            color: #93c5fd;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+        }
+
+        .cs-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .cs-col {
+            padding: 2rem;
+        }
+
+        .cs-col-before {
+            border-right: 1px solid rgba(255, 255, 255, .08);
+        }
+
+        .cs-col-title {
+            font-weight: 700;
+            color: #94a3b8;
+            font-size: .85rem;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .cs-col-title.after {
+            color: #4ade80;
+        }
+
+        .cs-item {
+            display: flex;
+            align-items: flex-start;
+            gap: .8rem;
+            margin-bottom: .8rem;
+        }
+
+        .cs-item-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            margin-top: .5rem;
+            flex-shrink: 0;
+        }
+
+        .before-dot {
+            background: #64748b;
+        }
+
+        .after-dot {
+            background: #4ade80;
+        }
+
+        .cs-item-text {
+            font-size: .92rem;
+            color: #94a3b8;
+        }
+
+        .cs-item-text.good {
+            color: #86efac;
+            font-weight: 600;
+        }
+
+        /* ── Pricing ──────────────────────────────────────────────────────── */
+        #pricing {
+            background: var(--lgray);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+            align-items: start;
+        }
+
+        .pcard {
+            background: #fff;
+            border: 2px solid var(--mgray);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            transition: transform .3s var(--ease2), box-shadow .3s, border-color .3s;
+        }
+
+        .pcard:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(30, 58, 95, .1);
+        }
+
+        .pcard.featured {
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .08), 0 20px 40px rgba(37, 99, 235, .12);
+        }
+
+        .pcard.featured:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, .08), 0 28px 50px rgba(37, 99, 235, .18);
+        }
+
+        .pcard-badge {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--blue);
+            color: #fff;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: .3rem 1rem;
+            border-radius: 99px;
+            white-space: nowrap;
+        }
+
+        .pcard-tier {
+            font-size: .8rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--slate);
+            margin-bottom: .5rem;
+        }
+
+        .pcard-range {
+            font-size: .9rem;
+            color: var(--slate);
+            margin-bottom: 1.5rem;
+        }
+
+        .pcard-price {
+            font-family: var(--font-display);
+            font-size: 3.2rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.03em;
+            line-height: 1;
+            margin-bottom: .3rem;
+        }
+
+        .pcard-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--slate);
+            margin-left: .25rem;
+        }
+
+        .pcard-period {
+            font-size: .85rem;
+            color: var(--slate);
+            margin-bottom: 2rem;
+        }
+
+        .pcard-divider {
+            height: 1px;
+            background: var(--lgray);
+            margin-bottom: 1.5rem;
+        }
+
+        .pcard-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: .7rem;
+            font-size: .9rem;
+            color: var(--dkgray);
+            margin-bottom: .7rem;
+        }
+
+        .pcard-feature::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .pcard-cta {
+            display: block;
+            text-align: center;
+            margin-top: 2rem;
+            padding: .85rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: .95rem;
+            transition: all .25s var(--ease2);
+        }
+
+        .pcard-cta-outline {
+            border: 2px solid var(--mgray);
+            color: var(--navy);
+        }
+
+        .pcard-cta-outline:hover {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: #fff;
+        }
+
+        .pcard-cta-filled {
+            background: var(--blue);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(37, 99, 235, .25);
+        }
+
+        .pcard-cta-filled:hover {
+            background: var(--blue2);
+            box-shadow: 0 8px 30px rgba(37, 99, 235, .35);
+            transform: translateY(-1px);
+        }
+
+        .pricing-note {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: .88rem;
+            color: var(--slate);
+        }
+
+
+
+        /* ── CTA Section ──────────────────────────────────────────────────── */
+        #cta {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2440 100%);
+            padding: 8rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-orb-1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .15), transparent 70%);
+            top: -150px;
+            left: -150px;
+            border-radius: 50%;
+        }
+
+        .cta-orb-2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(13, 148, 136, .1), transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .cta-h2 em {
+            color: #60a5fa;
+            font-style: italic;
+        }
+
+        .cta-sub {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-cta-primary {
+            background: var(--blue);
+            color: #fff;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+            box-shadow: 0 0 0 0 rgba(37, 99, 235, .5);
+        }
+
+        .btn-cta-primary:hover {
+            background: var(--blue2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(37, 99, 235, .45);
+        }
+
+        .btn-cta-outline {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #e2e8f0;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+        }
+
+        .btn-cta-outline:hover {
+            border-color: rgba(255, 255, 255, .6);
+            color: #fff;
+        }
+
+        .cta-contacts {
+            margin-top: 3rem;
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-contact {
+            text-align: center;
+        }
+
+        .cta-contact-label {
+            font-size: .75rem;
+            color: #475569;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: .3rem;
+        }
+
+        .cta-contact-val {
+            font-size: .95rem;
+            color: #94a3b8;
+        }
+
+        /* ── Footer ───────────────────────────────────────────────────────── */
+        footer {
+            background: #0a1929;
+            padding: 2.5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, .05);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .footer-logo span {
+            color: #60a5fa;
+        }
+
+        .footer-note {
+            font-size: .82rem;
+            color: #334155;
+        }
+
+        /* ── Counter animation ────────────────────────────────────────────── */
+        .counter {
+            display: inline-block;
+        }
+
+        /* ── Mobile responsive ────────────────────────────────────────────── */
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            #hero {
+                padding: 8rem 1.5rem 5rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat-divider {
+                display: none;
+            }
+
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pain-card.wide {
+                grid-column: span 1;
+            }
+
+            .path-panel.active {
+                grid-template-columns: 1fr;
+            }
+
+            .platform-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ba-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .ba-col-arrow {
+                display: none;
+            }
+
+            .ba-cell-mid {
+                display: none;
+            }
+
+            .cs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cs-col-before {
+                border-right: none;
+                border-bottom: 1px solid rgba(255, 255, 255, .08);
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .impact-row {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-cell:not(:first-child) {
+                display: none;
+            }
+        }
+
+        .college-logo {
+            height: 80px;
+            max-width: 160px;
+            object-fit: contain;
+            opacity: .65;
+            filter: grayscale(100%);
+            transition: all .25s ease;
+        }
+
+        .college-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Nav ─────────────────────────────────────────────────────────── -->
+    <nav id="nav">
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="javascript:void(0)" data-target="clarity">Career Explorer</a></li>
+            <li><a href="javascript:void(0)" data-target="platform">Platform</a></li>
+            <li><a href="javascript:void(0)" data-target="proof">Results</a></li>
+            <li><a href="javascript:void(0)" data-target="pricing">Pricing</a></li>
+            <li><a href="javascript:void(0)" data-target="onboarding">Onboarding</a></li>
+            <li><a href="javascript:void(0)" data-target="cta" class="nav-cta">Get in Touch</a></li>
+        </ul>
+    </nav>
+
+    <!-- ── Hero ────────────────────────────────────────────────────────── -->
+    <section id="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-inner">
+
+            <h1 class="hero-h1">
+                Your students are<br>
+                ready to work hard.<br>
+                <em>Give them the tools to prove it.</em>
+            </h1>
+            <p class="hero-sub">
+                EduPodX is India's only end-to-end career readiness platform built
+                for colleges and universities across India, starting from career
+                clarity in Year 1, all the way to verified placements.
+            </p>
+            <div class="hero-actions">
+                <a href="https://forms.gle/UW667Afmc21yuyyZ8" class="btn-primary">Get in Touch</a>
+                <a href="#clarity" class="btn-ghost">
+                    See Career Explorer
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num"><span class="counter" data-target="22">0</span><span>%</span></div>
+                    <div class="hero-stat-label">Avg. placement rate uplift<br>in first semester</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num"><span class="counter" data-target="3">0</span><span>x</span></div>
+                    <div class="hero-stat-label">More GD rounds cleared<br>by consistent practitioners</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num"><span class="counter" data-target="60">0</span><span>%</span></div>
+                    <div class="hero-stat-label">Faster recruiter shortlisting<br>with verified profiles</div>
+                </div>
+                <div class="hero-stat-divider"></div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num"><span class="counter" data-target="100">0</span><span>%</span></div>
+                    <div class="hero-stat-label">NAAC Criterion 5.2 & 5.3<br>ready data, auto-generated</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- ── Logos ────────────────────────────────────────────────────────── -->
+    <div id="logos">
+        <div class="logos-label">Partner institutions across India</div>
+        <div class="logos-row">
+            <img src="/assets/colleges/mvsr.png" alt="MVSR Engineering College" class="college-logo">
+            <img src="/assets/colleges/bower.png" alt="Bower School of Entrepreneurship" class="college-logo">
+            <img src="/assets/colleges/ku.png" alt="Kakatiya University" class="college-logo">
+        </div>
+    </div>
+
+    <!-- ── Problem ──────────────────────────────────────────────────────── -->
+    <section id="problem">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="section-eyebrow">The Situation</div>
+                <h2 class="section-h2">You work harder every year.<br><em>The numbers don't always follow.</em></h2>
+                <p class="section-sub">The five things that keep every TPO up at night, and why traditional solutions
+                    have failed to fix them.</p>
+            </div>
+            <div class="problem-grid">
+                <div class="pain-card reveal delay-1">
+                    <div class="pain-num">01</div>
+                    <div class="pain-title">"I have no idea which students are behind until it's too late."</div>
+                    <div class="pain-body">There is no early warning. You find out a student is struggling when they
+                        fail their first GD, sometimes after a recruiter has already eliminated them. By then, the
+                        semester is almost over.</div>
+                </div>
+                <div class="pain-card reveal delay-2">
+                    <div class="pain-num">02</div>
+                    <div class="pain-title">"Students freeze in group discussions. Every single year."</div>
+                    <div class="pain-body">They know the topic. They just cannot hold their ground when eight voices
+                        speak at once. They have never practiced under that kind of pressure. One seminar per semester
+                        is not practice, it is attendance.</div>
+                </div>
+                <div class="pain-card reveal delay-3">
+                    <div class="pain-num">03</div>
+                    <div class="pain-title">"Recruiters tell us the resumes all look the same."</div>
+                    <div class="pain-body">Every student writes 'Python: Intermediate.' 'Communication: Strong.' No
+                        proof. No differentiation. Hiring managers have stopped trusting what they read, and your
+                        students pay the price.</div>
+                </div>
+                <div class="pain-card reveal delay-4">
+                    <div class="pain-num">04</div>
+                    <div class="pain-title">"Students don't know what they actually want to do."</div>
+                    <div class="pain-body">They choose job vs. MBA vs. startup in final year, under panic. Unclear
+                        students give vague interviews. Vague interviews end placements. The confusion starts in Year 1,
+                        but no one addresses it until final year.</div>
+                </div>
+                <div class="pain-card wide reveal delay-5">
+                    <div class="pain-num">05</div>
+                    <div class="pain-title">"I cannot build a NAAC accreditation case without proper placement data."
+                    </div>
+                    <div class="pain-body">Manual tracking in Excel, anecdotal outcomes, no digital audit trail.
+                        Accreditation bodies want structured, verifiable placement data, aligned to Criterion 5.2 and
+                        5.3. Most TPOs spend weekends compiling it by hand.</div>
+                </div>
+            </div>
+            <div style="text-align:center;margin-top:3rem;" class="reveal">
+                <div
+                    style="display:inline-block;background:var(--navy);color:#fff;padding:1.2rem 3rem;border-radius:12px;font-family:var(--font-display);font-size:1.15rem;font-style:italic;font-weight:400;line-height:1.5;">
+                    "The placement problem is a first-year problem<br>dressed as a final-year emergency."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Career Explorer / Clarity ───────────────────────────────────── -->
+    <section id="clarity">
+        <div class="clarity-bg"></div>
+        <div class="clarity-orb-1"></div>
+        <div class="clarity-orb-2"></div>
+        <div class="clarity-inner max-w">
+            <div class="reveal">
+                <div class="clarity-badge">★ The Foundation Everything Else Is Built On</div>
+                <h2 class="clarity-h2">Before we prepare your students<br>for placements, we help them<br>understand
+                    <em>why they want to be placed.</em>
+                </h2>
+                <p class="clarity-sub">Every competitor assumes the student already knows what they want. That
+                    assumption is wrong for the majority of your batch, and it is the silent reason behind more
+                    placement failures than any skill gap ever will be.</p>
+            </div>
+            <div class="clarity-statement reveal">
+                <p>"A student who is not sure whether they want a job or an MBA gives a half-hearted interview. A
+                    student who chose a job path because their parents expected it cannot answer 'Where do you see
+                    yourself in five years?' convincingly. Your placement percentage absorbs all of this confusion,
+                    silently, semester after semester."</p>
+            </div>
+
+            <div class="reveal">
+                <h3
+                    style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:#fff;letter-spacing:-.02em;margin-bottom:.5rem;">
+                    Career Explorer: Experience each path before committing to it.</h3>
+                <p style="color:#94a3b8;font-size:.95rem;margin-bottom:2rem;">Not read about it. Not watch a video.
+                    Experience it through structured simulations.</p>
+
+                <div class="path-tabs">
+                    <button class="path-tab active" data-path="job" onclick="switchPath('job')">💼 The Job Path</button>
+                    <button class="path-tab" data-path="startup" onclick="switchPath('startup')">🚀
+                        Entrepreneurship</button>
+                </div>
+
+                <div id="panel-job" class="path-panel active" data-path="job">
+                    <div class="path-info">
+                        <div class="path-info-title">What the Job Path simulation shows your student</div>
+                        <div class="path-info-body">What roles actually exist in their domain. What skill growth looks
+                            like at 2, 5, and 10 years. What a recruiter's shortlist criteria really are. What a Monday
+                            morning at that company actually feels like, not what the brochure says.</div>
+                        <ul class="path-outcomes">
+                            <li>Is this the right path for me, or am I doing it for someone else?</li>
+                            <li>Which specific role should I actually aim for in final year?</li>
+                            <li>What skills do I need to build starting right now?</li>
+                            <li>What does the salary curve look like over 5 years?</li>
+                        </ul>
+                    </div>
+                    <div class="impact-table">
+                        <div class="impact-row impact-head">
+                            <div class="impact-cell">Placement Metric</div>
+                            <div class="impact-cell">Without Clarity</div>
+                            <div class="impact-cell">With Career Explorer</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Interview answer quality</div>
+                            <div class="impact-cell bad">Generic, rehearsed, unconvincing</div>
+                            <div class="impact-cell good">Specific, grounded, confident</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Application focus</div>
+                            <div class="impact-cell bad">Applies to everything, fits nothing</div>
+                            <div class="impact-cell good">Targets aligned roles, higher hit rate</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Skill development</div>
+                            <div class="impact-cell bad">Builds randomly, no thread</div>
+                            <div class="impact-cell good">Every skill serves a clear goal</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Offer reneging</div>
+                            <div class="impact-cell bad">High, wrong fit, regrets later</div>
+                            <div class="impact-cell good">Low, chose consciously</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="panel-startup" class="path-panel" data-path="startup">
+                    <div class="path-info">
+                        <div class="path-info-title">What the Entrepreneurship simulation shows your student</div>
+                        <div class="path-info-body">What problems a first-time founder actually faces. What skills a
+                            startup requires that college never taught. What the first 12 months of building a product
+                            really involves, not the glamorised version, the real one.</div>
+                        <ul class="path-outcomes">
+                            <li>Do I actually have what this path demands, or just the romantic idea of it?</li>
+                            <li>Should I work first for 2 years to build real skills?</li>
+                            <li>What should I be building or experimenting with right now?</li>
+                            <li>What kind of co-founder or team do I actually need?</li>
+                        </ul>
+                    </div>
+                    <div class="impact-table">
+                        <div class="impact-row impact-head">
+                            <div class="impact-cell">Founder Readiness</div>
+                            <div class="impact-cell">Without Clarity</div>
+                            <div class="impact-cell">With Career Explorer</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Placement participation</div>
+                            <div class="impact-cell bad">Takes a seat, drops offer later</div>
+                            <div class="impact-cell good">Makes an informed, firm choice</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Skills built in college</div>
+                            <div class="impact-cell bad">Generic, unfocused</div>
+                            <div class="impact-cell good">Deliberately startup-relevant</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Mentor connections</div>
+                            <div class="impact-cell bad">None, doesn't know where to start</div>
+                            <div class="impact-cell good">Guided through EduPodX Mentor Connect</div>
+                        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Realistic expectations</div>
+                            <div class="impact-cell bad">Thinks it is glamorous, quits fast</div>
+                            <div class="impact-cell good">Understands reality, more resilient</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:3rem;padding:2rem;background:rgba(253,224,71,.08);border:1px solid rgba(253,224,71,.2);border-radius:16px;"
+                class="reveal">
+                <p
+                    style="font-family:var(--font-display);font-size:1.3rem;font-style:italic;color:#fef9c3;line-height:1.6;margin-bottom:.8rem;">
+                    "A student who knows exactly what they want is three times easier to place than a student who is
+                    equally skilled but unclear. Recruiters feel the difference in the first two minutes of an
+                    interview."</p>
+                <p style="font-size:.9rem;font-weight:600;color:#fcd34d;">- Karthik Seshadri, Campus Hiring Lead,
+                    Mphasis · Bangalore</p>
+            </div>
+            <div style="margin-top:2.5rem;text-align:center;" class="reveal">
+                <a href="/careerExplorer.html"
+                    style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(217,119,6,.15);border:2px solid rgba(217,119,6,.4);color:#fcd34d;padding:.85rem 2rem;border-radius:10px;font-weight:700;font-size:.95rem;letter-spacing:.01em;transition:all .25s cubic-bezier(.4,0,.2,1);"
+                    onmouseover="this.style.background='rgba(217,119,6,.3)';this.style.borderColor='#fcd34d';this.style.transform='translateY(-2px)'"
+                    onmouseout="this.style.background='rgba(217,119,6,.15)';this.style.borderColor='rgba(217,119,6,.4)';this.style.transform='translateY(0)'">
+                    Learn More About Career Explorer
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="#fcd34d" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Platform ──────────────────────────────────────────────────────── -->
+    <section id="platform">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="section-eyebrow">The Complete Platform</div>
+                <h2 class="section-h2">Once students know where they're going,<br><em>EduPodX builds everything they
+                        need to get there.</em></h2>
+                <p class="section-sub" style="max-width:760px;">Career Explorer is the foundation. What follows is the
+                    full infrastructure to act on it.</p>
+            </div>
+            <div class="platform-grid">
+                <div class="feature-card fc-blue reveal delay-1">
+                    <div class="feature-icon ic-blue">🎙</div>
+                    <div class="feature-num c-blue">01 - GD Coach</div>
+                    <div class="feature-title">The Closest Thing to a Real Group Discussion</div>
+                    <div class="feature-body">Simulates a live GD with multiple AI participants who interrupt,
+                        challenge, and dominate, exactly like the recruiters your students will face. Students practice
+                        any time, unlimited sessions, and receive a score after every round.</div>
+                    <div class="feature-result">GD pass rate improves visibly within one semester of consistent
+                        practice.</div>
+                </div>
+                <div class="feature-card fc-teal reveal delay-2">
+                    <div class="feature-icon ic-teal">✍️</div>
+                    <div class="feature-num c-teal">02 - VoiceUp & ProWrite</div>
+                    <div class="feature-title">Remove the Language Barrier Completely</div>
+                    <div class="feature-body">VoiceUp: 60-second rehearsal environments for the moments that terrify
+                        students: 'Tell me about yourself,' 'Pitch your idea.' ProWrite: transforms broken English into
+                        professional communication instantly, without embarrassment.</div>
+                    <div class="feature-result">Language stops being the ceiling for your students.</div>
+                </div>
+                <div class="feature-card fc-amber reveal delay-3">
+                    <div class="feature-icon ic-amber">🏅</div>
+                    <div class="feature-num c-amber">03 - 3-Level Skill Verification</div>
+                    <div class="feature-title">Proof, Not Claims</div>
+                    <div class="feature-body">Level 1: Certificate upload. Level 2: Monitored live demonstration. Level
+                        3: Endorsement from an industry professional in that domain. Every verified skill becomes a
+                        badge recruiters can independently audit.</div>
+                    <div class="feature-result">Students compete on demonstrated ability, not just paper credentials.
+                    </div>
+                </div>
+                <div class="feature-card fc-navy reveal delay-1">
+                    <div class="feature-icon ic-navy">📊</div>
+                    <div class="feature-num c-navy">04 - College Dashboard</div>
+                    <div class="feature-title">Your Placement Cell, Finally Empowered</div>
+                    <div class="feature-body">Track every student's career readiness score in real time. See GD practice
+                        frequency, skill completion, and application activity. Automated early-warning alerts flag
+                        at-risk students before the semester ends, not after.</div>
+                    <div class="feature-result">Shift from reactive firefighting to proactive development.</div>
+                </div>
+                <div class="feature-card fc-blue reveal delay-2">
+                    <div class="feature-icon ic-blue">🏢</div>
+                    <div class="feature-num c-blue">05 - Recruiter Portal</div>
+                    <div class="feature-title">Give Companies a Reason to Return</div>
+                    <div class="feature-body">Recruiters see verified candidate profiles: GD confidence scores,
+                        demonstrated skills, career clarity indicators. They shortlist 60% faster. They trust your
+                        campus more. Companies that find quality hires return next year.</div>
+                    <div class="feature-result">Recruiter retention is the most underrated placement metric.</div>
+                </div>
+                <div class="feature-card fc-teal reveal delay-3" style="background:var(--navy);border-color:#334155;">
+                    <div style="padding:.5rem 0;margin-bottom:.5rem;">
+                        <div
+                            style="font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#60a5fa;margin-bottom:1rem;">
+                            Also included</div>
+                        <div style="display:flex;flex-direction:column;gap:.8rem;">
+                            <div style="display:flex;gap:.8rem;align-items:flex-start;">
+                                <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
+                                <div>
+                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">TechFluent</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Students explain
+                                        projects clearly under pressure in English</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:.8rem;align-items:flex-start;">
+                                <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
+                                <div>
+                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">ALR: Aptitude &
+                                        Reasoning</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Full placement test
+                                        prep: quantitative, logical, verbal</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:.8rem;align-items:flex-start;">
+                                <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
+                                <div>
+                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">Mentor Connect</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Industry alumni
+                                        available for guidance and skill verification</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;gap:.8rem;align-items:flex-start;">
+                                <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
+                                <div>
+                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">NAAC Data Export</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Criterion 5.2 & 5.3
+                                        aligned, ready for your IQAC coordinator</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top:3rem;text-align:center;" class="reveal">
+                <a href="/placement_support_suite.html"
+                    style="display:inline-flex;align-items:center;gap:.7rem;background:var(--navy);color:#fff;padding:.95rem 2.2rem;border-radius:12px;font-weight:700;font-size:.95rem;border:2px solid transparent;transition:all .25s cubic-bezier(.4,0,.2,1);"
+                    onmouseover="this.style.background='#fff';this.style.color='var(--navy)';this.style.borderColor='var(--navy)'"
+                    onmouseout="this.style.background='var(--navy)';this.style.color='#fff';this.style.borderColor='transparent'">
+                    Learn More About the Student Placement Support Suite
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                        <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Before / After ────────────────────────────────────────────────── -->
+    <section id="bafore">
+        <div class="max-w">
+            <div class="reveal">
+                <div class="section-eyebrow">What Changes</div>
+                <h2 class="section-h2">A day in your placement office,<br><em>before and after EduPodX.</em></h2>
+            </div>
+            <div class="ba-grid reveal">
+                <div class="ba-col-header ba-col-before">Before EduPodX</div>
+                <div class="ba-col-arrow">→</div>
+                <div class="ba-col-header ba-col-after">After EduPodX</div>
+
+                <div class="ba-cell ba-cell-before">A final-year student comes to your office in October and says she
+                    doesn't know whether to sit for placements or apply for MS. You try to counsel her in 15 minutes.
+                </div>
+                <div class="ba-cell-mid"><span>→</span></div>
+                <div class="ba-cell ba-cell-after">That same student completed Career Explorer in Year 2. She built
+                    skills for her chosen path in Year 3. She comes to you with a plan, not a question.</div>
+
+                <div class="ba-cell ba-cell-before">You email students to remind them to practice for GDs. Most don't
+                    reply. You have no idea who is actually preparing.</div>
+                <div class="ba-cell-mid"><span>→</span></div>
+                <div class="ba-cell ba-cell-after">The dashboard shows you exactly who practiced GD this week, who
+                    completed skill verification, and who hasn't logged in since Monday.</div>
+
+                <div class="ba-cell ba-cell-before">A recruiter asks for students with proven Python skills. You
+                    manually shortlist. Half don't qualify when tested on the day.</div>
+                <div class="ba-cell-mid"><span>→</span></div>
+                <div class="ba-cell ba-cell-after">You send the recruiter to your verified skill pool in the EduPodX
+                    portal. They filter by skill, verification level, and GD score. Shortlisted in 20 minutes.</div>
+
+                <div class="ba-cell ba-cell-before">Your NAAC coordinator asks for placement data by Monday. You spend
+                    the weekend compiling Excel files from three different sources.</div>
+                <div class="ba-cell-mid"><span>→</span></div>
+                <div class="ba-cell ba-cell-after">Placement data: offer counts, sector-wise breakdown, skill completion
+                    rates, recruiter history, is exportable from the dashboard in minutes.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Testimonials / Proof ──────────────────────────────────────────── -->
+    <section id="proof">
+        <div class="proof-orb proof-orb-1"></div>
+        <div class="proof-orb proof-orb-2"></div>
+        <div class="proof-inner max-w">
+            <div class="reveal">
+                <div class="section-eyebrow" style="color:#93c5fd;">Results</div>
+                <h2 class="section-h2" style="color:#fff;">TPOs, students, and recruiters,<br><em
+                        style="color:#60a5fa;">in their own words.</em></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="tcard reveal delay-1">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">For the first three years of my career as a TPO, I had no idea which students
+                        were struggling until they failed their first campus GD. EduPodX's dashboard changed that
+                        completely. I can now see, on a Tuesday morning in July, exactly which students need a push, and
+                        I can act before they lose an opportunity they cannot get back.</p>
+                    <div class="tcard-author">Preethi Venkataraman</div>
+                    <div class="tcard-role">Training & Placement Officer, Sri Venkateswara College of Engineering,
+                        Chennai</div>
+                    <span class="tcard-type tcard-tpo">TPO</span>
+                </div>
+                <div class="tcard reveal delay-2">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">I used Career Explorer in second year when I was completely torn between MBA
+                        and a job. The simulation made me feel what each path was actually like. I chose the job path
+                        that day. Two years later, I walked into my placement interview knowing exactly why I was there.
+                        The recruiter noticed. I got the offer in round one.</p>
+                    <div class="tcard-author">Sneha Rajan</div>
+                    <div class="tcard-role">Final Year, CSE - Placed at Deloitte USI</div>
+                    <span class="tcard-type tcard-student">Student</span>
+                </div>
+                <div class="tcard reveal delay-3">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">When EduPodX colleges send us candidates, the clarity shows up in the first
+                        two minutes. We've increased our intake from EduPodX-partner colleges by 40% this year because
+                        the quality of candidate confidence and direction is consistently higher. We now go straight to
+                        the verified pool, shortlisted in under an hour.</p>
+                    <div class="tcard-author">Karthik Seshadri</div>
+                    <div class="tcard-role">Campus Hiring Lead, Mphasis · Bangalore</div>
+                    <span class="tcard-type tcard-recruiter">Recruiter</span>
+                </div>
+                <div class="tcard reveal delay-1">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">We onboarded EduPodX in June with zero expectations. By September, our GD pass
+                        rate in the first company drive had jumped from 34% to 59%. I didn't change anything else. Same
+                        students. Same recruiters. The only variable was EduPodX. That number got my principal's
+                        attention immediately.</p>
+                    <div class="tcard-author">Rajan Pillai</div>
+                    <div class="tcard-role">Head of Placements, Malabar Institute of Technology, Calicut</div>
+                    <span class="tcard-type tcard-tpo">TPO</span>
+                </div>
+                <div class="tcard reveal delay-2">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">I had never spoken in front of strangers before GD Coach. The first session I
+                        froze for 20 seconds. After 14 sessions, I was the one keeping the GD moving when it went quiet.
+                        My campus GD was the first time in college I didn't feel afraid. I was experienced, not nervous.
+                    </p>
+                    <div class="tcard-author">Arjun Menon</div>
+                    <div class="tcard-role">Final Year, Mechanical Engineering - Placed at L&T Construction</div>
+                    <span class="tcard-type tcard-student">Student</span>
+                </div>
+                <div class="tcard reveal delay-3">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">My recruiter skipped the technical screening test for me because she said my
+                        EduPodX verified profile already showed what she needed. I didn't realise until then how much of
+                        hiring is just proving what you already know. The verification badge did that for me before I
+                        even walked in the door.</p>
+                    <div class="tcard-author">Divya Krishnaswamy</div>
+                    <div class="tcard-role">Pre-Final Year, CSE - Internship at Zoho Corporation</div>
+                    <span class="tcard-type tcard-student">Student</span>
+                </div>
+            </div>
+
+            <!-- Case Study -->
+            <div class="case-study reveal">
+                <div class="cs-header">Case Study: One College · One Semester · What Actually Changed</div>
+                <div class="cs-grid">
+                    <div class="cs-col cs-col-before">
+                        <div class="cs-col-title">Before (June 2024)</div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">Placement rate: 42%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">GD pass rate at first drive: 29%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">Career clarity sessions conducted: 0</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">0 students with verified skill badges</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">11 companies visited campus</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">TPO tracking via Excel, no alerts</div>
+                        </div>
+                    </div>
+                    <div class="cs-col">
+                        <div class="cs-col-title after">After (December 2024)</div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">Placement rate: 64%, up 22 points</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">GD pass rate at first drive: 57%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">78% of batch completed Career Explorer</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">186 students with Level 1–2 skill badges</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">21 companies via EduPodX recruiter portal</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">Real-time dashboard, weekly early alerts</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Pricing ───────────────────────────────────────────────────────── -->
+    <section id="pricing">
+        <div class="max-w">
+            <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 4rem;">
+                <div class="section-eyebrow">Pricing</div>
+                <h2 class="section-h2">Simple, transparent pricing.<br><em>No surprises.</em></h2>
+                <p class="section-sub" style="margin:0 auto;">All plans include Career Explorer, GD Coach, VoiceUp,
+                    ProWrite, ALR, skill verification, and the college dashboard. Career clarity for every student, not
+                    a premium add-on.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pcard reveal delay-1">
+                    <div class="pcard-tier">Starter</div>
+                    <div class="pcard-range">100–249 Students</div>
+                    <div class="pcard-price">₹599<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹4/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Career Explorer (all 3 paths)</div>
+                    <div class="pcard-feature">GD Coach, unlimited sessions</div>
+                    <div class="pcard-feature">VoiceUp & ProWrite</div>
+                    <div class="pcard-feature">ALR aptitude practice</div>
+                    <div class="pcard-feature">College dashboard</div>
+                    <div class="pcard-feature">Placement tracker</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-outline">Get Started</a>
+                </div>
+                <div class="pcard featured reveal delay-2">
+                    <div class="pcard-badge">⭐ Most Popular</div>
+                    <div class="pcard-tier" style="color:var(--blue);">Growth</div>
+                    <div class="pcard-range">250–499 Students</div>
+                    <div class="pcard-price" style="color:var(--blue);">₹499<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹3/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Everything in Starter</div>
+                    <div class="pcard-feature">Recruiter portal access</div>
+                    <div class="pcard-feature">Early-warning alerts</div>
+                    <div class="pcard-feature">3-level skill verification</div>
+                    <div class="pcard-feature">Mentor Connect</div>
+                    <div class="pcard-feature">Dedicated account manager</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-filled">Get Started</a>
+                </div>
+                <div class="pcard reveal delay-3">
+                    <div class="pcard-tier">Enterprise</div>
+                    <div class="pcard-range">500+ Students</div>
+                    <div class="pcard-price">₹399<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹2/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Everything in Growth</div>
+                    <div class="pcard-feature">Custom college branding</div>
+                    <div class="pcard-feature">API & NAAC data export</div>
+                    <div class="pcard-feature">Criterion 5.2 & 5.3 reports</div>
+                    <div class="pcard-feature">Priority onboarding support</div>
+                    <div class="pcard-feature">Annual contract: 10% additional off</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-outline">Get Started</a>
+                </div>
+            </div>
+            <div class="pricing-note reveal">Semester = 6 months. Annual contracts receive an additional 10% discount.
+                All plans include Career Explorer, it is the foundation, not an upgrade.</div>
+        </div>
+    </section>
+
+
+    <!-- ── Onboarding ─────────────────────────────────────────────────────── -->
+    <section id="onboarding" style="background:#fff;padding:7rem 4rem;">
+        <div class="max-w">
+            <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto 4rem;">
+                <div class="section-eyebrow">Getting Started</div>
+                <h2 class="section-h2" style="text-align:center;">3 steps. <em>One week.</em><br>Your students are live.
+                </h2>
+                <p class="section-sub" style="margin:0 auto;text-align:center;">From our first conversation to your
+                    students actively using EduPodX — the entire onboarding takes less than a week.</p>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--mgray);border-radius:20px;overflow:hidden;position:relative;"
+                class="reveal">
+
+                <!-- connector line -->
+                <div
+                    style="position:absolute;top:90px;left:calc(33.33% - 1px);width:2px;height:40px;background:linear-gradient(to bottom,var(--mgray),transparent);z-index:0;">
+                </div>
+                <div
+                    style="position:absolute;top:90px;left:calc(66.66% - 1px);width:2px;height:40px;background:linear-gradient(to bottom,var(--mgray),transparent);z-index:0;">
+                </div>
+
+                <div style="padding:2.5rem 2rem;border-right:1px solid var(--mgray);position:relative;transition:background .3s;display:flex;flex-direction:column;"
+                    onmouseover="this.style.background='var(--lgray)'" onmouseout="this.style.background='#fff'">
+                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+                        <div
+                            style="width:48px;height:48px;border-radius:50%;background:#dbeafe;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--blue);flex-shrink:0;">
+                            1</div>
+                        <div
+                            style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);">
+                            Day 1</div>
+                    </div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">We Have a
+                        Conversation</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">A 30-minute call with your
+                        EduPodX account manager. We understand your batch size, placement goals, and timeline. We
+                        configure the platform with your college branding before we leave.</div>
+                    <div
+                        style="margin-top:1.5rem;padding:.8rem 1rem;background:#dbeafe;border-radius:8px;font-size:.82rem;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:.5rem;">
+                        <span>⏱</span> Takes 30 minutes
+                    </div>
+                </div>
+
+                <div style="padding:2.5rem 2rem;border-right:1px solid var(--mgray);position:relative;transition:background .3s;display:flex;flex-direction:column;"
+                    onmouseover="this.style.background='var(--lgray)'" onmouseout="this.style.background='#fff'">
+                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+                        <div
+                            style="width:48px;height:48px;border-radius:50%;background:#ccfbf1;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--teal);flex-shrink:0;">
+                            2</div>
+                        <div
+                            style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);">
+                            Day 2-4</div>
+                    </div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">We Set
+                        Everything Up</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">Your student list is
+                        uploaded, accounts are created, and the platform is configured. We handle all of it. Your team
+                        does not write a single line of code or fill a single form.</div>
+                    <div
+                        style="margin-top:1.5rem;padding:.8rem 1rem;background:#ccfbf1;border-radius:8px;font-size:.82rem;font-weight:600;color:var(--teal);display:flex;align-items:center;gap:.5rem;">
+                        <span>⚙️</span> Zero effort from your side
+                    </div>
+                </div>
+
+                <div style="padding:2.5rem 2rem;position:relative;transition:background .3s;display:flex;flex-direction:column;"
+                    onmouseover="this.style.background='var(--lgray)'" onmouseout="this.style.background='#fff'">
+                    <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem;">
+                        <div
+                            style="width:48px;height:48px;border-radius:50%;background:var(--lgreen);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.3rem;font-weight:700;color:var(--green);flex-shrink:0;">
+                            3</div>
+                        <div
+                            style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);">
+                            Day 5-7</div>
+                    </div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">Your Students
+                        Go Live</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">We run a 45-minute
+                        orientation session with your students, in person or online. Activation links go out. Career
+                        Explorer, GD Coach, and the full platform are live and ready to use.</div>
+                    <div
+                        style="margin-top:1.5rem;padding:.8rem 1rem;background:var(--lgreen);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--green);display:flex;align-items:center;gap:.5rem;">
+                        <span>🚀</span> Students active within one week
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top:2rem;text-align:center;" class="reveal">
+                <p style="font-size:.9rem;color:var(--slate);">That is it. No lengthy procurement process. No technical
+                    integration burden. No waiting months to see results.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ───────────────────────────────────────────────────────────── -->
+    <section id="cta">
+        <div class="cta-orb-1"></div>
+        <div class="cta-orb-2"></div>
+        <div class="cta-inner">
+            <div class="reveal">
+                <h2 class="cta-h2">Your next placement<br>season starts <em>today.</em></h2>
+                <p class="cta-sub">The window to build career clarity, GD confidence, and verified skills is the three
+                    years before placement season, not the three months of it. The colleges that start now will see it
+                    in their numbers next year.</p>
+                <div class="cta-actions">
+                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" class="btn-cta-primary">Get in Touch</a>
+                    <a href="mailto:contact@edupodx.com" class="btn-cta-outline">Schedule a Demo</a>
+                </div>
+                <div class="cta-contacts">
+                    <div class="cta-contact">
+                        <div class="cta-contact-label">Email</div>
+                        <div class="cta-contact-val">contact@edupodx.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── Footer ────────────────────────────────────────────────────────── -->
+    <footer>
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
+        <div class="footer-note">From Confused Student to Confident Graduate, Step by Step.</div>
+        <div class="footer-note">© 2026 EduPodX · For Institutional Partners · Confidential</div>
+    </footer>
+
+    <script>
+        // ── Scroll reveal ─────────────────────────────────────────────────
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach(el => io.observe(el));
+
+        // ── Nav scroll ────────────────────────────────────────────────────
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // ── Counter animation ─────────────────────────────────────────────
+        const counters = document.querySelectorAll('.counter');
+        const cio = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    const el = e.target;
+                    const target = parseInt(el.dataset.target);
+                    const duration = 1800;
+                    const start = performance.now();
+                    const animate = (now) => {
+                        const progress = Math.min((now - start) / duration, 1);
+                        const eased = 1 - Math.pow(1 - progress, 3);
+                        el.textContent = Math.floor(eased * target);
+                        if (progress < 1) requestAnimationFrame(animate);
+                        else el.textContent = target;
+                    };
+                    requestAnimationFrame(animate);
+                    cio.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => cio.observe(c));
+
+        // ── Path switcher ─────────────────────────────────────────────────
+        function switchPath(path) {
+            document.querySelectorAll('.path-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.path-panel').forEach(p => p.classList.remove('active'));
+            document.querySelector(`.path-tab[data-path="${path}"]`).classList.add('active');
+            const panel = document.getElementById(`panel-${path}`);
+            panel.classList.add('active');
+            panel.style.opacity = '0';
+            panel.style.transform = 'translateY(16px)';
+            setTimeout(() => {
+                panel.style.transition = 'opacity .4s ease, transform .4s ease';
+                panel.style.opacity = '1';
+                panel.style.transform = 'translateY(0)';
+            }, 10);
+        }
+
+        // ── Nav smooth scroll with offset ────────────────────────────────
+        function scrollToSection(id) {
+            const target = document.getElementById(id);
+            if (!target) return;
+            const navH = document.getElementById('nav').offsetHeight;
+            const top = target.getBoundingClientRect().top + window.scrollY - navH - 16;
+            window.scrollTo({ top, behavior: 'smooth' });
+        }
+
+        // data-target nav links (no external popup)
+        document.querySelectorAll('a[data-target]').forEach(a => {
+            a.addEventListener('click', function (e) {
+                e.preventDefault();
+                scrollToSection(this.dataset.target);
+            });
+        });
+
+        // href="#section" links (hero buttons, pricing CTAs, etc.)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const id = this.getAttribute('href').slice(1);
+                const target = document.getElementById(id);
+                if (!target) return;
+                e.preventDefault();
+                scrollToSection(id);
+            });
+        });
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a[data-target]');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(s => {
+                if (window.scrollY >= s.offsetTop - 200) current = s.id;
+            });
+            navLinks.forEach(a => {
+                a.style.color = a.dataset.target === current ? 'var(--navy)' : '';
+            });
+        });
+
+        // ── Subtle parallax on hero orbs ─────────────────────────────────
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+                const speed = [0.15, 0.1, 0.2][i] || 0.1;
+                orb.style.transform = `translateY(${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
