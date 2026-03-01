@@ -1906,6 +1906,37 @@
         .flow-step.final p {
             font-weight: 500;
         }
+
+        .logo-stack {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .7rem;
+            color: rgba(255, 255, 255, .6);
+            letter-spacing: .04em;
+        }
+
+        .primary-logo {
+            height: 34px;
+        }
+
+        .parent-logo {
+            height: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-logos .logo-group {
+                gap: .5rem;
+            }
+
+            .footer-logos .primary-logo {
+                height: 30px;
+            }
+
+            .footer-logos .parent-logo {
+                height: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -1927,7 +1958,8 @@
                 </svg>
                 Back to Overview
             </a>
-            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a>
+            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get
+                in Touch</a>
         </div>
 
         <!-- Hamburger -->
@@ -1939,7 +1971,8 @@
     <!-- Mobile menu -->
     <div id="mobile-nav">
         <a href="/index.html">Back to Overview</a>
-        <a href="https://forms.gle/1TEu8C1SSFZbcLpT7"  target="_blank" rel="noopener noreferrer" class="cta">Get in Touch</a>
+        <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="cta">Get in
+            Touch</a>
     </div>
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
@@ -2654,7 +2687,8 @@
                 <p class="cta-sub">Career Explorer is included in every EduPodX institutional plan. Get in touch and
                     watch what happens when students spend three years preparing for a path they actually chose.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer" class="btn-amber">Get in Touch</a>
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer"
+                        class="btn-amber">Get in Touch</a>
                     <a href="/index.html" class="btn-outline">Back to Full Overview</a>
                 </div>
             </div>
@@ -2662,9 +2696,11 @@
     </section>
 
     <footer>
-        <div class="nav-logo">
-            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+        <div class="nav-logo footer-logos">
+            <a href="/" aria-label="EduPodX Home" class="logo-stack">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" class="logo primary-logo">
+                <span>by</span>
+                <img src="/assets/logo/poditivity.png" alt="Poditivity" class="logo parent-logo">
             </a>
         </div>
         <div class="footer-note">© 2026 EduPodX, For Institutional Partners</div>
