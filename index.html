@@ -9,7 +9,6 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
     <style>
-        /* ── Reset & Base ─────────────────────────────────────────────────── */
         *,
         *::before,
         *::after {
@@ -1642,14 +1641,14 @@
             display: inline-block;
         }
 
+        #nav-toggle {
+            display: none;
+        }
+
         /* ── Mobile responsive ────────────────────────────────────────────── */
         @media (max-width: 900px) {
             nav {
                 padding: 1rem 1.5rem;
-            }
-
-            .nav-links {
-                display: none;
             }
 
             section {
@@ -1728,6 +1727,56 @@
             }
         }
 
+        @media (max-width: 900px) {
+            #nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
+                flex-direction: column;
+                gap: 1.4rem;
+                padding: 2rem 1.5rem;
+                border-bottom: 1px solid var(--mgray);
+                display: none;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+                align-items: flex-start;
+                text-align: left;
+            }
+
+            .nav-links .nav-cta {
+                display: block;
+                width: 100%;
+                padding: .9rem 1.2rem;
+                margin-top: 1.2rem;
+                text-align: center;
+                border-radius: 12px;
+                box-sizing: border-box;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                font-size: 1rem;
+                padding: .4rem 0;
+            }
+
+            .nav-cta {
+                margin-top: .8rem;
+            }
+        }
+
         .college-logo {
             height: 80px;
             max-width: 160px;
@@ -1742,29 +1791,53 @@
             filter: grayscale(0%);
             transform: translateY(-2px);
         }
+
+        @media (max-width: 900px) {
+
+            #onboarding [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            #onboarding [style*="position:absolute"][style*="left:calc"] {
+                display: none !important;
+            }
+
+            #onboarding [style*="border-right"] {
+                border-right: none !important;
+                border-bottom: 1px solid var(--mgray);
+            }
+
+            #onboarding [style*="border-bottom"]:last-child {
+                border-bottom: none;
+            }
+
+            #onboarding [style*="padding:2.5rem"] {
+                padding: 2rem 1.5rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-
-    <!-- ── Nav ─────────────────────────────────────────────────────────── -->
     <nav id="nav">
         <div class="nav-logo">
-            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+            <a href="/index.html" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
                 <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
             </a>
         </div>
+        <button id="nav-toggle" aria-label="Toggle menu"
+            style="background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--navy);">
+            ☰
+        </button>
         <ul class="nav-links">
             <li><a href="javascript:void(0)" data-target="clarity">Career Explorer</a></li>
             <li><a href="javascript:void(0)" data-target="platform">Platform</a></li>
             <li><a href="javascript:void(0)" data-target="proof">Results</a></li>
             <li><a href="javascript:void(0)" data-target="pricing">Pricing</a></li>
             <li><a href="javascript:void(0)" data-target="onboarding">Onboarding</a></li>
-            <li><a href="javascript:void(0)" data-target="cta" class="nav-cta">Get in Touch</a></li>
+            <li><a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a></li>
         </ul>
     </nav>
-
-    <!-- ── Hero ────────────────────────────────────────────────────────── -->
     <section id="hero">
         <div class="hero-bg-grid"></div>
         <div class="hero-orb hero-orb-1"></div>
@@ -1783,7 +1856,7 @@
                 clarity in Year 1, all the way to verified placements.
             </p>
             <div class="hero-actions">
-                <a href="https://forms.gle/UW667Afmc21yuyyZ8" class="btn-primary">Get in Touch</a>
+                <a href="https://forms.gle/UW667Afmc21yuyyZ8" target="_blank" rel="noopener noreferrer" class="btn-primary">Get in Touch</a>
                 <a href="#clarity" class="btn-ghost">
                     See Career Explorer
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1795,7 +1868,7 @@
             <div class="hero-stats">
                 <div class="hero-stat">
                     <div class="hero-stat-num"><span class="counter" data-target="22">0</span><span>%</span></div>
-                    <div class="hero-stat-label">Avg. placement rate uplift<br>in first semester</div>
+                    <div class="hero-stat-label">Avg. placement rate<br>uplift in first semester</div>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
@@ -1817,7 +1890,6 @@
 
     </section>
 
-    <!-- ── Logos ────────────────────────────────────────────────────────── -->
     <div id="logos">
         <div class="logos-label">Partner institutions across India</div>
         <div class="logos-row">
@@ -1827,7 +1899,6 @@
         </div>
     </div>
 
-    <!-- ── Problem ──────────────────────────────────────────────────────── -->
     <section id="problem">
         <div class="max-w">
             <div class="reveal">
@@ -1883,7 +1954,6 @@
         </div>
     </section>
 
-    <!-- ── Career Explorer / Clarity ───────────────────────────────────── -->
     <section id="clarity">
         <div class="clarity-bg"></div>
         <div class="clarity-orb-1"></div>
@@ -2028,7 +2098,6 @@
         </div>
     </section>
 
-    <!-- ── Platform ──────────────────────────────────────────────────────── -->
     <section id="platform">
         <div class="max-w">
             <div class="reveal">
@@ -2144,7 +2213,6 @@
         </div>
     </section>
 
-    <!-- ── Before / After ────────────────────────────────────────────────── -->
     <section id="bafore">
         <div class="max-w">
             <div class="reveal">
@@ -2160,8 +2228,8 @@
                     doesn't know whether to sit for placements or apply for MS. You try to counsel her in 15 minutes.
                 </div>
                 <div class="ba-cell-mid"><span>→</span></div>
-                <div class="ba-cell ba-cell-after">That same student completed Career Explorer in Year 2. She built
-                    skills for her chosen path in Year 3. She comes to you with a plan, not a question.</div>
+                <div class="ba-cell ba-cell-after">That same student completed Career Explorer in Year 1. She built
+                    skills for her chosen path in next years. She comes to you with a plan, not a question.</div>
 
                 <div class="ba-cell ba-cell-before">You email students to remind them to practice for GDs. Most don't
                     reply. You have no idea who is actually preparing.</div>
@@ -2184,7 +2252,6 @@
         </div>
     </section>
 
-    <!-- ── Testimonials / Proof ──────────────────────────────────────────── -->
     <section id="proof">
         <div class="proof-orb proof-orb-1"></div>
         <div class="proof-orb proof-orb-2"></div>
@@ -2387,8 +2454,6 @@
         </div>
     </section>
 
-
-    <!-- ── Onboarding ─────────────────────────────────────────────────────── -->
     <section id="onboarding" style="background:#fff;padding:7rem 4rem;">
         <div class="max-w">
             <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto 4rem;">
@@ -2396,13 +2461,12 @@
                 <h2 class="section-h2" style="text-align:center;">3 steps. <em>One week.</em><br>Your students are live.
                 </h2>
                 <p class="section-sub" style="margin:0 auto;text-align:center;">From our first conversation to your
-                    students actively using EduPodX — the entire onboarding takes less than a week.</p>
+                    students actively using EduPodX - the entire onboarding takes less than a week.</p>
             </div>
 
             <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--mgray);border-radius:20px;overflow:hidden;position:relative;"
                 class="reveal">
 
-                <!-- connector line -->
                 <div
                     style="position:absolute;top:90px;left:calc(33.33% - 1px);width:2px;height:40px;background:linear-gradient(to bottom,var(--mgray),transparent);z-index:0;">
                 </div>
@@ -2481,7 +2545,6 @@
         </div>
     </section>
 
-    <!-- ── CTA ───────────────────────────────────────────────────────────── -->
     <section id="cta">
         <div class="cta-orb-1"></div>
         <div class="cta-orb-2"></div>
@@ -2492,7 +2555,7 @@
                     years before placement season, not the three months of it. The colleges that start now will see it
                     in their numbers next year.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" class="btn-cta-primary">Get in Touch</a>
+                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="btn-cta-primary">Get in Touch</a>
                     <a href="mailto:contact@edupodx.com" class="btn-cta-outline">Schedule a Demo</a>
                 </div>
                 <div class="cta-contacts">
@@ -2505,7 +2568,6 @@
         </div>
     </section>
 
-    <!-- ── Footer ────────────────────────────────────────────────────────── -->
     <footer>
         <div class="nav-logo">
             <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
@@ -2513,11 +2575,10 @@
             </a>
         </div>
         <div class="footer-note">From Confused Student to Confident Graduate, Step by Step.</div>
-        <div class="footer-note">© 2026 EduPodX · For Institutional Partners · Confidential</div>
+        <div class="footer-note">© 2026 EduPodX · For Institutional Partners</div>
     </footer>
 
     <script>
-        // ── Scroll reveal ─────────────────────────────────────────────────
         const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -2525,13 +2586,10 @@
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
         reveals.forEach(el => io.observe(el));
-
-        // ── Nav scroll ────────────────────────────────────────────────────
         window.addEventListener('scroll', () => {
             document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
         });
 
-        // ── Counter animation ─────────────────────────────────────────────
         const counters = document.querySelectorAll('.counter');
         const cio = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -2554,7 +2612,6 @@
         }, { threshold: 0.5 });
         counters.forEach(c => cio.observe(c));
 
-        // ── Path switcher ─────────────────────────────────────────────────
         function switchPath(path) {
             document.querySelectorAll('.path-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.path-panel').forEach(p => p.classList.remove('active'));
@@ -2570,7 +2627,6 @@
             }, 10);
         }
 
-        // ── Nav smooth scroll with offset ────────────────────────────────
         function scrollToSection(id) {
             const target = document.getElementById(id);
             if (!target) return;
@@ -2579,15 +2635,12 @@
             window.scrollTo({ top, behavior: 'smooth' });
         }
 
-        // data-target nav links (no external popup)
         document.querySelectorAll('a[data-target]').forEach(a => {
             a.addEventListener('click', function (e) {
                 e.preventDefault();
                 scrollToSection(this.dataset.target);
             });
         });
-
-        // href="#section" links (hero buttons, pricing CTAs, etc.)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const id = this.getAttribute('href').slice(1);
@@ -2609,13 +2662,35 @@
             });
         });
 
-        // ── Subtle parallax on hero orbs ─────────────────────────────────
         window.addEventListener('scroll', () => {
             const y = window.scrollY;
             document.querySelectorAll('.hero-orb').forEach((orb, i) => {
                 const speed = [0.15, 0.1, 0.2][i] || 0.1;
                 orb.style.transform = `translateY(${y * speed}px)`;
             });
+        });
+
+        const toggle = document.getElementById('nav-toggle');
+        const navMenu = document.querySelector('.nav-links');
+
+        toggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.getElementById('nav');
+            const toggle = document.getElementById('nav-toggle');
+
+            if (!nav.contains(e.target)) {
+                document.querySelector('.nav-links').classList.remove('open');
+            }
         });
     </script>
 </body>

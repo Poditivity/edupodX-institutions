@@ -1683,6 +1683,229 @@
                 text-align: center;
             }
         }
+
+        /* ── Mobile Nav ───────────────────────── */
+
+        #nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--navy);
+        }
+
+        #mobile-nav {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            right: 0;
+            background: #fff;
+            display: none;
+            flex-direction: column;
+            gap: 1.2rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--mgray);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
+            z-index: 999;
+        }
+
+        #mobile-nav a {
+            font-size: 1rem;
+            color: var(--navy);
+        }
+
+        #mobile-nav .cta {
+            background: var(--amber);
+            color: #fff;
+            padding: .8rem 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .desktop-only {
+            display: block;
+        }
+
+        .mobile-only {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .desktop-only {
+                display: none;
+            }
+
+            .mobile-only {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+
+        .align-card {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .ac-goal {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .95rem;
+            margin-bottom: .8rem;
+        }
+
+        .ac-gap,
+        .ac-role {
+            font-size: .85rem;
+            line-height: 1.6;
+            padding: .9rem 1rem;
+            border-radius: 12px;
+            margin-top: .6rem;
+        }
+
+        .ac-gap {
+            background: #f8fafc;
+            color: var(--slate);
+        }
+
+        .ac-gap span {
+            display: block;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: .3rem;
+            color: #94a3b8;
+        }
+
+        .ac-role {
+            background: var(--lgreen);
+            color: var(--green);
+        }
+
+        .ac-role span {
+            display: block;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: .3rem;
+        }
+
+        /* ── Responsive breakpoint ───────────── */
+
+        @media (max-width: 900px) {
+            .nav-right {
+                display: none;
+            }
+
+            #nav-toggle {
+                display: block;
+            }
+
+            #mobile-nav.open {
+                display: flex;
+            }
+        }
+
+        .unlock-box {
+            background: var(--lgray);
+            border-radius: 20px;
+            padding: 0.5rem;
+        }
+
+        .unlock-title {
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 2rem;
+            font-size: .95rem;
+        }
+
+        .unlock-flow {
+            display: flex;
+            flex-direction: column;
+            gap: .9rem;
+            position: relative;
+        }
+
+        /* Each step */
+        .flow-step {
+            display: grid;
+            grid-template-columns: 110px 1fr;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flow-step p {
+            font-size: .85rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        /* Connectors */
+        .flow-connector {
+            width: 2px;
+            height: 16px;
+            background: var(--mgray);
+            margin-left: 54px;
+            /* perfectly aligns with pill center */
+        }
+
+        /* Pills */
+        .pill {
+            display: inline-block;
+            font-weight: 700;
+            font-size: .8rem;
+            padding: .35rem .7rem;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        /* Color system */
+        .pill.amber {
+            background: #fef3c7;
+            color: var(--amber);
+        }
+
+        .pill.blue {
+            background: #dbeafe;
+            color: var(--blue);
+        }
+
+        .pill.teal {
+            background: #ccfbf1;
+            color: var(--teal);
+        }
+
+        .pill.violet {
+            background: #ede9fe;
+            color: #7c3aed;
+        }
+
+        .pill.rose {
+            background: #fce7f3;
+            color: #9d174d;
+        }
+
+        .pill.orange {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .pill.green {
+            background: var(--lgreen);
+            color: var(--green);
+        }
+
+        /* Emphasis */
+        .flow-step.primary p,
+        .flow-step.final p {
+            font-weight: 500;
+        }
     </style>
 </head>
 
@@ -1692,9 +1915,10 @@
     <nav id="nav">
         <div class="nav-logo">
             <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;">
             </a>
         </div>
+
         <div class="nav-right">
             <a href="/index.html" class="nav-back">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -1703,9 +1927,20 @@
                 </svg>
                 Back to Overview
             </a>
-            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" class="nav-cta">Get in Touch</a>
+            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a>
         </div>
+
+        <!-- Hamburger -->
+        <button id="nav-toggle" aria-label="Toggle menu">
+            ☰
+        </button>
     </nav>
+
+    <!-- Mobile menu -->
+    <div id="mobile-nav">
+        <a href="/index.html">Back to Overview</a>
+        <a href="https://forms.gle/1TEu8C1SSFZbcLpT7"  target="_blank" rel="noopener noreferrer" class="cta">Get in Touch</a>
+    </div>
 
     <!-- ── Hero ─────────────────────────────────────────────────────── -->
     <section id="hero">
@@ -1743,7 +1978,7 @@
                 </div>
                 <div class="hs">
                     <div class="hs-num">Year <span>1</span></div>
-                    <div class="hs-label">When Career Explorer is introduced, so clarity compounds over 3 years, not 3
+                    <div class="hs-label">When Career Explorer is introduced, so clarity compounds over years, not
                         months</div>
                 </div>
             </div>
@@ -1888,7 +2123,7 @@
                         <div class="cs-item">
                             <div class="cs-item-q">"I don't know if I should sit for placements or try for an MBA. What
                                 do you think I should do?"</div>
-                            <div class="cs-item-r">Year 4, Week 3 of placement season</div>
+                            <div class="cs-item-r">Final Year, Week 3 of placement season</div>
                         </div>
                         <div class="cs-item">
                             <div class="cs-item-q">"I got placed at an IT company but I actually wanted to work in
@@ -1935,8 +2170,8 @@
                     <div class="step-icon">🧭</div>
                     <div class="step-title">Receive a Personalised Skill Roadmap</div>
                     <div class="step-body">At the end, Career Explorer generates a skill gap analysis and a prioritised
-                        roadmap. Every tool in EduPodX that follows — GD Coach, VoiceUp, ProWrite, ALR, Skill
-                        Verification — is now directed toward a goal the student chose for themselves.</div>
+                        roadmap. Every tool in EduPodX that follows - GD Coach, VoiceUp, ProWrite, ALR, Skill
+                        Verification - is now directed toward a goal the student chose for themselves.</div>
                 </div>
             </div>
 
@@ -1982,7 +2217,7 @@
             </div>
             <p class="impact-intro reveal">Across EduPodX pilot institutions, students who completed Career Explorer in
                 their first or second year showed measurable improvement in every downstream placement metric compared
-                to students who entered Year 4 without a defined direction.</p>
+                to students who entered Final Year without a defined direction.</p>
 
             <div class="impact-two-col">
                 <div class="impact-chart-card reveal delay-1">
@@ -2172,7 +2407,7 @@
             </div>
 
             <div class="reveal">
-                <div class="alignment-table">
+                <div class="alignment-table desktop-only">
                     <div class="at-header">
                         <div class="at-col">Aatmanirbhar Bharat Goal</div>
                         <div class="at-col">Current Gap</div>
@@ -2203,6 +2438,81 @@
                         <div class="at-cell">Colleges lack infrastructure for career simulation</div>
                         <div class="at-cell good">Plug-and-play career simulation integrated into college platform</div>
                     </div>
+
+                </div>
+                <div class="alignment-cards mobile-only">
+
+                    <div class="align-card">
+                        <div class="ac-goal">Build a skilled, job-ready workforce</div>
+
+                        <div class="ac-gap">
+                            <span>Current gap</span>
+                            Students build skills without knowing why or for what
+                        </div>
+
+                        <div class="ac-role">
+                            <span>Career Explorer’s role</span>
+                            Clarity-first skill roadmap personalised to chosen path
+                        </div>
+                    </div>
+
+                    <div class="align-card">
+                        <div class="ac-goal">Foster a culture of entrepreneurship</div>
+
+                        <div class="ac-gap">
+                            <span>Current gap</span>
+                            Students romanticise startups without understanding the reality
+                        </div>
+
+                        <div class="ac-role">
+                            <span>Career Explorer’s role</span>
+                            Realistic founder simulation before any commitment
+                        </div>
+                    </div>
+
+                    <div class="align-card">
+                        <div class="ac-goal">Reduce graduate unemployment and underemployment</div>
+
+                        <div class="ac-gap">
+                            <span>Current gap</span>
+                            Graduates take wrong-fit roles and disengage within a year
+                        </div>
+
+                        <div class="ac-role">
+                            <span>Career Explorer’s role</span>
+                            Conscious career choice leads to higher role retention
+                        </div>
+                    </div>
+
+                    <div class="align-card">
+                        <div class="ac-goal">Democratise quality education outcomes</div>
+
+                        <div class="ac-gap">
+                            <span>Current gap</span>
+                            Career intelligence available only at premier colleges
+                        </div>
+
+                        <div class="ac-role">
+                            <span>Career Explorer’s role</span>
+                            Career Explorer accessible to every college across India
+                        </div>
+                    </div>
+
+                    <div class="align-card">
+                        <div class="ac-goal">Align education to NEP 2020 vocational vision</div>
+
+                        <div class="ac-gap">
+                            <span>Current gap</span>
+                            Colleges lack infrastructure for career simulation
+                        </div>
+
+                        <div class="ac-role">
+                            <span>Career Explorer’s role</span>
+                            Plug-and-play career simulation integrated into college platform
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
 
@@ -2239,53 +2549,50 @@
                     </div>
                     <div style="height:1.5rem;"></div>
                     <div style="background:var(--lgray);border-radius:20px;padding:2rem;" class="reveal">
-                        <div style="font-weight:700;color:var(--navy);margin-bottom:1.2rem;font-size:.95rem;">How Career
-                            Explorer unlocks everything else</div>
-                        <div style="display:flex;flex-direction:column;gap:.8rem;">
-                            <div style="display:flex;align-items:center;gap:.8rem;">
-                                <span
-                                    style="background:#fef3c7;color:var(--amber);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;">Explorer</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Student chooses a path, generates
-                                    personalised skill roadmap</span>
-                            </div>
-                            <div style="width:2px;height:14px;background:var(--mgray);margin-left:1.8rem;"></div>
-                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
-                                <span
-                                    style="background:#dbeafe;color:var(--blue);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">GD
-                                    Coach</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Practices GD topics relevant to
-                                    chosen sector</span>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
-                                <span
-                                    style="background:#ccfbf1;color:var(--teal);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">VoiceUp</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Rehearses role-specific speaking
-                                    scenarios and pitches</span>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
-                                <span
-                                    style="background:#ede9fe;color:#7c3aed;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">ProWrite</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Converts emails and messages into
-                                    professional communication</span>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
-                                <span
-                                    style="background:#fce7f3;color:#9d174d;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">ALR</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Prepares aptitude tests for target
-                                    company patterns</span>
-                            </div>
-                            <div style="display:flex;align-items:flex-start;gap:.8rem;flex-wrap:wrap;">
-                                <span
-                                    style="background:#fff7ed;color:#c2410c;font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;margin-top:.15rem;">Dashboard</span>
-                                <span style="font-size:.85rem;color:var(--slate);">College tracks every student's
-                                    progress toward their chosen path</span>
-                            </div>
-                            <div style="width:2px;height:14px;background:var(--mgray);margin-left:1.8rem;"></div>
-                            <div style="display:flex;align-items:center;gap:.8rem;">
-                                <span
-                                    style="background:var(--lgreen);color:var(--green);font-weight:700;font-size:.82rem;padding:.25rem .6rem;border-radius:6px;flex-shrink:0;">Placement</span>
-                                <span style="font-size:.85rem;color:var(--slate);">Enters Year 4 with clarity,
-                                    direction, and proof</span>
+                        <div class="unlock-box reveal">
+                            <div class="unlock-title">How Career Explorer unlocks everything else</div>
+
+                            <div class="unlock-flow">
+
+                                <div class="flow-step primary">
+                                    <span class="pill amber">Explorer</span>
+                                    <p>Student chooses a path and generates a personalised skill roadmap</p>
+                                </div>
+
+                                <div class="flow-connector"></div>
+
+                                <div class="flow-step">
+                                    <span class="pill blue">GD Coach</span>
+                                    <p>Practices GD topics relevant to chosen sector</p>
+                                </div>
+
+                                <div class="flow-step">
+                                    <span class="pill teal">VoiceUp</span>
+                                    <p>Rehearses role-specific speaking scenarios and pitches</p>
+                                </div>
+
+                                <div class="flow-step">
+                                    <span class="pill violet">ProWrite</span>
+                                    <p>Converts communication into professional responses</p>
+                                </div>
+
+                                <div class="flow-step">
+                                    <span class="pill rose">ALR</span>
+                                    <p>Prepares aptitude tests aligned to target companies</p>
+                                </div>
+
+                                <div class="flow-step">
+                                    <span class="pill orange">Dashboard</span>
+                                    <p>College tracks progress toward the chosen path</p>
+                                </div>
+
+                                <div class="flow-connector"></div>
+
+                                <div class="flow-step final">
+                                    <span class="pill green">Placement</span>
+                                    <p>Student enters Final Year with clarity, direction, and proof</p>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -2347,7 +2654,7 @@
                 <p class="cta-sub">Career Explorer is included in every EduPodX institutional plan. Get in touch and
                     watch what happens when students spend three years preparing for a path they actually chose.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" class="btn-amber">Get in Touch</a>
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer" class="btn-amber">Get in Touch</a>
                     <a href="/index.html" class="btn-outline">Back to Full Overview</a>
                 </div>
             </div>
@@ -2360,7 +2667,6 @@
                 <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
             </a>
         </div>
-        <div class="footer-note">Career Explorer - Feature Overview</div>
         <div class="footer-note">© 2026 EduPodX, For Institutional Partners</div>
     </footer>
 
@@ -2414,6 +2720,20 @@
             document.querySelectorAll('.hero-orb').forEach((orb, i) => {
                 orb.style.transform = `translateY(${y * [0.15, 0.1, 0.2][i]}px)`;
             });
+        });
+
+        const toggle = document.getElementById('nav-toggle');
+        const mobileNav = document.getElementById('mobile-nav');
+
+        toggle.addEventListener('click', () => {
+            mobileNav.classList.toggle('open');
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            if (!mobileNav.contains(e.target) && !toggle.contains(e.target)) {
+                mobileNav.classList.remove('open');
+            }
         });
     </script>
 </body>
