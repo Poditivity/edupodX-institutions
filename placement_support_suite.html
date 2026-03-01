@@ -156,6 +156,72 @@
             background: var(--amber2);
             transform: translateY(-1px);
         }
+        /* ── Hamburger ── */
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.nav-toggle span {
+    width: 22px;
+    height: 2px;
+    background: var(--navy);
+    transition: all .3s var(--ease2);
+}
+
+/* Mobile / Tablet */
+@media (max-width: 900px) {
+    .nav-toggle {
+        display: flex;
+    }
+
+    .nav-right {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(255,255,255,.96);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 3.0rem;
+        border-bottom: 1px solid rgba(30,58,95,.08);
+        transform: translateY(-10px);
+        opacity: 0;
+        pointer-events: none;
+        transition: all .3s var(--ease2);
+    }
+
+    .nav-right.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .nav-back {
+        font-size: .95rem;
+    }
+
+    .nav-cta {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Hamburger animation */
+.nav-toggle.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+.nav-toggle.active span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
 
         /* ── Reveal ── */
         .reveal {
@@ -2283,22 +2349,31 @@
 
     <!-- ── Nav ── -->
     <nav id="nav">
-        <div class="nav-logo">
-            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
-            </a>
-        </div>
-        <div class="nav-right">
-            <a href="/index.html" class="nav-back">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-                Back to Overview
-            </a>
-            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" class="nav-cta">Get in Touch</a>
-        </div>
-    </nav>
+    <div class="nav-logo">
+        <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+            <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+        </a>
+    </div>
+
+    <!-- Hamburger (NEW) -->
+    <button class="nav-toggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <!-- Menu -->
+    <div class="nav-right" id="navMenu">
+        <a href="/index.html" class="nav-back">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            Back to Overview
+        </a>
+        <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a>
+    </div>
+</nav>
 
     <!-- ── Hero ── -->
     <section id="hero">
@@ -2340,7 +2415,7 @@
                     <div class="eyebrow">01 - GD Coach</div>
                     <h2 class="section-h2">The closest thing to a <em class="em-blue">real Group Discussion.</em></h2>
                     <p class="gd-desc">GD Coach simulates a live group discussion with multiple AI participants who
-                        interrupt, challenge, dominate, and push back — exactly like the recruiters your students will
+                        interrupt, challenge, dominate, and push back - exactly like the recruiters your students will
                         face. Students practice any time, for as many sessions as they need, and receive a performance
                         score after every round.</p>
                     <div class="feature-pills-row">
@@ -2376,7 +2451,7 @@
                                 </div>
                                 <div class="gb gb-ai">
                                     <div class="gb-name">AI - Rahul (interrupting)</div>
-                                    But without incentives, mandating targets only pushes companies offshore—
+                                    But without incentives, mandating targets only pushes companies offshore-
                                 </div>
                                 <div class="gb gb-user">
                                     <div class="gb-name">You (speaking)</div>
@@ -2499,7 +2574,7 @@
                             <div class="dash-dot d1"></div>
                             <div class="dash-dot d2"></div>
                             <div class="dash-dot d3"></div>
-                            <div class="dash-title">EduPodX College Dashboard — VIT Vellore</div>
+                            <div class="dash-title">EduPodX College Dashboard - VIT Vellore</div>
                         </div>
                         <div class="dash-body">
                             <div class="dash-metrics">
@@ -2774,7 +2849,7 @@
                             <div>
                                 <div class="nc-title">Student Progression</div>
                                 <div class="nc-body">Placement percentage, higher education uptake, and entrepreneurship
-                                    data — all auto-collected from student activity on EduPodX.</div>
+                                    data - all auto-collected from student activity on EduPodX.</div>
                             </div>
                         </div>
                         <div class="nc">
@@ -2782,7 +2857,7 @@
                             <div>
                                 <div class="nc-title">Student Participation and Activities</div>
                                 <div class="nc-body">Hackathon participation, career event attendance, skill
-                                    certifications, and mentor sessions — logged automatically.</div>
+                                    certifications, and mentor sessions - logged automatically.</div>
                             </div>
                         </div>
                         <div class="nc" style="border-color:var(--blue);background:#eff6ff;">
@@ -2822,7 +2897,7 @@
                                     <path d="M8 2v9M4 8l4 4 4-4M2 13h12" stroke="#fff" stroke-width="1.8"
                                         stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                Export NAAC Report — PDF &amp; Excel
+                                Export NAAC Report - PDF &amp; Excel
                             </button>
                         </div>
                     </div>
@@ -2879,7 +2954,7 @@
                             </div>
                         </div>
                     </div>
-                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Content blurred —
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Content blurred -
                         full detail available at launch.</p>
                 </div>
                 <div class="sv-right reveal-right">
@@ -2891,10 +2966,7 @@
                             <div class="sv-cs-body">We are building the most rigorous, recruiter-trusted skill proof
                                 system in India's campus hiring market. When it launches, a verified EduPodX badge will
                                 mean more than any certificate from any platform. Get notified when it goes live.</div>
-                            <div class="sv-notify-form">
-                                <input class="sv-notify-input" type="email" placeholder="Your college email" />
-                                <button class="sv-notify-btn">Notify Me</button>
-                            </div>
+                            <div class="tf-eta"><span>🗓</span> Coming Soon</div>
                         </div>
                     </div>
                 </div>
@@ -2915,7 +2987,7 @@
                     <div class="eyebrow eyebrow-teal">08 - TechFluent</div>
                     <h2 class="section-h2">Technical knowledge. <em class="em-teal">Explained in English.</em></h2>
                     <p class="tf-desc">Many students know their subject deeply but freeze when asked to explain it.
-                        TechFluent bridges the gap between technical competence and verbal fluency — training students
+                        TechFluent bridges the gap between technical competence and verbal fluency - training students
                         to articulate projects, answer technical questions, and hold up under interview pressure.</p>
                     <div class="tf-preview">
                         <div class="tf-prev-card">
@@ -2935,7 +3007,7 @@
                                 bu&#x200B;ilt ac&#x200B;ro&#x200B;ss cy&#x200B;cles.</div>
                         </div>
                     </div>
-                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred —
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred -
                         available at launch.</p>
                 </div>
                 <div class="tf-right reveal-right">
@@ -2948,7 +3020,7 @@
                                 students to explain their technical work confidently, in real-time, under pressure. The
                                 engineers who know their material but can't communicate it are the students we are
                                 building this for.</div>
-                            <div class="tf-eta"><span>🗓</span> Launching alongside Skill Verification</div>
+                            <div class="tf-eta"><span>🗓</span> Launching Soon</div>
                         </div>
                     </div>
                 </div>
@@ -2971,7 +3043,7 @@
                             deserves.</em></h2>
                     <p class="mc-desc">Most students from non-metro colleges have no access to industry insiders. No one
                         to ask "what is this role actually like?" or "is my resume good enough?" Mentor Connect puts
-                        working professionals — many of them alumni from similar colleges — a message away.</p>
+                        working professionals - many of them alumni from similar colleges - a message away.</p>
                     <div class="mc-preview">
                         <div class="mc-prev-card">
                             <div class="mc-avatar" style="background:#ede9fe;">🧑‍💼</div>
@@ -3005,7 +3077,7 @@
                         </div>
                     </div>
                     <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Mentor profiles
-                        blurred — full network available at launch.</p>
+                        blurred - full network available at launch.</p>
                 </div>
                 <div class="mc-right reveal-right">
                     <div class="mc-cs-card">
@@ -3038,22 +3110,22 @@
                     <h2 class="section-h2">Full placement test prep. <em class="em-green">Every format. Every
                             company.</em></h2>
                     <p class="alr-desc">ALR covers the complete aptitude and reasoning syllabus that recruiters test in
-                        campus drives — from basic quantitative to advanced logical puzzles. Adaptive difficulty adjusts
+                        campus drives - from basic quantitative to advanced logical puzzles. Adaptive difficulty adjusts
                         to each student's level, ensuring no one is over-challenged or under-challenged.</p>
                     <div class="alr-steps">
                         <div class="alr-step">
                             <div class="alr-step-num">1</div>
-                            <div class="alr-step-body"><strong>Diagnostic test</strong> — identifies weak areas per
+                            <div class="alr-step-body"><strong>Diagnostic test</strong> - identifies weak areas per
                                 student in 20 minutes.</div>
                         </div>
                         <div class="alr-step">
                             <div class="alr-step-num">2</div>
-                            <div class="alr-step-body"><strong>Personalised practice plan</strong> — prioritises topics
+                            <div class="alr-step-body"><strong>Personalised practice plan</strong> - prioritises topics
                                 based on gap analysis.</div>
                         </div>
                         <div class="alr-step">
                             <div class="alr-step-num">3</div>
-                            <div class="alr-step-body"><strong>Company-specific mock tests</strong> — mirroring the
+                            <div class="alr-step-body"><strong>Company-specific mock tests</strong> - mirroring the
                                 pattern and difficulty of major recruiters.</div>
                         </div>
                     </div>
@@ -3071,7 +3143,7 @@
                             <div class="alr-stat-label">Avg score improvement</div>
                         </div>
                     </div>
-                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred —
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred -
                         available at launch.</p>
                 </div>
                 <div class="alr-categories" style="filter:blur(3px);pointer-events:none;user-select:none;">
@@ -3101,7 +3173,7 @@
                         <div class="alr-cat-icon">🏢</div>
                         <div class="alr-cat-title">Εnt&#x200B;er&#x200B;pr&#x200B;ise Sim&#x200B;ul&#x200B;ations</div>
                         <div class="alr-cat-body">Τ&#x200B;C&#x200B;S, Ω&#x200B;ip&#x200B;ro, Inf&#x200B;ωsys,
-                            Cog&#x200B;ξiz&#x200B;ant, Cap&#x200B;gem&#x200B;ini fr&#x200B;am&#x200B;eworks —
+                            Cog&#x200B;ξiz&#x200B;ant, Cap&#x200B;gem&#x200B;ini fr&#x200B;am&#x200B;eworks -
                             ti&#x200B;med and sc&#x200B;or&#x200B;ed.</div>
                     </div>
                 </div>
@@ -3120,7 +3192,7 @@
                 <p class="cta-sub">Seven tools live today. Three more on the way. One platform your placement cell can
                     rely on from Year 1 to placement day.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" class="btn-amber">Get in Touch</a>
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer" class="btn-amber">Get in Touch</a>
                     <a href="/index.html" class="btn-outline">Back to Overview</a>
                 </div>
             </div>
@@ -3133,7 +3205,6 @@
                 <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
             </a>
         </div>
-        <div class="footer-note">Student Placement Support Suite — Tool Overview</div>
         <div class="footer-note">© 2026 EduPodX · For Institutional Partners</div>
     </footer>
 
@@ -3175,6 +3246,22 @@
                 orb.style.transform = `translateY(${y * [0.12, 0.08, 0.18][i]}px)`;
             });
         });
+
+        const navToggle = document.querySelector('.nav-toggle');
+    const navMenu = document.getElementById('navMenu');
+
+    navToggle.addEventListener('click', () => {
+        navToggle.classList.toggle('active');
+        navMenu.classList.toggle('open');
+    });
+
+    // Close menu on link click (mobile UX)
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navToggle.classList.remove('active');
+            navMenu.classList.remove('open');
+        });
+    });
     </script>
 </body>
 
