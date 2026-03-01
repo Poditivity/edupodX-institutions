@@ -156,72 +156,75 @@
             background: var(--amber2);
             transform: translateY(-1px);
         }
+
         /* ── Hamburger ── */
-.nav-toggle {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    flex-direction: column;
-    gap: 5px;
-}
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
 
-.nav-toggle span {
-    width: 22px;
-    height: 2px;
-    background: var(--navy);
-    transition: all .3s var(--ease2);
-}
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            transition: all .3s var(--ease2);
+        }
 
-/* Mobile / Tablet */
-@media (max-width: 900px) {
-    .nav-toggle {
-        display: flex;
-    }
+        /* Mobile / Tablet */
+        @media (max-width: 900px) {
+            .nav-toggle {
+                display: flex;
+            }
 
-    .nav-right {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(255,255,255,.96);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        gap: 1.2rem;
-        padding: 3.0rem;
-        border-bottom: 1px solid rgba(30,58,95,.08);
-        transform: translateY(-10px);
-        opacity: 0;
-        pointer-events: none;
-        transition: all .3s var(--ease2);
-    }
+            .nav-right {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, .96);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 1.2rem;
+                padding: 3.0rem;
+                border-bottom: 1px solid rgba(30, 58, 95, .08);
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+                transition: all .3s var(--ease2);
+            }
 
-    .nav-right.open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
+            .nav-right.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
 
-    .nav-back {
-        font-size: .95rem;
-    }
+            .nav-back {
+                font-size: .95rem;
+            }
 
-    .nav-cta {
-        width: 100%;
-        text-align: center;
-    }
-}
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
 
-/* Hamburger animation */
-.nav-toggle.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-}
-.nav-toggle.active span:nth-child(2) {
-    opacity: 0;
-}
-.nav-toggle.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-}
+        /* Hamburger animation */
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
 
         /* ── Reveal ── */
         .reveal {
@@ -2342,6 +2345,37 @@
                 text-align: center;
             }
         }
+
+        .logo-stack {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .7rem;
+            color: rgba(255, 255, 255, .6);
+            letter-spacing: .04em;
+        }
+
+        .primary-logo {
+            height: 34px;
+        }
+
+        .parent-logo {
+            height: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-logos .logo-group {
+                gap: .5rem;
+            }
+
+            .footer-logos .primary-logo {
+                height: 30px;
+            }
+
+            .footer-logos .parent-logo {
+                height: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -2349,31 +2383,32 @@
 
     <!-- ── Nav ── -->
     <nav id="nav">
-    <div class="nav-logo">
-        <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-            <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
-        </a>
-    </div>
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
 
-    <!-- Hamburger (NEW) -->
-    <button class="nav-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
+        <!-- Hamburger (NEW) -->
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-    <!-- Menu -->
-    <div class="nav-right" id="navMenu">
-        <a href="/index.html" class="nav-back">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8"
-                    stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            Back to Overview
-        </a>
-        <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a>
-    </div>
-</nav>
+        <!-- Menu -->
+        <div class="nav-right" id="navMenu">
+            <a href="/index.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Back to Overview
+            </a>
+            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get
+                in Touch</a>
+        </div>
+    </nav>
 
     <!-- ── Hero ── -->
     <section id="hero">
@@ -3192,7 +3227,8 @@
                 <p class="cta-sub">Seven tools live today. Three more on the way. One platform your placement cell can
                     rely on from Year 1 to placement day.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer" class="btn-amber">Get in Touch</a>
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer"
+                        class="btn-amber">Get in Touch</a>
                     <a href="/index.html" class="btn-outline">Back to Overview</a>
                 </div>
             </div>
@@ -3200,9 +3236,11 @@
     </section>
 
     <footer>
-        <div class="nav-logo">
-            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+        <div class="nav-logo footer-logos">
+            <a href="/" aria-label="EduPodX Home" class="logo-stack">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" class="logo primary-logo">
+                <span>by</span>
+                <img src="/assets/logo/poditivity.png" alt="Poditivity" class="logo parent-logo">
             </a>
         </div>
         <div class="footer-note">© 2026 EduPodX · For Institutional Partners</div>
@@ -3248,20 +3286,20 @@
         });
 
         const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.getElementById('navMenu');
+        const navMenu = document.getElementById('navMenu');
 
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navMenu.classList.toggle('open');
-    });
-
-    // Close menu on link click (mobile UX)
-    navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            navToggle.classList.remove('active');
-            navMenu.classList.remove('open');
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('open');
         });
-    });
+
+        // Close menu on link click (mobile UX)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+            });
+        });
     </script>
 </body>
 

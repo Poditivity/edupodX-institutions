@@ -1815,6 +1815,37 @@
                 padding: 2rem 1.5rem;
             }
         }
+
+        .logo-stack {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .7rem;
+            color: rgba(255, 255, 255, .6);
+            letter-spacing: .04em;
+        }
+
+        .primary-logo {
+            height: 34px;
+        }
+
+        .parent-logo {
+            height: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-logos .logo-group {
+                gap: .5rem;
+            }
+
+            .footer-logos .primary-logo {
+                height: 30px;
+            }
+
+            .footer-logos .parent-logo {
+                height: 22px;
+            }
+        }
     </style>
 </head>
 
@@ -1833,7 +1864,8 @@
             <li><a href="javascript:void(0)" data-target="clarity">Career Explorer</a></li>
             <li><a href="javascript:void(0)" data-target="platform">Platform</a></li>
             <li><a href="javascript:void(0)" data-target="onboarding">Onboarding</a></li>
-            <li><a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get in Touch</a></li>
+            <li><a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer"
+                    class="nav-cta">Get in Touch</a></li>
         </ul>
     </nav>
     <section id="hero">
@@ -1854,7 +1886,8 @@
                 clarity in Year 1, all the way to verified placements.
             </p>
             <div class="hero-actions">
-                <a href="https://forms.gle/UW667Afmc21yuyyZ8" target="_blank" rel="noopener noreferrer" class="btn-primary">Get in Touch</a>
+                <a href="https://forms.gle/UW667Afmc21yuyyZ8" target="_blank" rel="noopener noreferrer"
+                    class="btn-primary">Get in Touch</a>
                 <a href="#clarity" class="btn-ghost">
                     See Career Explorer
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -2552,7 +2585,8 @@
                     years before placement season, not the three months of it. The colleges that start now will see it
                     in their numbers next year.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="btn-cta-primary">Get in Touch</a>
+                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer"
+                        class="btn-cta-primary">Get in Touch</a>
                     <a href="mailto:contact@edupodx.com" class="btn-cta-outline">Schedule a Demo</a>
                 </div>
                 <div class="cta-contacts">
@@ -2566,9 +2600,11 @@
     </section>
 
     <footer>
-        <div class="nav-logo">
-            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
-                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+        <div class="nav-logo footer-logos">
+            <a href="/" aria-label="EduPodX Home" class="logo-stack">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" class="logo primary-logo">
+                <span>by</span>
+                <img src="/assets/logo/poditivity.png" alt="Poditivity" class="logo parent-logo">
             </a>
         </div>
         <div class="footer-note">From Confused Student to Confident Graduate, Step by Step.</div>
