@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Platform Suite - EduPodX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #1E3A5F;
+            --navy2: #152d4a;
+            --blue: #2563EB;
+            --blue2: #1d4ed8;
+            --teal: #0D9488;
+            --teal2: #0f766e;
+            --amber: #D97706;
+            --amber2: #b45309;
+            --slate: #475569;
+            --light: #EFF6FF;
+            --lgray: #F1F5F9;
+            --mgray: #CBD5E1;
+            --dkgray: #334155;
+            --white: #FFFFFF;
+            --green: #15803D;
+            --lgreen: #DCFCE7;
+            --font-display: 'Fraunces', serif;
+            --font-body: 'DM Sans', sans-serif;
+            --ease: cubic-bezier(.22, .68, 0, 1.2);
+            --ease2: cubic-bezier(.4, 0, .2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dkgray);
+            background: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            opacity: .4;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--lgray);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--amber);
+            border-radius: 99px;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4rem;
+            background: rgba(255, 255, 255, .9);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(30, 58, 95, .08);
+            transition: all .4s var(--ease2);
+        }
+
+        nav.scrolled {
+            padding: .8rem 4rem;
+            box-shadow: 0 4px 40px rgba(30, 58, 95, .08);
+        }
+
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -.02em;
+        }
+
+        .nav-logo span {
+            color: var(--blue);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .nav-back {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            font-size: .875rem;
+            font-weight: 500;
+            color: var(--slate);
+            transition: color .2s;
+        }
+
+        .nav-back:hover {
+            color: var(--navy);
+        }
+
+        .nav-back:hover svg {
+            transform: translateX(-3px);
+        }
+
+        .nav-back svg {
+            transition: transform .2s;
+        }
+
+        .nav-cta {
+            background: var(--amber);
+            color: #fff;
+            padding: .55rem 1.4rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: .875rem;
+            transition: background .2s, transform .2s;
+        }
+
+        .nav-cta:hover {
+            background: var(--amber2);
+            transform: translateY(-1px);
+        }
+
+        /* ── Hamburger ── */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--navy);
+            transition: all .3s var(--ease2);
+        }
+
+        /* Mobile / Tablet */
+        @media (max-width: 900px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-right {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, .96);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 1.2rem;
+                padding: 3.0rem;
+                border-bottom: 1px solid rgba(30, 58, 95, .08);
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+                transition: all .3s var(--ease2);
+            }
+
+            .nav-right.open {
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            .nav-back {
+                font-size: .95rem;
+            }
+
+            .nav-cta {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Hamburger animation */
+        .nav-toggle.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* ── Reveal ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(36px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-36px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(36px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .delay-1 {
+            transition-delay: .1s;
+        }
+
+        .delay-2 {
+            transition-delay: .2s;
+        }
+
+        .delay-3 {
+            transition-delay: .3s;
+        }
+
+        .delay-4 {
+            transition-delay: .4s;
+        }
+
+        /* ── Hero ── */
+        #hero {
+            min-height: 70vh;
+            background: var(--navy);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 9rem 4rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: .18;
+            z-index: 0;
+            animation: float 9s ease-in-out infinite;
+        }
+
+        .orb1 {
+            width: 500px;
+            height: 500px;
+            background: var(--blue);
+            top: -150px;
+            right: -80px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 280px;
+            height: 280px;
+            background: var(--teal);
+            bottom: 60px;
+            left: 100px;
+            animation-delay: -5s;
+        }
+
+        .orb3 {
+            width: 200px;
+            height: 200px;
+            background: var(--amber);
+            top: 35%;
+            left: 50%;
+            animation-delay: -8s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-24px) scale(1.04);
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 960px;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(37, 99, 235, .2);
+            border: 1px solid rgba(37, 99, 235, .35);
+            padding: .4rem 1rem;
+            border-radius: 99px;
+            font-size: .78rem;
+            font-weight: 700;
+            color: #93c5fd;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            animation: fadeUp .8s var(--ease2) .2s forwards;
+        }
+
+        .hero-tag .dot {
+            width: 6px;
+            height: 6px;
+            background: #60a5fa;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1
+            }
+
+            50% {
+                opacity: .3
+            }
+        }
+
+        .hero-h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.8rem, 5.5vw, 5rem);
+            font-weight: 700;
+            line-height: 1.06;
+            color: #fff;
+            letter-spacing: -.03em;
+            margin-bottom: 1.4rem;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .4s forwards;
+        }
+
+        .hero-h1 em {
+            color: #60a5fa;
+            font-style: italic;
+        }
+
+        .hero-sub {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: #94a3b8;
+            max-width: 700px;
+            line-height: 1.75;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .6s forwards;
+        }
+
+        .hero-sub strong {
+            color: #e2e8f0;
+            font-weight: 500;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* tool nav pills */
+        .tool-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .7rem;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeUp .8s var(--ease2) .9s forwards;
+        }
+
+        .pill {
+            padding: .45rem 1rem;
+            border-radius: 99px;
+            font-size: .8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid;
+            transition: all .2s;
+        }
+
+        .pill-active {
+            background: rgba(37, 99, 235, .2);
+            border-color: rgba(37, 99, 235, .4);
+            color: #93c5fd;
+        }
+
+        .pill-active:hover {
+            background: rgba(37, 99, 235, .35);
+        }
+
+        .pill-soon {
+            background: rgba(255, 255, 255, .05);
+            border-color: rgba(255, 255, 255, .12);
+            color: #64748b;
+        }
+
+        .pill-soon .cs-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #f59e0b;
+            margin-right: .4rem;
+        }
+
+        /* ── Section base ── */
+        section {
+            padding: 7rem 4rem;
+        }
+
+        .max-w {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .eyebrow {
+            font-size: .76rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            margin-bottom: .8rem;
+        }
+
+        .eyebrow-amber {
+            color: var(--amber);
+        }
+
+        .eyebrow-teal {
+            color: var(--teal);
+        }
+
+        .eyebrow-green {
+            color: var(--green);
+        }
+
+        .eyebrow-slate {
+            color: var(--slate);
+        }
+
+        .section-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.8vw, 3rem);
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1.12;
+            letter-spacing: -.03em;
+            margin-bottom: 1rem;
+        }
+
+        .section-h2 em {
+            font-style: italic;
+        }
+
+        .em-blue {
+            color: var(--blue);
+        }
+
+        .em-amber {
+            color: var(--amber);
+        }
+
+        .em-teal {
+            color: var(--teal);
+        }
+
+        .em-green {
+            color: var(--green);
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            color: var(--slate);
+            line-height: 1.75;
+            max-width: 640px;
+        }
+
+        /* status badge */
+        .status-live {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .3rem .8rem;
+            border-radius: 99px;
+            background: var(--lgreen);
+            border: 1px solid #bbf7d0;
+            font-size: .74rem;
+            font-weight: 700;
+            color: var(--green);
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+        }
+
+        .status-live .ld {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--green);
+            animation: pulse 2s infinite;
+        }
+
+        .status-soon {
+            display: inline-flex;
+            align-items: center;
+            gap: .45rem;
+            padding: .3rem .8rem;
+            border-radius: 99px;
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+            font-size: .74rem;
+            font-weight: 700;
+            color: #92400e;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            margin-bottom: 1.4rem;
+        }
+
+        .status-soon .sd {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #f59e0b;
+        }
+
+        /* ── Divider ── */
+        .tool-divider {
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--mgray) 20%, var(--mgray) 80%, transparent);
+            margin: 0 4rem;
+        }
+
+        /* ───────────── TOOL SECTIONS ───────────── */
+
+        /* ── GD Coach ── */
+        #gd-coach {
+            background: #fff;
+        }
+
+        .gd-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .gd-visual {
+            position: relative;
+        }
+
+        .gd-screen {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 2rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gd-screen-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(37, 99, 235, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, .07) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .gd-screen-orb {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .15), transparent 70%);
+            top: -80px;
+            right: -60px;
+            border-radius: 50%;
+        }
+
+        .gd-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .gd-header {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            margin-bottom: 1.2rem;
+        }
+
+        .gd-participants {
+            display: flex;
+            gap: .6rem;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+        }
+
+        .gd-p {
+            padding: .35rem .8rem;
+            border-radius: 99px;
+            font-size: .78rem;
+            font-weight: 600;
+        }
+
+        .gd-p-ai {
+            background: rgba(37, 99, 235, .2);
+            border: 1px solid rgba(37, 99, 235, .3);
+            color: #93c5fd;
+        }
+
+        .gd-p-user {
+            background: rgba(13, 148, 136, .2);
+            border: 1px solid rgba(13, 148, 136, .3);
+            color: #5eead4;
+        }
+
+        .gd-bubbles {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .gb {
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            font-size: .83rem;
+            line-height: 1.5;
+        }
+
+        .gb-ai {
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+            color: #cbd5e1;
+        }
+
+        .gb-ai .gb-name {
+            font-size: .7rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: .3rem;
+        }
+
+        .gb-user {
+            background: rgba(13, 148, 136, .15);
+            border: 1px solid rgba(13, 148, 136, .25);
+            color: #e2e8f0;
+        }
+
+        .gb-user .gb-name {
+            font-size: .7rem;
+            font-weight: 700;
+            color: #5eead4;
+            margin-bottom: .3rem;
+        }
+
+        .gd-score-bar {
+            margin-top: 1.2rem;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 10px;
+            padding: .8rem 1rem;
+        }
+
+        .gsb-label {
+            font-size: .72rem;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: .6rem;
+        }
+
+        .gsb-track {
+            height: 8px;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .gsb-fill {
+            height: 100%;
+            background: linear-gradient(to right, var(--blue), var(--teal));
+            border-radius: 99px;
+            width: 0;
+            transition: width 2s var(--ease2);
+        }
+
+        .gsb-val {
+            font-size: .8rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-top: .4rem;
+        }
+
+        .gd-text {}
+
+        .gd-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .feature-pills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem;
+            margin-bottom: 2rem;
+        }
+
+        .fp {
+            padding: .4rem .9rem;
+            border-radius: 8px;
+            font-size: .82rem;
+            font-weight: 600;
+        }
+
+        .fp-blue {
+            background: #dbeafe;
+            color: var(--blue);
+        }
+
+        .fp-teal {
+            background: #ccfbf1;
+            color: var(--teal);
+        }
+
+        .fp-amber {
+            background: #fef3c7;
+            color: var(--amber);
+        }
+
+        .fp-green {
+            background: var(--lgreen);
+            color: var(--green);
+        }
+
+        .result-callout {
+            background: var(--lgray);
+            border-left: 4px solid var(--blue);
+            border-radius: 0 12px 12px 0;
+            padding: 1.2rem 1.5rem;
+        }
+
+        .rc-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--blue);
+            margin-bottom: .4rem;
+        }
+
+        .rc-text {
+            font-size: .95rem;
+            color: var(--dkgray);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* ── VoiceUp & ProWrite ── */
+        #voiceup {
+            background: var(--lgray);
+        }
+
+        .vp-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .vp-card {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform .3s var(--ease2), box-shadow .3s;
+        }
+
+        .vp-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 24px 50px rgba(30, 58, 95, .08);
+        }
+
+        .vp-card-header {
+            padding: 2rem;
+            border-bottom: 1px solid var(--lgray);
+        }
+
+        .vp-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .vp-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: .6rem;
+        }
+
+        .vp-sub {
+            font-size: .9rem;
+            color: var(--slate);
+            line-height: 1.65;
+        }
+
+        .vp-card-body {
+            padding: 2rem;
+        }
+
+        /* VoiceUp scenarios */
+        .scenario-list {
+            display: flex;
+            flex-direction: column;
+            gap: .8rem;
+        }
+
+        .scenario {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: .9rem 1rem;
+            background: var(--lgray);
+            border-radius: 10px;
+            transition: background .2s, transform .2s;
+            cursor: default;
+        }
+
+        .scenario:hover {
+            background: #e2e8f0;
+            transform: translateX(4px);
+        }
+
+        .sc-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .sc-text {
+            font-size: .88rem;
+            color: var(--dkgray);
+        }
+
+        .sc-time {
+            margin-left: auto;
+            font-size: .78rem;
+            font-weight: 700;
+            color: var(--teal);
+            background: #ccfbf1;
+            padding: .2rem .6rem;
+            border-radius: 99px;
+            flex-shrink: 0;
+        }
+
+        /* ProWrite demo */
+        .pw-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .pw-box {
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+        }
+
+        .pw-box-before {
+            background: #fff5f5;
+            border: 1px solid #fecaca;
+        }
+
+        .pw-box-after {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+        }
+
+        .pw-box-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            margin-bottom: .5rem;
+        }
+
+        .pw-box-before .pw-box-label {
+            color: #dc2626;
+        }
+
+        .pw-box-after .pw-box-label {
+            color: var(--green);
+        }
+
+        .pw-box-text {
+            font-size: .88rem;
+            line-height: 1.6;
+        }
+
+        .pw-box-before .pw-box-text {
+            color: #7f1d1d;
+            font-style: italic;
+        }
+
+        .pw-box-after .pw-box-text {
+            color: #14532d;
+        }
+
+        .pw-arrow {
+            text-align: center;
+            font-size: 1.4rem;
+            color: var(--mgray);
+        }
+
+        .vp-result {
+            margin-top: 1.5rem;
+            background: var(--lgray);
+            border-radius: 10px;
+            padding: 1rem 1.2rem;
+            font-size: .88rem;
+        }
+
+        .vp-result-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: .3rem;
+        }
+
+        .vp-result-text {
+            color: var(--dkgray);
+            font-weight: 500;
+        }
+
+        /* ── ALR ── */
+        #alr {
+            background: #fff;
+        }
+
+        .alr-grid {
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .alr-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .alr-cat {
+            background: var(--lgray);
+            border: 1px solid var(--mgray);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: transform .3s var(--ease2), background .3s;
+        }
+
+        .alr-cat:hover {
+            transform: translateY(-3px);
+            background: #e8f0fe;
+        }
+
+        .alr-cat-icon {
+            font-size: 1.8rem;
+            margin-bottom: .8rem;
+        }
+
+        .alr-cat-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .95rem;
+            margin-bottom: .4rem;
+        }
+
+        .alr-cat-body {
+            font-size: .82rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .alr-stat-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .alr-stat {
+            flex: 1;
+            background: var(--lgray);
+            border-radius: 12px;
+            padding: 1.2rem;
+            text-align: center;
+        }
+
+        .alr-stat-num {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--blue);
+            letter-spacing: -.03em;
+        }
+
+        .alr-stat-label {
+            font-size: .8rem;
+            color: var(--slate);
+            margin-top: .3rem;
+        }
+
+        .alr-text {}
+
+        .alr-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .alr-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .alr-step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .alr-step-num {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #dbeafe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .85rem;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .alr-step-body {
+            font-size: .9rem;
+            color: var(--dkgray);
+            line-height: 1.6;
+            padding-top: .3rem;
+        }
+
+        /* ── College Dashboard ── */
+        #dashboard {
+            background: var(--lgray);
+        }
+
+        .dash-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .dash-visual {}
+
+        .dash-screen {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(30, 58, 95, .1);
+        }
+
+        .dash-topbar {
+            background: var(--navy);
+            padding: 1rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+        }
+
+        .dash-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .d1 {
+            background: #ff5f57
+        }
+
+        .d2 {
+            background: #febc2e
+        }
+
+        .d3 {
+            background: #28c840
+        }
+
+        .dash-title {
+            font-size: .78rem;
+            font-weight: 600;
+            color: #94a3b8;
+            margin-left: .5rem;
+        }
+
+        .dash-body {
+            padding: 1.5rem;
+        }
+
+        .dash-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: .8rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .dm {
+            background: var(--lgray);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .dm-num {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -.02em;
+        }
+
+        .dm-label {
+            font-size: .72rem;
+            color: var(--slate);
+            margin-top: .2rem;
+        }
+
+        .dm-blue .dm-num {
+            color: var(--blue);
+        }
+
+        .dm-teal .dm-num {
+            color: var(--teal);
+        }
+
+        .dm-amber .dm-num {
+            color: var(--amber);
+        }
+
+        .dash-alert {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            padding: .8rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            margin-bottom: 1rem;
+        }
+
+        .da-icon {
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .da-text {
+            font-size: .82rem;
+            color: #991b1b;
+            line-height: 1.4;
+        }
+
+        .dash-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dash-table th {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--slate);
+            padding: .5rem .8rem;
+            text-align: left;
+            border-bottom: 1px solid var(--lgray);
+        }
+
+        .dash-table td {
+            font-size: .82rem;
+            padding: .6rem .8rem;
+            border-bottom: 1px solid var(--lgray);
+            color: var(--dkgray);
+        }
+
+        .dash-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .prog-bar {
+            height: 6px;
+            background: var(--lgray);
+            border-radius: 99px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            border-radius: 99px;
+        }
+
+        .pf-green {
+            background: var(--teal);
+        }
+
+        .pf-amber {
+            background: var(--amber);
+        }
+
+        .pf-red {
+            background: #dc2626;
+        }
+
+        .dash-text {}
+
+        .dash-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .dash-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .df {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 12px;
+            padding: 1.1rem 1.3rem;
+            transition: transform .3s var(--ease2);
+        }
+
+        .df:hover {
+            transform: translateX(4px);
+        }
+
+        .df-icon {
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .df-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .92rem;
+            margin-bottom: .2rem;
+        }
+
+        .df-body {
+            font-size: .85rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        /* ── Recruiter Portal ── */
+        #recruiter {
+            background: var(--navy);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .rec-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+
+        .rec-orb1 {
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(13, 148, 136, .12), transparent 70%);
+            top: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .rec-orb2 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .1), transparent 70%);
+            bottom: -50px;
+            left: 100px;
+            border-radius: 50%;
+        }
+
+        .rec-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .rec-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 3.8vw, 3rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.12;
+            letter-spacing: -.03em;
+            margin-bottom: 1rem;
+        }
+
+        .rec-h2 em {
+            color: #5eead4;
+            font-style: italic;
+        }
+
+        .rec-sub {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            line-height: 1.75;
+            max-width: 640px;
+            margin-bottom: 3.5rem;
+        }
+
+        .rec-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .rec-stat {}
+
+        .rec-stat-num {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -.03em;
+            line-height: 1;
+        }
+
+        .rec-stat-num span {
+            color: #5eead4;
+        }
+
+        .rec-stat-label {
+            font-size: .85rem;
+            color: #64748b;
+            margin-top: .3rem;
+        }
+
+        .rec-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 5rem;
+        }
+
+        .rf {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 16px;
+            padding: 1.8rem;
+            transition: background .3s, transform .3s;
+        }
+
+        .rf:hover {
+            background: rgba(255, 255, 255, .09);
+            transform: translateY(-4px);
+        }
+
+        .rf-icon {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .rf-title {
+            font-weight: 700;
+            color: #e2e8f0;
+            font-size: .95rem;
+            margin-bottom: .5rem;
+        }
+
+        .rf-body {
+            font-size: .87rem;
+            color: #64748b;
+            line-height: 1.65;
+        }
+
+        /* Recruiter scroll */
+        .rec-scroll-section {}
+
+        .rec-scroll-label {
+            font-size: .76rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: #475569;
+            margin-bottom: 1.5rem;
+        }
+
+        .rec-scroll-track {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .rec-scroll-track::before,
+        .rec-scroll-track::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 120px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .rec-scroll-track::before {
+            left: 0;
+            background: linear-gradient(to right, var(--navy), transparent);
+        }
+
+        .rec-scroll-track::after {
+            right: 0;
+            background: linear-gradient(to left, var(--navy), transparent);
+        }
+
+        .rec-scroll-inner {
+            display: flex;
+            gap: 1.2rem;
+            width: max-content;
+            animation: scrollLeft 30s linear infinite;
+        }
+
+        .rec-scroll-inner:hover {
+            animation-play-state: paused;
+        }
+
+        .recruiter-card {
+            width: 180px;
+            height: 100px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .1);
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            transition: background .3s, border-color .3s, transform .3s;
+            cursor: default;
+            overflow: hidden;
+        }
+
+        .recruiter-card:hover {
+            background: rgba(255, 255, 255, .12);
+            border-color: rgba(255, 255, 255, .25);
+            transform: scale(1.04);
+        }
+
+        .recruiter-card img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            opacity: .5;
+            transition: opacity .3s;
+        }
+
+        .recruiter-card:hover img {
+            opacity: .85;
+        }
+
+        .recruiter-card-placeholder {
+            font-size: .8rem;
+            font-weight: 600;
+            color: #475569;
+            text-align: center;
+            letter-spacing: .04em;
+        }
+
+        @keyframes scrollLeft {
+            0% {
+                transform: translateX(0)
+            }
+
+            100% {
+                transform: translateX(-50%)
+            }
+        }
+
+        /* ── Skill Verification - Coming Soon ── */
+        #skill-verify {
+            background: var(--lgray);
+        }
+
+        .sv-coming-soon {}
+
+        .sv-cs-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .sv-left {}
+
+        .sv-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .sv-levels {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sv-level {
+            display: flex;
+            gap: 1.2rem;
+            align-items: flex-start;
+            padding: 1.2rem 1.4rem;
+            border-radius: 14px;
+            border: 1px solid var(--mgray);
+            background: #fff;
+            filter: blur(2px);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .sv-level-badge {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: .85rem;
+            flex-shrink: 0;
+        }
+
+        .svl1 .sv-level-badge {
+            background: #dbeafe;
+            color: var(--blue);
+        }
+
+        .svl2 .sv-level-badge {
+            background: #ccfbf1;
+            color: var(--teal);
+        }
+
+        .svl3 .sv-level-badge {
+            background: #fef3c7;
+            color: var(--amber);
+        }
+
+        .sv-level-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .92rem;
+            margin-bottom: .3rem;
+        }
+
+        .sv-level-body {
+            font-size: .85rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .sv-right {}
+
+        .sv-cs-card {
+            background: var(--navy);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sv-cs-orb {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .15), transparent 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50%;
+        }
+
+        .sv-cs-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .sv-cs-icon {
+            font-size: 4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .sv-cs-title {
+            font-family: var(--font-display);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .8rem;
+        }
+
+        .sv-cs-body {
+            font-size: .95rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .sv-notify-form {
+            display: flex;
+            gap: .6rem;
+        }
+
+        .sv-notify-input {
+            flex: 1;
+            padding: .7rem 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, .15);
+            background: rgba(255, 255, 255, .08);
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: .88rem;
+            outline: none;
+            transition: border-color .2s;
+        }
+
+        .sv-notify-input::placeholder {
+            color: #475569;
+        }
+
+        .sv-notify-input:focus {
+            border-color: var(--amber);
+        }
+
+        .sv-notify-btn {
+            padding: .7rem 1.2rem;
+            background: var(--amber);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: .85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            font-family: var(--font-body);
+            transition: background .2s;
+        }
+
+        .sv-notify-btn:hover {
+            background: var(--amber2);
+        }
+
+        /* ── TechFluent - Coming Soon ── */
+        #techfluent {
+            background: #fff;
+        }
+
+        .tf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .tf-left {}
+
+        .tf-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .tf-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            filter: blur(3px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .tf-prev-card {
+            background: var(--lgray);
+            border: 1px solid var(--mgray);
+            border-radius: 14px;
+            padding: 1.2rem;
+        }
+
+        .tf-prev-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .9rem;
+            margin-bottom: .4rem;
+        }
+
+        .tf-prev-body {
+            font-size: .83rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .tf-right {}
+
+        .tf-cs-card {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2440 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tf-cs-orb {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(13, 148, 136, .15), transparent 70%);
+            bottom: -80px;
+            right: -60px;
+            border-radius: 50%;
+        }
+
+        .tf-cs-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .tf-cs-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .tf-cs-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .8rem;
+        }
+
+        .tf-cs-body {
+            font-size: .93rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.8rem;
+        }
+
+        .tf-eta {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(13, 148, 136, .15);
+            border: 1px solid rgba(13, 148, 136, .3);
+            padding: .5rem 1.2rem;
+            border-radius: 99px;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #5eead4;
+        }
+
+        /* ── Mentor Connect - Coming Soon ── */
+        #mentor {
+            background: var(--lgray);
+        }
+
+        .mc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .mc-left {}
+
+        .mc-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .mc-preview {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: .8rem;
+            filter: blur(3px);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .mc-prev-card {
+            background: #fff;
+            border: 1px solid var(--mgray);
+            border-radius: 14px;
+            padding: 1.2rem;
+        }
+
+        .mc-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            margin-bottom: .8rem;
+        }
+
+        .mc-prev-name {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .88rem;
+        }
+
+        .mc-prev-role {
+            font-size: .78rem;
+            color: var(--slate);
+            margin-top: .2rem;
+        }
+
+        .mc-prev-tags {
+            display: flex;
+            gap: .4rem;
+            flex-wrap: wrap;
+            margin-top: .7rem;
+        }
+
+        .mc-tag {
+            font-size: .7rem;
+            font-weight: 600;
+            padding: .2rem .5rem;
+            border-radius: 4px;
+            background: var(--lgray);
+            color: var(--slate);
+        }
+
+        .mc-right {}
+
+        .mc-cs-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, var(--navy) 100%);
+            border-radius: 24px;
+            padding: 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mc-cs-orb {
+            position: absolute;
+            width: 280px;
+            height: 280px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .15), transparent 70%);
+            top: -80px;
+            right: -60px;
+            border-radius: 50%;
+        }
+
+        .mc-cs-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .mc-cs-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .mc-cs-title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: .8rem;
+        }
+
+        .mc-cs-body {
+            font-size: .93rem;
+            color: #94a3b8;
+            line-height: 1.7;
+            margin-bottom: 1.8rem;
+        }
+
+        .mc-eta {
+            display: inline-flex;
+            align-items: center;
+            gap: .6rem;
+            background: rgba(37, 99, 235, .15);
+            border: 1px solid rgba(37, 99, 235, .3);
+            padding: .5rem 1.2rem;
+            border-radius: 99px;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #93c5fd;
+        }
+
+        /* ── NAAC Export ── */
+        #naac {
+            background: #fff;
+        }
+
+        .naac-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .naac-left {}
+
+        .naac-desc {
+            font-size: 1.05rem;
+            color: var(--dkgray);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .naac-crit {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .nc {
+            background: var(--lgray);
+            border: 1px solid var(--mgray);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+            transition: transform .3s var(--ease2);
+        }
+
+        .nc:hover {
+            transform: translateX(4px);
+        }
+
+        .nc-badge {
+            padding: .3rem .7rem;
+            border-radius: 6px;
+            font-size: .75rem;
+            font-weight: 700;
+            background: #dbeafe;
+            color: var(--blue);
+            flex-shrink: 0;
+        }
+
+        .nc-title {
+            font-weight: 700;
+            color: var(--navy);
+            font-size: .92rem;
+            margin-bottom: .2rem;
+        }
+
+        .nc-body {
+            font-size: .83rem;
+            color: var(--slate);
+            line-height: 1.5;
+        }
+
+        .naac-right {}
+
+        .naac-visual {
+            background: var(--navy);
+            border-radius: 20px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .naac-visual-bg {
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(37, 99, 235, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, .06) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .naac-visual-orb {
+            position: absolute;
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .15), transparent 70%);
+            top: -80px;
+            right: -60px;
+            border-radius: 50%;
+        }
+
+        .naac-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .naac-export-label {
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: #60a5fa;
+            margin-bottom: 1.2rem;
+        }
+
+        .naac-fields {
+            display: flex;
+            flex-direction: column;
+            gap: .7rem;
+        }
+
+        .nf {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .08);
+            border-radius: 8px;
+            padding: .7rem 1rem;
+        }
+
+        .nf-key {
+            font-size: .82rem;
+            color: #94a3b8;
+        }
+
+        .nf-val {
+            font-size: .82rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        .nf-badge {
+            font-size: .72rem;
+            font-weight: 700;
+            padding: .2rem .5rem;
+            border-radius: 4px;
+        }
+
+        .nf-ready {
+            background: rgba(13, 148, 136, .2);
+            color: #5eead4;
+        }
+
+        .nf-auto {
+            background: rgba(37, 99, 235, .2);
+            color: #93c5fd;
+        }
+
+        .naac-export-btn {
+            margin-top: 1.5rem;
+            width: 100%;
+            padding: .85rem;
+            background: var(--blue);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: .9rem;
+            cursor: pointer;
+            font-family: var(--font-body);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .6rem;
+            transition: background .2s;
+        }
+
+        .naac-export-btn:hover {
+            background: var(--blue2);
+        }
+
+        /* ── CTA ── */
+        #cta {
+            background: linear-gradient(135deg, var(--navy) 0%, #0f2440 100%);
+            padding: 8rem 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-orb1 {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(217, 119, 6, .12), transparent 70%);
+            top: -150px;
+            left: -150px;
+            border-radius: 50%;
+        }
+
+        .cta-orb2 {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(37, 99, 235, .1), transparent 70%);
+            bottom: -100px;
+            right: -100px;
+            border-radius: 50%;
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.08;
+            letter-spacing: -.03em;
+            margin-bottom: 1.2rem;
+        }
+
+        .cta-h2 em {
+            color: #fcd34d;
+            font-style: italic;
+        }
+
+        .cta-sub {
+            font-size: 1.05rem;
+            color: #94a3b8;
+            margin-bottom: 3rem;
+            line-height: 1.7;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-amber {
+            background: var(--amber);
+            color: #fff;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+        }
+
+        .btn-amber:hover {
+            background: var(--amber2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(217, 119, 6, .4);
+        }
+
+        .btn-outline {
+            border: 2px solid rgba(255, 255, 255, .2);
+            color: #e2e8f0;
+            padding: 1rem 2.2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all .25s var(--ease2);
+        }
+
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, .6);
+            color: #fff;
+        }
+
+        footer {
+            background: #0a1929;
+            padding: 2.5rem 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, .05);
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .footer-logo span {
+            color: #60a5fa;
+        }
+
+        .footer-note {
+            font-size: .82rem;
+            color: #334155;
+        }
+
+        /* Mobile */
+        @media(max-width:900px) {
+            nav {
+                padding: 1rem 1.5rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            #hero {
+                padding: 8rem 1.5rem 5rem;
+            }
+
+            .tool-divider {
+                margin: 0 1.5rem;
+            }
+
+            .gd-grid,
+            .vp-grid,
+            .alr-grid,
+            .dash-grid,
+            .sv-cs-wrapper,
+            .tf-grid,
+            .mc-grid,
+            .naac-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .rec-features {
+                grid-template-columns: 1fr;
+            }
+
+            .alr-categories {
+                grid-template-columns: 1fr;
+            }
+
+            .mc-preview {
+                grid-template-columns: 1fr;
+            }
+
+            .dash-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        .logo-stack {
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            font-size: .7rem;
+            color: rgba(255, 255, 255, .6);
+            letter-spacing: .04em;
+        }
+
+        .primary-logo {
+            height: 34px;
+        }
+
+        .parent-logo {
+            height: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .footer-logos .logo-group {
+                gap: .5rem;
+            }
+
+            .footer-logos .primary-logo {
+                height: 30px;
+            }
+
+            .footer-logos .parent-logo {
+                height: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── Nav ── -->
+    <nav id="nav">
+        <div class="nav-logo">
+            <a href="/" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
+            </a>
+        </div>
+
+        <!-- Hamburger (NEW) -->
+        <button class="nav-toggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <!-- Menu -->
+        <div class="nav-right" id="navMenu">
+            <a href="/institutions/home.html" class="nav-back">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                Back to Overview
+            </a>
+            <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer" class="nav-cta">Get
+                in Touch</a>
+        </div>
+    </nav>
+
+    <!-- ── Hero ── -->
+    <section id="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-orb orb1"></div>
+        <div class="hero-orb orb2"></div>
+        <div class="hero-orb orb3"></div>
+        <div class="hero-inner max-w">
+            <div class="hero-tag">
+                <div class="dot"></div>Student Placement Support Suite
+            </div>
+            <h1 class="hero-h1">Every tool your students need.<br><em>One integrated platform.</em></h1>
+            <p class="hero-sub">From the moment a student enters college to the day they receive an offer letter,
+                EduPodX has a purpose-built tool for every step of that journey. <strong>No gaps. No guesswork. No
+                    coaching centre required.</strong></p>
+            <div class="tool-pills">
+                <a href="#gd-coach" class="pill pill-active">GD Coach</a>
+                <a href="#voiceup" class="pill pill-active">VoiceUp</a>
+                <a href="#voiceup" class="pill pill-active">ProWrite</a>
+                <a href="#dashboard" class="pill pill-active">College Dashboard</a>
+                <a href="#recruiter" class="pill pill-active">Recruiter Portal</a>
+                <a href="#naac" class="pill pill-active">NAAC Export</a>
+                <a href="#skill-verify" class="pill pill-soon"><span class="cs-dot"></span>Skill Verification</a>
+                <a href="#techfluent" class="pill pill-soon"><span class="cs-dot"></span>TechFluent</a>
+                <a href="#mentor" class="pill pill-soon"><span class="cs-dot"></span>Mentor Connect</a>
+                <a href="#alr" class="pill pill-soon"><span class="cs-dot"></span>ALR</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── GD Coach ── -->
+    <section id="gd-coach">
+        <div class="max-w">
+            <div class="gd-grid">
+                <div class="gd-text reveal-left">
+                    <div class="status-live">
+                        <div class="ld"></div>Live
+                    </div>
+                    <div class="eyebrow">01 - GD Coach</div>
+                    <h2 class="section-h2">The closest thing to a <em class="em-blue">real Group Discussion.</em></h2>
+                    <p class="gd-desc">GD Coach simulates a live group discussion with multiple AI participants who
+                        interrupt, challenge, dominate, and push back - exactly like the recruiters your students will
+                        face. Students practice any time, for as many sessions as they need, and receive a performance
+                        score after every round.</p>
+                    <div class="feature-pills-row">
+                        <span class="fp fp-blue">Unlimited sessions</span>
+                        <span class="fp fp-teal">AI interruptions</span>
+                        <span class="fp fp-amber">Scored performance</span>
+                        <span class="fp fp-green">Industry topics</span>
+                    </div>
+                    <div class="result-callout">
+                        <div class="rc-label">Placement Impact</div>
+                        <div class="rc-text">GD pass rate improves visibly within one semester of consistent practice.
+                            Colleges report 30-45% improvement in first-round GD clearance after 10+ sessions per
+                            student.</div>
+                    </div>
+                </div>
+                <div class="gd-visual reveal-right">
+                    <div class="gd-screen">
+                        <div class="gd-screen-bg"></div>
+                        <div class="gd-screen-orb"></div>
+                        <div class="gd-inner">
+                            <div class="gd-header">Live GD Simulation - Round 7</div>
+                            <div class="gd-participants">
+                                <span class="gd-p gd-p-ai">AI Participant 1</span>
+                                <span class="gd-p gd-p-ai">AI Participant 2</span>
+                                <span class="gd-p gd-p-ai">AI Participant 3</span>
+                                <span class="gd-p gd-p-user">You</span>
+                            </div>
+                            <div class="gd-bubbles">
+                                <div class="gb gb-ai">
+                                    <div class="gb-name">AI - Priya</div>
+                                    Climate change policy requires immediate corporate accountability, not just
+                                    government regulation. The private sector needs binding emission targets now.
+                                </div>
+                                <div class="gb gb-ai">
+                                    <div class="gb-name">AI - Rahul (interrupting)</div>
+                                    But without incentives, mandating targets only pushes companies offshore-
+                                </div>
+                                <div class="gb gb-user">
+                                    <div class="gb-name">You (speaking)</div>
+                                    Both perspectives have merit, but the data shows that hybrid models with short-term
+                                    targets and tax incentives have produced the fastest results in Germany and Japan...
+                                </div>
+                            </div>
+                            <div class="gd-score-bar">
+                                <div class="gsb-label">Confidence Score - This Session</div>
+                                <div class="gsb-track">
+                                    <div class="gsb-fill" id="gd-score-fill" data-width="74"></div>
+                                </div>
+                                <div class="gsb-val">7.4 / 10 (+1.2 from last session)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── VoiceUp & ProWrite ── -->
+    <section id="voiceup">
+        <div class="max-w">
+            <div class="reveal" style="margin-bottom:3rem;">
+                <div class="status-live">
+                    <div class="ld"></div>Live
+                </div>
+                <div class="eyebrow eyebrow-teal">02 - VoiceUp & ProWrite</div>
+                <h2 class="section-h2">Remove the language barrier <em class="em-teal">completely.</em></h2>
+                <p class="section-sub">Two tools that address the two most common language-related placement failures:
+                    fear of speaking and inability to write professionally.</p>
+            </div>
+            <div class="vp-grid">
+                <!-- VoiceUp -->
+                <div class="vp-card reveal-left">
+                    <div class="vp-card-header">
+                        <div class="vp-icon">🎙️</div>
+                        <div class="vp-title">VoiceUp</div>
+                        <div class="vp-sub">60-second rehearsal environments for the moments that terrify students most.
+                            Practice until the fear becomes muscle memory.</div>
+                    </div>
+                    <div class="vp-card-body">
+                        <div class="scenario-list">
+                            <div class="scenario">
+                                <div class="sc-icon">👤</div>
+                                <div class="sc-text">"Tell me about yourself"</div>
+                                <div class="sc-time">60 sec</div>
+                            </div>
+                            <div class="scenario">
+                                <div class="sc-icon">💡</div>
+                                <div class="sc-text">"Pitch your startup idea"</div>
+                                <div class="sc-time">90 sec</div>
+                            </div>
+                            <div class="scenario">
+                                <div class="sc-icon">🙋</div>
+                                <div class="sc-text">"Ask a question to the panel"</div>
+                                <div class="sc-time">30 sec</div>
+                            </div>
+                            <div class="scenario">
+                                <div class="sc-icon">🏢</div>
+                                <div class="sc-text">"Why do you want this company?"</div>
+                                <div class="sc-time">60 sec</div>
+                            </div>
+                        </div>
+                        <div class="vp-result">
+                            <div class="vp-result-label">Student Outcome</div>
+                            <div class="vp-result-text">40% of students report reduced interview anxiety after 10
+                                VoiceUp sessions.</div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ProWrite -->
+                <div class="vp-card reveal-right">
+                    <div class="vp-card-header">
+                        <div class="vp-icon">✍️</div>
+                        <div class="vp-title">ProWrite</div>
+                        <div class="vp-sub">Transforms broken English into professional communication instantly. No
+                            embarrassment. No judgment. Just the polished output students need.</div>
+                    </div>
+                    <div class="vp-card-body">
+                        <div class="pw-demo">
+                            <div class="pw-box pw-box-before">
+                                <div class="pw-box-label">Student types</div>
+                                <div class="pw-box-text">"sir i want internship plz give me opportunity i am hardworking
+                                    student"</div>
+                            </div>
+                            <div class="pw-arrow">↓</div>
+                            <div class="pw-box pw-box-after">
+                                <div class="pw-box-label">ProWrite outputs</div>
+                                <div class="pw-box-text">"Respected Sir, I hope this message finds you well. I am
+                                    writing to express my keen interest in an internship opportunity at your
+                                    organisation. I am a highly motivated student with a strong work ethic, and I would
+                                    welcome the opportunity to contribute meaningfully to your team."</div>
+                            </div>
+                        </div>
+                        <div class="vp-result" style="margin-top:1.2rem;">
+                            <div class="vp-result-label">Student Outcome</div>
+                            <div class="vp-result-text">Language stops being the ceiling for your students' professional
+                                potential.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <div class="tool-divider"></div>
+
+    <!-- ── College Dashboard ── -->
+    <section id="dashboard">
+        <div class="max-w">
+            <div class="dash-grid">
+                <div class="dash-visual reveal-left">
+                    <div class="dash-screen">
+                        <div class="dash-topbar">
+                            <div class="dash-dot d1"></div>
+                            <div class="dash-dot d2"></div>
+                            <div class="dash-dot d3"></div>
+                            <div class="dash-title">EduPodX College Dashboard</div>
+                        </div>
+                        <div class="dash-body">
+                            <div class="dash-metrics">
+                                <div class="dm dm-blue">
+                                    <div class="dm-num">312</div>
+                                    <div class="dm-label">Active Students</div>
+                                </div>
+                                <div class="dm dm-teal">
+                                    <div class="dm-num">67%</div>
+                                    <div class="dm-label">Placement Ready</div>
+                                </div>
+                                <div class="dm dm-amber">
+                                    <div class="dm-num">14</div>
+                                    <div class="dm-label">At Risk</div>
+                                </div>
+                            </div>
+                            <div class="dash-alert">
+                                <div class="da-icon">⚠️</div>
+                                <div class="da-text">14 students have not completed GD Coach in the last 30 days.
+                                    Placement season is 8 weeks away.</div>
+                            </div>
+                            <table class="dash-table">
+                                <thead>
+                                    <tr>
+                                        <th>Student</th>
+                                        <th>GD Score</th>
+                                        <th>Progress</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Ananya R.</td>
+                                        <td>8.1</td>
+                                        <td>
+                                            <div class="prog-bar">
+                                                <div class="prog-fill pf-green" style="width:81%"></div>
+                                            </div>
+                                        </td>
+                                        <td style="color:var(--green);font-weight:600;">Ready</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rohan M.</td>
+                                        <td>6.4</td>
+                                        <td>
+                                            <div class="prog-bar">
+                                                <div class="prog-fill pf-amber" style="width:64%"></div>
+                                            </div>
+                                        </td>
+                                        <td style="color:var(--amber);font-weight:600;">In Progress</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Priya K.</td>
+                                        <td>3.2</td>
+                                        <td>
+                                            <div class="prog-bar">
+                                                <div class="prog-fill pf-red" style="width:32%"></div>
+                                            </div>
+                                        </td>
+                                        <td style="color:#dc2626;font-weight:600;">At Risk</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="dash-text reveal-right">
+                    <div class="status-live">
+                        <div class="ld"></div>Live
+                    </div>
+                    <div class="eyebrow eyebrow-amber">04 - College Dashboard</div>
+                    <h2 class="section-h2">Your placement cell, <em class="em-amber">finally empowered.</em></h2>
+                    <p class="dash-desc">Track every student's career readiness score in real time. See GD practice
+                        frequency, skill completion rates, and application activity across your entire batch. Automated
+                        early-warning alerts flag at-risk students weeks before the semester ends, not after.</p>
+                    <div class="dash-features">
+                        <div class="df">
+                            <div class="df-icon">📊</div>
+                            <div>
+                                <div class="df-title">Real-time Readiness Scores</div>
+                                <div class="df-body">Every student ranked by placement readiness. Filter by department,
+                                    year, or risk level.</div>
+                            </div>
+                        </div>
+                        <div class="df">
+                            <div class="df-icon">🔔</div>
+                            <div>
+                                <div class="df-title">Automated Early-Warning Alerts</div>
+                                <div class="df-body">Get notified before a student falls too far behind. Not after the
+                                    first company drive fails.</div>
+                            </div>
+                        </div>
+                        <div class="df">
+                            <div class="df-icon">📋</div>
+                            <div>
+                                <div class="df-title">Recruiter Activity Tracker</div>
+                                <div class="df-body">See which companies have viewed your students' profiles and when
+                                    they last engaged.</div>
+                            </div>
+                        </div>
+                        <div class="df">
+                            <div class="df-icon">📤</div>
+                            <div>
+                                <div class="df-title">One-Click NAAC Export</div>
+                                <div class="df-body">Criterion 5.2 & 5.3 placement data auto-formatted for your IQAC
+                                    coordinator.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── Recruiter Portal ── -->
+    <section id="recruiter">
+        <div class="rec-bg"></div>
+        <div class="rec-orb1"></div>
+        <div class="rec-orb2"></div>
+        <div class="rec-inner max-w">
+            <div class="reveal">
+                <div class="status-live"
+                    style="background:rgba(94,234,212,.1);border-color:rgba(94,234,212,.25);color:#5eead4;">
+                    <div class="ld" style="background:#5eead4;"></div>Live
+                </div>
+                <div class="eyebrow eyebrow-teal">05 - Recruiter Portal</div>
+                <h2 class="rec-h2">Give companies a reason<br><em>to return every year.</em></h2>
+                <p class="rec-sub">Recruiters see verified candidate profiles with GD confidence scores, demonstrated
+                    skills, and career clarity indicators. They shortlist 60% faster. They trust your campus more.
+                    Companies that find quality hires return next year.</p>
+            </div>
+            <div class="rec-stats reveal">
+                <div class="rec-stat">
+                    <div class="rec-stat-num">60<span>%</span></div>
+                    <div class="rec-stat-label">Faster shortlisting for recruiters</div>
+                </div>
+                <div class="rec-stat">
+                    <div class="rec-stat-num">3<span>x</span></div>
+                    <div class="rec-stat-label">Higher offer-to-acceptance rate</div>
+                </div>
+                <div class="rec-stat">
+                    <div class="rec-stat-num">0</div>
+                    <div class="rec-stat-label">Fake or unverified claims</div>
+                </div>
+            </div>
+            <div class="rec-features reveal">
+                <div class="rf">
+                    <div class="rf-icon">✅</div>
+                    <div class="rf-title">Verified Candidate Profiles</div>
+                    <div class="rf-body">Every skill on a student's profile is either self-declared with proof,
+                        live-demonstrated, or mentor-endorsed. Recruiters know exactly what they're getting.</div>
+                </div>
+                <div class="rf">
+                    <div class="rf-icon">🎯</div>
+                    <div class="rf-title">Smart Candidate Matching</div>
+                    <div class="rf-body">Recruiters filter by GD score, skill set, career path, and communication level.
+                        Shortlisting that used to take days now takes minutes.</div>
+                </div>
+                <div class="rf">
+                    <div class="rf-icon">📬</div>
+                    <div class="rf-title">Direct Outreach & Job Posting</div>
+                    <div class="rf-body">Post roles directly to EduPodX's student pool. Reach students who have already
+                        proven they're placement-ready, not just applied.</div>
+                </div>
+            </div>
+
+            <!-- Scrolling recruiter logos -->
+            <!-- <div class="rec-scroll-section reveal">
+                <div class="rec-scroll-label">Partnered Recruiters</div>
+                <div class="rec-scroll-track">
+                    <div class="rec-scroll-inner" id="recruiter-scroll">
+                        set 1
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">TCS</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Infosys</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Wipro</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Mphasis</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Capgemini</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Cognizant</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">HCL Tech</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">L&T Infotech</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Tech Mahindra</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Accenture</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Hexaware</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Persistent</div>
+                        </div>
+            
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">TCS</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Infosys</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Wipro</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Mphasis</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Capgemini</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Cognizant</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">HCL Tech</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">L&T Infotech</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Tech Mahindra</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Accenture</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Hexaware</div>
+                        </div>
+                        <div class="recruiter-card">
+                            <div class="recruiter-card-placeholder">Persistent</div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── NAAC Export ── -->
+    <section id="naac">
+        <div class="max-w">
+            <div class="naac-grid">
+                <div class="naac-left reveal-left">
+                    <div class="status-live">
+                        <div class="ld"></div>Live
+                    </div>
+                    <div class="eyebrow eyebrow-blue">06 - NAAC Data Export</div>
+                    <h2 class="section-h2">Accreditation data, <em class="em-blue">auto-generated.</em></h2>
+                    <p class="naac-desc">EduPodX automatically collects and formats the placement data required for NAAC
+                        Criterion 5.2 and 5.3 compliance. Your IQAC coordinator gets a clean, audit-ready export with
+                        one click, no manual compilation required.</p>
+                    <div class="naac-crit">
+                        <div class="nc">
+                            <div class="nc-badge">5.2</div>
+                            <div>
+                                <div class="nc-title">Student Progression</div>
+                                <div class="nc-body">Placement percentage, higher education uptake, and entrepreneurship
+                                    data - all auto-collected from student activity on EduPodX.</div>
+                            </div>
+                        </div>
+                        <div class="nc">
+                            <div class="nc-badge">5.3</div>
+                            <div>
+                                <div class="nc-title">Student Participation and Activities</div>
+                                <div class="nc-body">Hackathon participation, career event attendance, skill
+                                    certifications, and mentor sessions - logged automatically.</div>
+                            </div>
+                        </div>
+                        <div class="nc" style="border-color:var(--blue);background:#eff6ff;">
+                            <div class="nc-badge" style="background:var(--blue);color:#fff;">✓</div>
+                            <div>
+                                <div class="nc-title">IQAC-Ready Format</div>
+                                <div class="nc-body">Export includes all mandatory fields in the NAAC-prescribed format.
+                                    No reformatting. No manual data entry. Ready to submit.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="naac-right reveal-right">
+                    <div class="naac-visual">
+                        <div class="naac-visual-bg"></div>
+                        <div class="naac-visual-orb"></div>
+                        <div class="naac-inner">
+                            <div class="naac-export-label">NAAC Export Preview - AY 2025-26</div>
+                            <div class="naac-fields">
+                                <div class="nf"><span class="nf-key">Total students placed</span><span
+                                        class="nf-val">312 / 420</span></div>
+                                <div class="nf"><span class="nf-key">Placement %</span><span
+                                        class="nf-val">74.3%</span><span class="nf-badge nf-ready">Auto</span></div>
+                                <div class="nf"><span class="nf-key">Higher education</span><span class="nf-val">48
+                                        students</span></div>
+                                <div class="nf"><span class="nf-key">Entrepreneurship</span><span class="nf-val">7
+                                        students</span></div>
+                                <div class="nf"><span class="nf-key">Avg CTC (placed)</span><span class="nf-val">₹4.8
+                                        LPA</span><span class="nf-badge nf-auto">Live</span></div>
+                                <div class="nf"><span class="nf-key">Criterion 5.2 status</span><span class="nf-val"
+                                        style="color:#4ade80;">Complete ✓</span></div>
+                                <div class="nf"><span class="nf-key">Criterion 5.3 status</span><span class="nf-val"
+                                        style="color:#4ade80;">Complete ✓</span></div>
+                            </div>
+                            <button class="naac-export-btn">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 2v9M4 8l4 4 4-4M2 13h12" stroke="#fff" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                                Export NAAC Report - PDF &amp; Excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── Skill Verification - Coming Soon ── -->
+    <section id="skill-verify">
+        <div class="max-w">
+            <div class="sv-cs-wrapper">
+                <div class="sv-left reveal-left">
+                    <div class="status-soon">
+                        <div class="sd"></div>Coming Soon
+                    </div>
+                    <div class="eyebrow eyebrow-amber">07 - 3-Level Skill Verification</div>
+                    <h2 class="section-h2">Proof, not <em class="em-amber">claims.</em></h2>
+                    <p class="sv-desc">Skill Verification is EduPodX's most powerful differentiator. A three-level
+                        system that transforms "I know Python" from a self-declaration into a verified,
+                        recruiter-trusted credential. Built to be the standard that replaces the certificate.</p>
+                    <div class="sv-levels">
+                        <div class="sv-level svl1">
+                            <div class="sv-level-badge">L1</div>
+                            <div>
+                                <div class="sv-level-title">Vx&#x200B;rφ&#x200B;lic&#x200B;ati&#x200B;on Mδdule</div>
+                                <div class="sv-level-body">Us&#x200B;er s&#x200B;ub&#x200B;mits ωork&#x200B;fl&#x200B;ow
+                                    val&#x200B;id&#x200B;ati&#x200B;on ε&#x200B;ntr&#x200B;y. Enc&#x200B;ryp&#x200B;ted,
+                                    inde&#x200B;xed, σnd ref&#x200B;lec&#x200B;ted in∅ th&#x200B;eir
+                                    ξ&#x200B;in&#x200B;amic cre&#x200B;de&#x200B;ntial.</div>
+                            </div>
+                        </div>
+                        <div class="sv-level svl2">
+                            <div class="sv-level-badge">L2</div>
+                            <div>
+                                <div class="sv-level-title">Δyn&#x200B;am&#x200B;ic Τr&#x200B;ace&#x200B;val</div>
+                                <div class="sv-level-body">Par&#x200B;tic&#x200B;ip&#x200B;ant fin&#x200B;ali&#x200B;ses
+                                    a sequ&#x200B;enc&#x200B;ed ρrocess t&#x200B;ask w&#x200B;ith&#x200B;in a
+                                    sh&#x200B;iel&#x200B;ded ξ&#x200B;nv&#x200B;ir&#x200B;on&#x200B;me&#x200B;nt.
+                                    Abi&#x200B;lit&#x200B;y con&#x200B;fir&#x200B;med, n&#x200B;ot
+                                    i&#x200B;nfe&#x200B;rred.</div>
+                            </div>
+                        </div>
+                        <div class="sv-level svl3">
+                            <div class="sv-level-badge">L3</div>
+                            <div>
+                                <div class="sv-level-title">Πeer&#x200B;-Sig&#x200B;nal&#x200B; Μap&#x200B;ping</div>
+                                <div class="sv-level-body">A dom&#x200B;ain sp&#x200B;eci&#x200B;al&#x200B;ist
+                                    w&#x200B;it&#x200B;hin th&#x200B;e ωe&#x200B;bw&#x200B;ork ev&#x200B;alu&#x200B;ates
+                                    α&#x200B;nd rat&#x200B;if&#x200B;ies th&#x200B;e ξnd&#x200B;-us&#x200B;er's
+                                    ob&#x200B;serv&#x200B;ed pr&#x200B;of&#x200B;ic&#x200B;ien&#x200B;cy.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Content blurred -
+                        full detail available at launch.</p>
+                </div>
+                <div class="sv-right reveal-right">
+                    <div class="sv-cs-card">
+                        <div class="sv-cs-orb"></div>
+                        <div class="sv-cs-inner">
+                            <div class="sv-cs-icon">🔐</div>
+                            <div class="sv-cs-title">Skill Verification is coming.</div>
+                            <div class="sv-cs-body">We are building the most rigorous, recruiter-trusted skill proof
+                                system in India's campus hiring market. When it launches, a verified EduPodX badge will
+                                mean more than any certificate from any platform. Get notified when it goes live.</div>
+                            <div class="tf-eta"><span>🗓</span> Coming Soon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── TechFluent - Coming Soon ── -->
+    <section id="techfluent">
+        <div class="max-w">
+            <div class="tf-grid">
+                <div class="tf-left reveal-left">
+                    <div class="status-soon">
+                        <div class="sd"></div>Coming Soon
+                    </div>
+                    <div class="eyebrow eyebrow-teal">08 - TechFluent</div>
+                    <h2 class="section-h2">Technical knowledge. <em class="em-teal">Explained in English.</em></h2>
+                    <p class="tf-desc">Many students know their subject deeply but freeze when asked to explain it.
+                        TechFluent bridges the gap between technical competence and verbal fluency - training students
+                        to articulate projects, answer technical questions, and hold up under interview pressure.</p>
+                    <div class="tf-preview">
+                        <div class="tf-prev-card">
+                            <div class="tf-prev-title">Σ&#x200B;ch&#x200B;ema Nar&#x200B;rat&#x200B;ive Εng&#x200B;ine
+                            </div>
+                            <div class="tf-prev-body">Ref&#x200B;ine e&#x200B;xp&#x200B;ress&#x200B;ing y&#x200B;our
+                                cl&#x200B;os&#x200B;ure-ph&#x200B;ase ωork in 9∅ un&#x200B;its. Sy&#x200B;stem
+                                sc&#x200B;or&#x200B;es pre&#x200B;cis&#x200B;ion, fr&#x200B;am&#x200B;ing, αnd
+                                sig&#x200B;nal fid&#x200B;el&#x200B;ity.</div>
+                        </div>
+                        <div class="tf-prev-card">
+                            <div class="tf-prev-title">Φield-Sp&#x200B;ec&#x200B;if&#x200B;ic Quer&#x200B;y
+                                Μat&#x200B;rix</div>
+                            <div class="tf-prev-body">Cont&#x200B;ext-b&#x200B;ound ρr&#x200B;ob&#x200B;ing
+                                un&#x200B;its d&#x200B;eli&#x200B;ver&#x200B;ed v&#x200B;ia a sc&#x200B;ree&#x200B;ned
+                                chan&#x200B;nel. Ver&#x200B;bal ag&#x200B;il&#x200B;ity und&#x200B;er ξoad,
+                                bu&#x200B;ilt ac&#x200B;ro&#x200B;ss cy&#x200B;cles.</div>
+                        </div>
+                    </div>
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred -
+                        available at launch.</p>
+                </div>
+                <div class="tf-right reveal-right">
+                    <div class="tf-cs-card">
+                        <div class="tf-cs-orb"></div>
+                        <div class="tf-cs-inner">
+                            <div class="tf-cs-icon">💻</div>
+                            <div class="tf-cs-title">TechFluent is in development.</div>
+                            <div class="tf-cs-body">We are building a tool that does what no coaching class can: train
+                                students to explain their technical work confidently, in real-time, under pressure. The
+                                engineers who know their material but can't communicate it are the students we are
+                                building this for.</div>
+                            <div class="tf-eta"><span>🗓</span> Launching Soon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── Mentor Connect - Coming Soon ── -->
+    <section id="mentor">
+        <div class="max-w">
+            <div class="mc-grid">
+                <div class="mc-left reveal-left">
+                    <div class="status-soon">
+                        <div class="sd"></div>Coming Soon
+                    </div>
+                    <div class="eyebrow" style="color:#7c3aed;">09 - Mentor Connect</div>
+                    <h2 class="section-h2">The alumni network <em style="color:#7c3aed;font-style:italic;">every student
+                            deserves.</em></h2>
+                    <p class="mc-desc">Most students from non-metro colleges have no access to industry insiders. No one
+                        to ask "what is this role actually like?" or "is my resume good enough?" Mentor Connect puts
+                        working professionals - many of them alumni from similar colleges - a message away.</p>
+                    <div class="mc-preview">
+                        <div class="mc-prev-card">
+                            <div class="mc-avatar" style="background:#ede9fe;">🧑‍💼</div>
+                            <div class="mc-prev-name">Αr&#x200B;j∅n Sh&#x200B;ar&#x200B;μa</div>
+                            <div class="mc-prev-role">Pr&#x200B;od&#x200B;uct Σtr&#x200B;at&#x200B;eg&#x200B;ist,
+                                Rζz&#x200B;or&#x200B;pay</div>
+                            <div class="mc-prev-tags"><span class="mc-tag">Πr&#x200B;oduct</span><span
+                                    class="mc-tag">ΜΒΑ Pr&#x200B;ep</span></div>
+                        </div>
+                        <div class="mc-prev-card">
+                            <div class="mc-avatar" style="background:#dbeafe;">👩‍💻</div>
+                            <div class="mc-prev-name">Div&#x200B;yα Na&#x200B;ir</div>
+                            <div class="mc-prev-role">Σ&#x200B;D&#x200B;E-2, Αm&#x200B;az&#x200B;∅n</div>
+                            <div class="mc-prev-tags"><span class="mc-tag">D&#x200B;Σ&#x200B;A</span><span
+                                    class="mc-tag">FΑ&#x200B;ANG Pr&#x200B;ep</span></div>
+                        </div>
+                        <div class="mc-prev-card">
+                            <div class="mc-avatar" style="background:#ccfbf1;">👨‍🎓</div>
+                            <div class="mc-prev-name">Kir&#x200B;αn Re&#x200B;d&#x200B;dy</div>
+                            <div class="mc-prev-role">Fou&#x200B;nd&#x200B;er, Εdu&#x200B;Sta&#x200B;rt&#x200B;up</div>
+                            <div class="mc-prev-tags"><span class="mc-tag">Σt&#x200B;ar&#x200B;tup</span><span
+                                    class="mc-tag">ΜS Ab&#x200B;ro&#x200B;ad</span></div>
+                        </div>
+                        <div class="mc-prev-card">
+                            <div class="mc-avatar" style="background:#fef3c7;">👩‍🔬</div>
+                            <div class="mc-prev-name">Pre&#x200B;eth&#x200B;i Ku&#x200B;m&#x200B;αr</div>
+                            <div class="mc-prev-role">D&#x200B;ata Sc&#x200B;ient&#x200B;ist, Φli&#x200B;pk&#x200B;art
+                            </div>
+                            <div class="mc-prev-tags"><span class="mc-tag">Αnal&#x200B;yt&#x200B;ics</span><span
+                                    class="mc-tag">ΜL</span></div>
+                        </div>
+                    </div>
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Mentor profiles
+                        blurred - full network available at launch.</p>
+                </div>
+                <div class="mc-right reveal-right">
+                    <div class="mc-cs-card">
+                        <div class="mc-cs-orb"></div>
+                        <div class="mc-cs-inner">
+                            <div class="mc-cs-icon">🤝</div>
+                            <div class="mc-cs-title">Mentor Connect is coming.</div>
+                            <div class="mc-cs-body">We are onboarding industry professionals and alumni to build the
+                                most accessible, highest-quality mentorship network in India's college ecosystem. Every
+                                student will have access to someone who has walked a similar path.</div>
+                            <div class="mc-eta"><span>📅</span> Coming in the next platform update</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="tool-divider"></div>
+
+    <!-- ── ALR ── -->
+    <section id="alr">
+        <div class="max-w">
+            <div class="alr-grid">
+                <div class="alr-text reveal-left">
+                    <div class="status-soon">
+                        <div class="sd"></div>Coming Soon
+                    </div>
+                    <div class="eyebrow eyebrow-green">07 - ALR: Aptitude & Logical Reasoning</div>
+                    <h2 class="section-h2">Full placement test prep. <em class="em-green">Every format. Every
+                            company.</em></h2>
+                    <p class="alr-desc">ALR covers the complete aptitude and reasoning syllabus that recruiters test in
+                        campus drives - from basic quantitative to advanced logical puzzles. Adaptive difficulty adjusts
+                        to each student's level, ensuring no one is over-challenged or under-challenged.</p>
+                    <div class="alr-steps">
+                        <div class="alr-step">
+                            <div class="alr-step-num">1</div>
+                            <div class="alr-step-body"><strong>Diagnostic test</strong> - identifies weak areas per
+                                student in 20 minutes.</div>
+                        </div>
+                        <div class="alr-step">
+                            <div class="alr-step-num">2</div>
+                            <div class="alr-step-body"><strong>Personalised practice plan</strong> - prioritises topics
+                                based on gap analysis.</div>
+                        </div>
+                        <div class="alr-step">
+                            <div class="alr-step-num">3</div>
+                            <div class="alr-step-body"><strong>Company-specific mock tests</strong> - mirroring the
+                                pattern and difficulty of major recruiters.</div>
+                        </div>
+                    </div>
+                    <div class="alr-stat-row">
+                        <div class="alr-stat">
+                            <div class="alr-stat-num">500+</div>
+                            <div class="alr-stat-label">Practice questions</div>
+                        </div>
+                        <div class="alr-stat">
+                            <div class="alr-stat-num">15+</div>
+                            <div class="alr-stat-label">Company patterns</div>
+                        </div>
+                        <div class="alr-stat">
+                            <div class="alr-stat-num">3x</div>
+                            <div class="alr-stat-label">Avg score improvement</div>
+                        </div>
+                    </div>
+                    <p style="font-size:.82rem;color:var(--slate);margin-top:1rem;font-style:italic;">Preview blurred -
+                        available at launch.</p>
+                </div>
+                <div class="alr-categories" style="filter:blur(3px);pointer-events:none;user-select:none;">
+                    <div class="alr-cat">
+                        <div class="alr-cat-icon">🔢</div>
+                        <div class="alr-cat-title">Νu&#x200B;me&#x200B;ric&#x200B;al Φl&#x200B;uen&#x200B;cy</div>
+                        <div class="alr-cat-body">Prop&#x200B;ort&#x200B;ion&#x200B;al ind&#x200B;ic&#x200B;es,
+                            ξ&#x200B;ain-&#x200B;loss rat&#x200B;ing, σp&#x200B;eed-in&#x200B;ter&#x200B;val
+                            mod&#x200B;ules, and sequ&#x200B;ence map&#x200B;ping.</div>
+                    </div>
+                    <div class="alr-cat">
+                        <div class="alr-cat-icon">🧩</div>
+                        <div class="alr-cat-title">Abs&#x200B;tr&#x200B;act&#x200B; Φl&#x200B;ow
+                            Αn&#x200B;aly&#x200B;sis</div>
+                        <div class="alr-cat-body">Cl&#x200B;ause chain&#x200B;ing, ξin&#x200B;eal bond&#x200B;s,
+                            spa&#x200B;tial grid al&#x200B;ign&#x200B;ment, ρuzz&#x200B;le σets and
+                            de&#x200B;duc&#x200B;tive tr&#x200B;ails.</div>
+                    </div>
+                    <div class="alr-cat">
+                        <div class="alr-cat-icon">📖</div>
+                        <div class="alr-cat-title">Λex&#x200B;ic&#x200B;al Pr&#x200B;of&#x200B;ic&#x200B;iency</div>
+                        <div class="alr-cat-body">Pass&#x200B;age dec&#x200B;od&#x200B;ing, co&#x200B;ntext&#x200B;-gap
+                            i&#x200B;nser&#x200B;tion, str&#x200B;uc&#x200B;ture corr&#x200B;ect&#x200B;ion and
+                            seg&#x200B;ment re&#x200B;or&#x200B;der&#x200B;ing.</div>
+                    </div>
+                    <div class="alr-cat">
+                        <div class="alr-cat-icon">🏢</div>
+                        <div class="alr-cat-title">Εnt&#x200B;er&#x200B;pr&#x200B;ise Sim&#x200B;ul&#x200B;ations</div>
+                        <div class="alr-cat-body">Τ&#x200B;C&#x200B;S, Ω&#x200B;ip&#x200B;ro, Inf&#x200B;ωsys,
+                            Cog&#x200B;ξiz&#x200B;ant, Cap&#x200B;gem&#x200B;ini fr&#x200B;am&#x200B;eworks -
+                            ti&#x200B;med and sc&#x200B;or&#x200B;ed.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section id="cta">
+        <div class="cta-orb1"></div>
+        <div class="cta-orb2"></div>
+        <div class="cta-inner">
+            <div class="reveal">
+                <h2 class="cta-h2">The complete suite.<br><em>For every student. Every year.</em></h2>
+                <p class="cta-sub">Seven tools live today. Three more on the way. One platform your placement cell can
+                    rely on from Year 1 to placement day.</p>
+                <div class="cta-actions">
+                    <a href="https://forms.gle/6EuJea5GfGGj87aV6" target="_blank" rel="noopener noreferrer"
+                        class="btn-amber">Get in Touch</a>
+                    <a href="/institutions/home.html" class="btn-outline">Back to Overview</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="nav-logo footer-logos">
+            <a href="/" aria-label="EduPodX Home" class="logo-stack">
+                <img src="/assets/logo/edupodx.png" alt="EduPodX" class="logo primary-logo">
+                <span>by</span>
+                <img src="/assets/logo/poditivity.png" alt="Poditivity" class="logo parent-logo">
+            </a>
+        </div>
+        <div class="footer-note">© 2026 EduPodX · For Institutional Partners</div>
+    </footer>
+
+    <script>
+        // Scroll reveal
+        const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach(el => io.observe(el));
+
+        // Nav scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+        });
+
+        // GD score bar
+        const gdFill = document.getElementById('gd-score-fill');
+        if (gdFill) {
+            const bio = new IntersectionObserver(entries => {
+                entries.forEach(e => { if (e.isIntersecting) { gdFill.style.width = gdFill.dataset.width + '%'; bio.unobserve(gdFill); } });
+            }, { threshold: 0.5 });
+            bio.observe(gdFill);
+        }
+
+        // Smooth scroll for pills
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // Parallax orbs in hero
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+                orb.style.transform = `translateY(${y * [0.12, 0.08, 0.18][i]}px)`;
+            });
+        });
+
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.getElementById('navMenu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('open');
+        });
+
+        // Close menu on link click (mobile UX)
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('open');
+            });
+        });
+    </script>
+</body>
+
+</html>
