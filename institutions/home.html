@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>EduPodX: Stop Preparing in Your Head. Get Actually Placed.</title>
+    <title>EduPodX: From Confused Student to Confident Graduate</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
     <style>
-        /* ── Reset & Base ─────────────────────────────────────────────────── */
         *,
         *::before,
         *::after {
@@ -178,21 +177,36 @@
 
         /* ── Animate on scroll ────────────────────────────────────────────── */
         .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal.visible {
             opacity: 1;
             transform: translateY(0);
-            transition: opacity .7s var(--ease2), transform .7s var(--ease2);
         }
 
         .reveal-left {
-            opacity: 1;
-            transform: translateX(0);
+            opacity: 0;
+            transform: translateX(-40px);
             transition: opacity .7s var(--ease2), transform .7s var(--ease2);
         }
 
-        .reveal-right {
+        .reveal-left.visible {
             opacity: 1;
             transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
             transition: opacity .7s var(--ease2), transform .7s var(--ease2);
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .delay-1 {
@@ -305,7 +319,8 @@
             letter-spacing: .1em;
             text-transform: uppercase;
             margin-bottom: 2rem;
-            animation: fadeUp .8s var(--ease2) .2s both;
+            opacity: 0;
+            animation: fadeUp .8s var(--ease2) .2s forwards;
         }
 
         .hero-eyebrow .dot {
@@ -336,7 +351,8 @@
             color: #fff;
             letter-spacing: -.03em;
             margin-bottom: 1.5rem;
-            animation: fadeUp .9s var(--ease2) .4s both;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .4s forwards;
         }
 
         .hero-h1 .accent {
@@ -351,7 +367,8 @@
             max-width: 640px;
             line-height: 1.7;
             margin-bottom: 3rem;
-            animation: fadeUp .9s var(--ease2) .6s both;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .6s forwards;
         }
 
         .hero-actions {
@@ -359,7 +376,8 @@
             gap: 1rem;
             align-items: center;
             flex-wrap: wrap;
-            animation: fadeUp .9s var(--ease2) .8s both;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) .8s forwards;
         }
 
         .btn-primary {
@@ -407,7 +425,8 @@
             display: flex;
             gap: 3rem;
             margin-top: 5rem;
-            animation: fadeUp .9s var(--ease2) 1s both;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) 1s forwards;
         }
 
         .hero-stat {}
@@ -444,7 +463,8 @@
             flex-direction: column;
             align-items: center;
             gap: .5rem;
-            animation: fadeUp .9s var(--ease2) 1.4s both;
+            opacity: 0;
+            animation: fadeUp .9s var(--ease2) 1.4s forwards;
         }
 
         .hero-scroll span {
@@ -535,36 +555,6 @@
         .logo-chip:hover {
             opacity: 1;
         }
-
-        /* scrolling marquee */
-
-.logos-marquee{
-    overflow:hidden;
-    position:relative;
-    width:100%;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
--webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
-
-.logos-track{
-    display:flex;
-    gap:3.5rem;
-    width:max-content;
-    animation:scrollLogos 28s linear infinite;
-}
-
-.logo-chip{
-    white-space:nowrap;
-}
-
-@keyframes scrollLogos{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(-50%);
-    }
-}
 
         /* ── Section base ─────────────────────────────────────────────────── */
         section {
@@ -805,9 +795,9 @@
         }
 
         .path-tab[data-path="higher"].active {
-    background: var(--teal);
-    border-color: var(--teal);
-}
+            background: var(--teal);
+            border-color: var(--teal);
+        }
 
         .path-tab[data-path="startup"].active {
             background: var(--amber);
@@ -1656,24 +1646,9 @@
             display: inline-block;
         }
 
-        .hamburger {
+        #nav-toggle {
             display: none;
         }
-
-        .onboarding-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            border: 1px solid var(--mgray);
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        #onboarding {
-            padding: 7rem 4rem;
-        }
-
 
         /* ── Mobile responsive ────────────────────────────────────────────── */
         @media (max-width: 900px) {
@@ -1681,68 +1656,9 @@
                 padding: 1rem 1.5rem;
             }
 
-            .hamburger {
-                display: flex;
-                flex-direction: column;
-                gap: 5px;
-                background: none;
-                border: none;
-                cursor: pointer;
-            }
-
-            .hamburger span {
-                width: 24px;
-                height: 2px;
-                background: var(--navy);
-            }
-
-            .nav-links {
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: #fff;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 1.5rem;
-                padding: 2rem 1.5rem;
-                border-bottom: 1px solid var(--mgray);
-                display: none;
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
             section {
                 padding: 5rem 1.5rem;
             }
-
-            .onboarding-grid {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                border: 1px solid var(--mgray);
-                /* keep outer border */
-                border-radius: 20px;
-            }
-
-            /* override inline styles on cards */
-            .onboarding-grid>div {
-                border-right: none !important;
-                border-bottom: 1px solid var(--mgray) !important;
-                padding: 2rem 1.4rem !important;
-            }
-
-            /* remove border from last card */
-            .onboarding-grid>div:last-child {
-                border-bottom: none !important;
-            }
-
-            /* hide connector lines */
-            .onboarding-grid>div[style*="position:absolute"] {
-                display: none;
-            }
-
 
             #hero {
                 padding: 8rem 1.5rem 5rem;
@@ -1814,33 +1730,98 @@
             .impact-cell:not(:first-child) {
                 display: none;
             }
+        }
 
-            /* Waitlist mobile fixes */
-
-            #waitlist {
-                padding: 5rem 1.5rem;
+        @media (max-width: 900px) {
+            #nav-toggle {
+                display: block;
             }
 
-            #waitlist .max-w {
-                padding: 0;
-            }
-
-            #waitlist .waitlist-card {
-                padding: 2rem 1.5rem;
-            }
-
-            #waitlist .seat-row {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #ffffff;
                 flex-direction: column;
+                gap: 1.4rem;
+                padding: 2rem 1.5rem;
+                border-bottom: 1px solid var(--mgray);
+                display: none;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, .08);
                 align-items: flex-start;
-                gap: .6rem;
+                text-align: left;
             }
 
-            .waitlist-card {
-                border-radius: 18px;
-                box-shadow: 0 12px 40px rgba(30, 58, 95, .12);
+            .nav-links .nav-cta {
+                display: block;
+                width: 100%;
+                padding: .9rem 1.2rem;
+                margin-top: 1.2rem;
+                text-align: center;
+                border-radius: 12px;
+                box-sizing: border-box;
+            }
+
+            .nav-links li {
+                width: 100%;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                font-size: 1rem;
+                padding: .4rem 0;
+            }
+
+            .nav-cta {
+                margin-top: .8rem;
             }
         }
-       .logo-stack {
+
+        .college-logo {
+            height: 80px;
+            max-width: 160px;
+            object-fit: contain;
+            opacity: .65;
+            filter: grayscale(100%);
+            transition: all .25s ease;
+        }
+
+        .college-logo:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 900px) {
+
+            #onboarding [style*="grid-template-columns"] {
+                grid-template-columns: 1fr !important;
+            }
+
+            #onboarding [style*="position:absolute"][style*="left:calc"] {
+                display: none !important;
+            }
+
+            #onboarding [style*="border-right"] {
+                border-right: none !important;
+                border-bottom: 1px solid var(--mgray);
+            }
+
+            #onboarding [style*="border-bottom"]:last-child {
+                border-bottom: none;
+            }
+
+            #onboarding [style*="padding:2.5rem"] {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        .logo-stack {
             display: flex;
             align-items: center;
             gap: .6rem;
@@ -1848,7 +1829,8 @@
             color: rgba(255, 255, 255, .6);
             letter-spacing: .04em;
         }
-    .primary-logo {
+
+        .primary-logo {
             height: 34px;
         }
 
@@ -1868,42 +1850,30 @@
             .footer-logos .parent-logo {
                 height: 22px;
             }
-          }   
+        }
     </style>
 </head>
 
 <body>
-
-    <!-- ── Nav ─────────────────────────────────────────────────────────── -->
     <nav id="nav">
         <div class="nav-logo">
             <a href="/index.html" aria-label="EduPodX Home" style="display:flex;align-items:center;gap:.6rem;">
                 <img src="/assets/logo/edupodx.png" alt="EduPodX" style="height:36px;width:auto;display:block;">
             </a>
         </div>
-        <button class="hamburger" id="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button id="nav-toggle" aria-label="Toggle menu"
+            style="background:none;border:none;font-size:1.6rem;cursor:pointer;color:var(--navy);">
+            ☰
         </button>
         <ul class="nav-links">
-            <li><a href="javascript:void(0)"
-                    onclick="document.getElementById('clarity').scrollIntoView({behavior:'smooth'})">Career Explorer</a>
-            </li>
-            <li><a href="javascript:void(0)"
-                    onclick="document.getElementById('platform').scrollIntoView({behavior:'smooth'})">What You Get</a>
-            </li>
-            <li><a href="javascript:void(0)"
-                    onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">How It Works</a>
-            </li>
-            <li><a href="/institutions/home.html">For Institutions</a></li>
-            <li><a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"    
-                    class="nav-cta">Join Pilot</a></li>
+            <li><a href="javascript:void(0)" data-target="clarity">Career Explorer</a></li>
+            <li><a href="javascript:void(0)" data-target="platform">Platform</a></li>
+            <li><a href="javascript:void(0)" data-target="onboarding">Onboarding</a></li>
+            <li><a href="/index.html">For Students</a></li>
+            <li><a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer"
+                    class="nav-cta">Get in Touch</a></li>
         </ul>
     </nav>
-
-    <!-- ── Hero ────────────────────────────────────────────────────────── -->
     <section id="hero">
         <div class="hero-bg-grid"></div>
         <div class="hero-orb hero-orb-1"></div>
@@ -1912,22 +1882,20 @@
         <div class="hero-inner">
 
             <h1 class="hero-h1">
-                Stop preparing<br>
-                for placements in your head.<br>
-                <em>Start proving you're ready.</em>
+                Your students are<br>
+                ready to work hard.<br>
+                <em>Give them the tools to prove it.</em>
             </h1>
             <p class="hero-sub">
                 EduPodX is India's only end-to-end career readiness platform built
-                for engineering and college students, starting from career clarity in Year 1,
-                all the way to a verified, job-ready profile in Final Year.
+                for colleges and universities across India, starting from career
+                clarity in Year 1, all the way to verified placements.
             </p>
             <div class="hero-actions">
-                <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
-                    class="btn-primary">Start Free Trial</a>
-                <a href="javascript:void(0)"
-                    onclick="document.getElementById('clarity').scrollIntoView({behavior:'smooth'})" class="btn-ghost">
-                    See How It Works
+                <a href="https://forms.gle/UW667Afmc21yuyyZ8" target="_blank" rel="noopener noreferrer"
+                    class="btn-primary">Get in Touch</a>
+                <a href="#clarity" class="btn-ghost">
+                    See Career Explorer
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -1936,123 +1904,93 @@
             </div>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="hero-stat-num">3<span>x</span></div>
-                    <div class="hero-stat-label">More GD rounds cleared<br>with consistent practice</div>
+                    <div class="hero-stat-num"><span class="counter" data-target="22">0</span><span>%</span></div>
+                    <div class="hero-stat-label">Avg. placement rate<br>uplift in first semester</div>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <div class="hero-stat-num">10<span>+</span></div>
-                    <div class="hero-stat-label">AI-powered tools<br>built for placement prep</div>
+                    <div class="hero-stat-num"><span class="counter" data-target="3">0</span><span>x</span></div>
+                    <div class="hero-stat-label">More GD rounds cleared<br>by consistent practitioners</div>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <div class="hero-stat-num">60<span>%</span></div>
-                    <div class="hero-stat-label">Faster recruiter shortlisting<br>with a verified skills profile</div>
+                    <div class="hero-stat-num"><span class="counter" data-target="60">0</span><span>%</span></div>
+                    <div class="hero-stat-label">Faster recruiter shortlisting<br>with verified profiles</div>
                 </div>
                 <div class="hero-stat-divider"></div>
                 <div class="hero-stat">
-                    <div class="hero-stat-num">15<span>+</span></div>
-                    <div class="hero-stat-label">Students already in<br>the founding batch</div>
+                    <div class="hero-stat-num"><span class="counter" data-target="100">0</span><span>%</span></div>
+                    <div class="hero-stat-label">NAAC Criterion 5.2 & 5.3<br>ready data, auto-generated</div>
                 </div>
             </div>
         </div>
 
     </section>
 
-    <!-- ── Logos ────────────────────────────────────────────────────────── -->
     <div id="logos">
-    <div class="logos-label">Mentors & hiring partners from</div>
-
-    <div class="logos-marquee">
-        <div class="logos-track">
-
-            <div class="logo-chip">Stanford University</div>
-            <div class="logo-chip">IIM</div>
-            <div class="logo-chip">HCL</div>
-            <div class="logo-chip">Amazon</div>
-            <div class="logo-chip">Harvard University</div>
-            <div class="logo-chip">T-Hub</div>
-            <div class="logo-chip">Google</div>
-            <div class="logo-chip">Cognizant</div>
-            <div class="logo-chip">Kia</div>
-
-            <!-- duplicate for seamless loop -->
-            <div class="logo-chip">Stanford University</div>
-            <div class="logo-chip">IIM</div>
-            <div class="logo-chip">HCL</div>
-            <div class="logo-chip">Amazon</div>
-            <div class="logo-chip">Harvard University</div>
-            <div class="logo-chip">T-Hub</div>
-            <div class="logo-chip">Google</div>
-            <div class="logo-chip">Cognizant</div>
-            <div class="logo-chip">Kia</div>
-
+        <div class="logos-label">Partner institutions across India</div>
+        <div class="logos-row">
+            <img src="/assets/colleges/mvsr.png" alt="MVSR Engineering College" class="college-logo">
+            <img src="/assets/colleges/bower.png" alt="Bower School of Entrepreneurship" class="college-logo">
+            <img src="/assets/colleges/ku.png" alt="Kakatiya University" class="college-logo">
         </div>
     </div>
-</div>
 
-    <!-- ── Problem ──────────────────────────────────────────────────────── -->
     <section id="problem">
         <div class="max-w">
             <div class="reveal">
-                <div class="section-eyebrow">The Reality</div>
-                <h2 class="section-h2">You study for four years.<br><em>But nobody taught you how to get placed.</em>
-                </h2>
-                <p class="section-sub">The five reasons most engineering students miss placements, and why watching
-                    YouTube videos and attending one GD seminar will never fix them.</p>
+                <div class="section-eyebrow">The Situation</div>
+                <h2 class="section-h2">You work harder every year.<br><em>The numbers don't always follow.</em></h2>
+                <p class="section-sub">The five things that keep every TPO up at night, and why traditional solutions
+                    have failed to fix them.</p>
             </div>
             <div class="problem-grid">
                 <div class="pain-card reveal delay-1">
                     <div class="pain-num">01</div>
-                    <div class="pain-title">"I know what to say in a GD. I just freeze when eight people are talking at
-                        once."</div>
-                    <div class="pain-body">Knowing theory is not the same as handling pressure. You've never been in a
-                        real GD simulation, with interruptions, dominant voices, and 90 seconds to make your point
-                        heard. That's not a knowledge gap. It's a practice gap.</div>
+                    <div class="pain-title">"I have no idea which students are behind until it's too late."</div>
+                    <div class="pain-body">There is no early warning. You find out a student is struggling when they
+                        fail their first GD, sometimes after a recruiter has already eliminated them. By then, the
+                        semester is almost over.</div>
                 </div>
                 <div class="pain-card reveal delay-2">
                     <div class="pain-num">02</div>
-                    <div class="pain-title">"I still don't know whether I want a job, an MBA, or something else
-                        entirely."</div>
-                    <div class="pain-body">You're not lazy. You're confused, and nobody around you has given you a way
-                        to actually experience each path before committing. Unclear students give vague interviews.
-                        Vague interviews end in rejections. The confusion starts in Year 1 but hits you in Final Year.</div>
+                    <div class="pain-title">"Students freeze in group discussions. Every single year."</div>
+                    <div class="pain-body">They know the topic. They just cannot hold their ground when eight voices
+                        speak at once. They have never practiced under that kind of pressure. One seminar per semester
+                        is not practice, it is attendance.</div>
                 </div>
                 <div class="pain-card reveal delay-3">
                     <div class="pain-num">03</div>
-                    <div class="pain-title">"My resume says 'Python: Intermediate', just like everyone else's."</div>
-                    <div class="pain-body">Recruiters have stopped trusting self-reported skills. Every student claims
-                        the same things. There's no way to stand out unless you can prove what you know. Not just list
-                        it. You pay the price for a system that rewards claims over demonstrations.</div>
+                    <div class="pain-title">"Recruiters tell us the resumes all look the same."</div>
+                    <div class="pain-body">Every student writes 'Python: Intermediate.' 'Communication: Strong.' No
+                        proof. No differentiation. Hiring managers have stopped trusting what they read, and your
+                        students pay the price.</div>
                 </div>
                 <div class="pain-card reveal delay-4">
                     <div class="pain-num">04</div>
-                    <div class="pain-title">"My English is okay for studies but I go blank when I have to speak
-                        professionally."</div>
-                    <div class="pain-body">You have the ideas. You have the knowledge. But "Tell me about yourself"
-                        makes you switch to survival mode. A cold email to a recruiter takes you 40 minutes to draft.
-                        This is not lack of intelligence. It's lack of the right practice environment.</div>
+                    <div class="pain-title">"Students don't know what they actually want to do."</div>
+                    <div class="pain-body">They choose job vs. MBA vs. startup in final year, under panic. Unclear
+                        students give vague interviews. Vague interviews end placements. The confusion starts in Year 1,
+                        but no one addresses it until final year.</div>
                 </div>
                 <div class="pain-card wide reveal delay-5">
                     <div class="pain-num">05</div>
-                    <div class="pain-title">"I'm already in 3rd year and I haven't done anything to prepare for
-                        placements."</div>
-                    <div class="pain-body">Most students start thinking about placements in final year, and that is
-                        exactly 2–3 years too late. GD confidence, communication skills, career clarity, and a verified
-                        skill profile take time to build. The students who get placed in the first campus drive started
-                        well before placement season began.</div>
+                    <div class="pain-title">"I cannot build a NAAC accreditation case without proper placement data."
+                    </div>
+                    <div class="pain-body">Manual tracking in Excel, anecdotal outcomes, no digital audit trail.
+                        Accreditation bodies want structured, verifiable placement data, aligned to Criterion 5.2 and
+                        5.3. Most TPOs spend weekends compiling it by hand.</div>
                 </div>
             </div>
             <div style="text-align:center;margin-top:3rem;" class="reveal">
                 <div
                     style="display:inline-block;background:var(--navy);color:#fff;padding:1.2rem 3rem;border-radius:12px;font-family:var(--font-display);font-size:1.15rem;font-style:italic;font-weight:400;line-height:1.5;">
-                    "Placement day is not the problem.<br>The three years before it are."
+                    "The placement problem is a first-year problem<br>dressed as a final-year emergency."
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ── Career Explorer / Clarity ───────────────────────────────────── -->
     <section id="clarity">
         <div class="clarity-bg"></div>
         <div class="clarity-orb-1"></div>
@@ -2060,16 +1998,18 @@
         <div class="clarity-inner max-w">
             <div class="reveal">
                 <div class="clarity-badge">★ The Foundation Everything Else Is Built On</div>
-                <h2 class="clarity-h2">Before we prepare you<br>for placements, we help you<br>understand <em>why you
-                        actually want to be placed.</em></h2>
-                <p class="clarity-sub">Most platforms assume you already know what you want. That assumption is wrong
-                    for most students, and it's the silent reason behind more placement failures than any skill gap ever
-                    will be.</p>
+                <h2 class="clarity-h2">Before we prepare your students<br>for placements, we help them<br>understand
+                    <em>why they want to be placed.</em>
+                </h2>
+                <p class="clarity-sub">Every competitor assumes the student already knows what they want. That
+                    assumption is wrong for the majority of your batch, and it is the silent reason behind more
+                    placement failures than any skill gap ever will be.</p>
             </div>
             <div class="clarity-statement reveal">
-                <p>"A student who doesn't know whether they want a job or an MBA gives a half-hearted interview. A
-                    student who chose a path because their parents expected it cannot answer 'Where do you see yourself
-                    in five years?' convincingly. Your placement result absorbs all of this confusion, silently."</p>
+                <p>"A student who is not sure whether they want a job or an MBA gives a half-hearted interview. A
+                    student who chose a job path because their parents expected it cannot answer 'Where do you see
+                    yourself in five years?' convincingly. Your placement percentage absorbs all of this confusion,
+                    silently, semester after semester."</p>
             </div>
 
             <div class="reveal">
@@ -2077,25 +2017,25 @@
                     style="font-family:var(--font-display);font-size:1.6rem;font-weight:600;color:#fff;letter-spacing:-.02em;margin-bottom:.5rem;">
                     Career Explorer: Experience each path before committing to it.</h3>
                 <p style="color:#94a3b8;font-size:.95rem;margin-bottom:2rem;">Not read about it. Not watch a video.
-                    Actually feel what each path is like, through structured simulations designed to give you clarity,
-                    not more confusion.</p>
+                    Experience it through structured simulations.</p>
 
                 <div class="path-tabs">
                     <button class="path-tab active" data-path="job" onclick="switchPath('job')">💼 The Job Path</button>
-                    <button class="path-tab" data-path="higher" onclick="switchPath('higher')">🎓 Higher Education</button>
+                    <button class="path-tab" data-path="higher" onclick="switchPath('higher')">🎓 Higher
+                        Education</button>
                     <button class="path-tab" data-path="startup" onclick="switchPath('startup')">🚀
                         Entrepreneurship</button>
                 </div>
 
                 <div id="panel-job" class="path-panel active" data-path="job">
                     <div class="path-info">
-                        <div class="path-info-title">What the Job Path simulation shows you</div>
+                        <div class="path-info-title">What the Job Path simulation shows your student</div>
                         <div class="path-info-body">What roles actually exist in their domain. What skill growth looks
                             like at 2, 5, and 10 years. What a recruiter's shortlist criteria really are. What a Monday
                             morning at that company actually feels like, not what the brochure says.</div>
                         <ul class="path-outcomes">
                             <li>Is this the right path for me, or am I doing it for someone else?</li>
-                            <li>Which specific role should I actually aim for in FinalYear?</li>
+                            <li>Which specific role should I actually aim for in final year?</li>
                             <li>What skills do I need to build starting right now?</li>
                             <li>What does the salary curve look like over 5 years?</li>
                         </ul>
@@ -2130,63 +2070,63 @@
                 </div>
 
                 <div id="panel-higher" class="path-panel" data-path="higher">
-    <div class="path-info">
-        <div class="path-info-title">
-            What the Higher Education simulation shows you
-        </div>
+                    <div class="path-info">
+                        <div class="path-info-title">
+                            What the Higher Education simulation shows your student
+                        </div>
 
-        <div class="path-info-body">
-            What pursuing a Master's or MBA actually involves — not just the
-            admission process, but the academic intensity, research exposure,
-            financial commitment, and career paths it unlocks.
-        </div>
+                        <div class="path-info-body">
+                            What pursuing a Master's or MBA actually involves — not just the
+                            admission process, but the academic intensity, research exposure,
+                            financial commitment, and career paths it unlocks.
+                        </div>
 
-        <ul class="path-outcomes">
-            <li>Should I pursue MS, MBA, or a specialised master's?</li>
-            <li>Which countries and universities fit my profile?</li>
-            <li>What exams, timelines, and preparation are required?</li>
-            <li>How does the ROI compare to starting a job now?</li>
-        </ul>
-    </div>
+                        <ul class="path-outcomes">
+                            <li>Should I pursue MS, MBA, or a specialised master's?</li>
+                            <li>Which countries and universities fit my profile?</li>
+                            <li>What exams, timelines, and preparation are required?</li>
+                            <li>How does the ROI compare to starting a job now?</li>
+                        </ul>
+                    </div>
 
-    <div class="impact-table">
+                    <div class="impact-table">
 
-        <div class="impact-row impact-head">
-            <div class="impact-cell">Higher Education Decision</div>
-            <div class="impact-cell">Without Clarity</div>
-            <div class="impact-cell">With Career Explorer</div>
-        </div>
+                        <div class="impact-row impact-head">
+                            <div class="impact-cell">Higher Education Decision</div>
+                            <div class="impact-cell">Without Clarity</div>
+                            <div class="impact-cell">With Career Explorer</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Study Abroad Planning</div>
-            <div class="impact-cell bad">Late preparation, weak profile</div>
-            <div class="impact-cell good">Early roadmap, stronger applications</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Study Abroad Planning</div>
+                            <div class="impact-cell bad">Late preparation, weak profile</div>
+                            <div class="impact-cell good">Early roadmap, stronger applications</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Exam Preparation</div>
-            <div class="impact-cell bad">Unplanned GRE/GMAT attempts</div>
-            <div class="impact-cell good">Clear timeline & preparation strategy</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Exam Preparation</div>
+                            <div class="impact-cell bad">Unplanned GRE/GMAT attempts</div>
+                            <div class="impact-cell good">Clear timeline & preparation strategy</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">University Shortlisting</div>
-            <div class="impact-cell bad">Random applications</div>
-            <div class="impact-cell good">Strategic, profile-matched universities</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">University Shortlisting</div>
+                            <div class="impact-cell bad">Random applications</div>
+                            <div class="impact-cell good">Strategic, profile-matched universities</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Career Direction</div>
-            <div class="impact-cell bad">Degree without clear outcome</div>
-            <div class="impact-cell good">Degree aligned with career goals</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Career Direction</div>
+                            <div class="impact-cell bad">Degree without clear outcome</div>
+                            <div class="impact-cell good">Degree aligned with career goals</div>
+                        </div>
 
-    </div>
-</div>
+                    </div>
+                </div>
 
                 <div id="panel-startup" class="path-panel" data-path="startup">
                     <div class="path-info">
-                        <div class="path-info-title">What the Entrepreneurship simulation shows you</div>
+                        <div class="path-info-title">What the Entrepreneurship simulation shows your student</div>
                         <div class="path-info-body">What problems a first-time founder actually faces. What skills a
                             startup requires that college never taught. What the first 12 months of building a product
                             really involves, not the glamorised version, the real one.</div>
@@ -2231,14 +2171,14 @@
                 class="reveal">
                 <p
                     style="font-family:var(--font-display);font-size:1.3rem;font-style:italic;color:#fef9c3;line-height:1.6;margin-bottom:.8rem;">
-                    "A student who knows exactly what they want is three times easier to place than one who is equally
-                    skilled but unclear. I can tell within the first two minutes of an interview whether a student has
-                    thought about this path, or just arrived at it by default."</p>
+                    "A student who knows exactly what they want is three times easier to place than a student who is
+                    equally skilled but unclear. Recruiters feel the difference in the first two minutes of an
+                    interview."</p>
                 <p style="font-size:.9rem;font-weight:600;color:#fcd34d;">- Karthik Seshadri, Campus Hiring Lead,
                     Mphasis · Bangalore</p>
             </div>
             <div style="margin-top:2.5rem;text-align:center;" class="reveal">
-                <a href="/career_explorer.html"
+                <a href="/institutions/career_explorer.html"
                     style="display:inline-flex;align-items:center;gap:.6rem;background:rgba(217,119,6,.15);border:2px solid rgba(217,119,6,.4);color:#fcd34d;padding:.85rem 2rem;border-radius:10px;font-weight:700;font-size:.95rem;letter-spacing:.01em;transition:all .25s cubic-bezier(.4,0,.2,1);"
                     onmouseover="this.style.background='rgba(217,119,6,.3)';this.style.borderColor='#fcd34d';this.style.transform='translateY(-2px)'"
                     onmouseout="this.style.background='rgba(217,119,6,.15)';this.style.borderColor='rgba(217,119,6,.4)';this.style.transform='translateY(0)'">
@@ -2252,69 +2192,62 @@
         </div>
     </section>
 
-    <!-- ── Platform ──────────────────────────────────────────────────────── -->
     <section id="platform">
         <div class="max-w">
             <div class="reveal">
-                <div class="section-eyebrow">Everything You Need</div>
-                <h2 class="section-h2">Once you know where you're going,<br><em>EduPodX builds everything you need to
-                        get there.</em></h2>
-                <p class="section-sub" style="max-width:760px;">Career Explorer gives you clarity. What follows gives
-                    you the confidence, skills, and proof to walk into placement day prepared. Not hoping for the best.
-                </p>
+                <div class="section-eyebrow">The Complete Platform</div>
+                <h2 class="section-h2">Once students know where they're going,<br><em>EduPodX builds everything they
+                        need to get there.</em></h2>
+                <p class="section-sub" style="max-width:760px;">Career Explorer is the foundation. What follows is the
+                    full infrastructure to act on it.</p>
             </div>
             <div class="platform-grid">
                 <div class="feature-card fc-blue reveal delay-1">
                     <div class="feature-icon ic-blue">🎙</div>
                     <div class="feature-num c-blue">01 - GD Coach</div>
-                    <div class="feature-title">Never Freeze in a GD Again</div>
-                    <div class="feature-body">GD Coach simulates a live group discussion with multiple AI participants
-                        who interrupt, challenge, and dominate. Exactly like the real thing. Practice any time,
-                        unlimited sessions, and get a score after every round so you can see yourself improve.</div>
-                    <div class="feature-result">After 10 sessions, most students say their campus GD felt like a repeat
-                        of something they'd already done.</div>
+                    <div class="feature-title">The Closest Thing to a Real Group Discussion</div>
+                    <div class="feature-body">Simulates a live GD with multiple AI participants who interrupt,
+                        challenge, and dominate, exactly like the recruiters your students will face. Students practice
+                        any time, unlimited sessions, and receive a score after every round.</div>
+                    <div class="feature-result">GD pass rate improves visibly within one semester of consistent
+                        practice.</div>
                 </div>
                 <div class="feature-card fc-teal reveal delay-2">
                     <div class="feature-icon ic-teal">✍️</div>
                     <div class="feature-num c-teal">02 - VoiceUp & ProWrite</div>
-                    <div class="feature-title">Kill the Language Barrier Before It Kills Your Offer</div>
-                    <div class="feature-body">VoiceUp gives you 60-second rehearsal environments for the moments that
-                        terrify most students: "Tell me about yourself," "Pitch your idea," "Ask a question to the
-                        panel." ProWrite transforms broken English into professional communication instantly. No
-                        embarrassment, no judgment.</div>
-                    <div class="feature-result">Language stops being the ceiling between you and your offer.</div>
+                    <div class="feature-title">Remove the Language Barrier Completely</div>
+                    <div class="feature-body">VoiceUp: 60-second rehearsal environments for the moments that terrify
+                        students: 'Tell me about yourself,' 'Pitch your idea.' ProWrite: transforms broken English into
+                        professional communication instantly, without embarrassment.</div>
+                    <div class="feature-result">Language stops being the ceiling for your students.</div>
                 </div>
                 <div class="feature-card fc-amber reveal delay-3">
                     <div class="feature-icon ic-amber">🏅</div>
                     <div class="feature-num c-amber">03 - 3-Level Skill Verification</div>
-                    <div class="feature-title">Prove Your Skills. Stop Just Claiming Them.</div>
-                    <div class="feature-body">Level 1: Upload your certificate. Level 2: Demonstrate the skill live in a
-                        monitored environment. Level 3: Get endorsed by an industry professional who works in that
-                        domain. Every verified skill becomes a badge that recruiters can independently audit, before you
-                        walk in the door.</div>
-                    <div class="feature-result">You compete on what you can actually do, not just what you've written on
-                        paper.</div>
+                    <div class="feature-title">Proof, Not Claims</div>
+                    <div class="feature-body">Level 1: Certificate upload. Level 2: Monitored live demonstration. Level
+                        3: Endorsement from an industry professional in that domain. Every verified skill becomes a
+                        badge recruiters can independently audit.</div>
+                    <div class="feature-result">Students compete on demonstrated ability, not just paper credentials.
+                    </div>
                 </div>
                 <div class="feature-card fc-navy reveal delay-1">
-                    <div class="feature-icon ic-navy">📋</div>
-                    <div class="feature-num c-navy">04 - Living Resume</div>
-                    <div class="feature-title">Your Profile That Proves More Than a PDF Ever Could</div>
-                    <div class="feature-body">Your EduPodX profile shows recruiters everything a static resume can't: GD
-                        confidence scores, verified skill badges, career clarity indicators, practice consistency, and
-                        mentor endorsements. It's LinkedIn + Resume + Proof, combined in one place.</div>
-                    <div class="feature-result">Recruiters who see a Living Resume shortlist 60% faster. It removes the
-                        guesswork.</div>
+                    <div class="feature-icon ic-navy">📊</div>
+                    <div class="feature-num c-navy">04 - College Dashboard</div>
+                    <div class="feature-title">Your Placement Cell, Finally Empowered</div>
+                    <div class="feature-body">Track every student's career readiness score in real time. See GD practice
+                        frequency, skill completion, and application activity. Automated early-warning alerts flag
+                        at-risk students before the semester ends, not after.</div>
+                    <div class="feature-result">Shift from reactive firefighting to proactive development.</div>
                 </div>
                 <div class="feature-card fc-blue reveal delay-2">
-                    <div class="feature-icon ic-blue">🚀</div>
-                    <div class="feature-num c-blue">05 - One-Click Job Apply</div>
-                    <div class="feature-title">Apply Without Filling the Same Form 40 Times</div>
-                    <div class="feature-body">Your profile is already built. Your skills are verified. When a job
-                        matches you, apply in one click from your Living Resume. No copy-pasting, no rebuilding your
-                        information for each portal. Startups and corporates on the EduPodX network can find you
-                        directly.</div>
-                    <div class="feature-result">Stop losing to students with better applications. Win with better proof.
-                    </div>
+                    <div class="feature-icon ic-blue">🏢</div>
+                    <div class="feature-num c-blue">05 - Recruiter Portal</div>
+                    <div class="feature-title">Give Companies a Reason to Return</div>
+                    <div class="feature-body">Recruiters see verified candidate profiles: GD confidence scores,
+                        demonstrated skills, career clarity indicators. They shortlist 60% faster. They trust your
+                        campus more. Companies that find quality hires return next year.</div>
+                    <div class="feature-result">Recruiter retention is the most underrated placement metric.</div>
                 </div>
                 <div class="feature-card fc-teal reveal delay-3" style="background:var(--navy);border-color:#334155;">
                     <div style="padding:.5rem 0;margin-bottom:.5rem;">
@@ -2326,8 +2259,8 @@
                                 <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
                                 <div>
                                     <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">TechFluent</div>
-                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Explain your projects
-                                        clearly and confidently under pressure, in English</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Students explain
+                                        projects clearly under pressure in English</div>
                                 </div>
                             </div>
                             <div style="display:flex;gap:.8rem;align-items:flex-start;">
@@ -2336,25 +2269,23 @@
                                     <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">ALR: Aptitude &
                                         Reasoning</div>
                                     <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Full placement test
-                                        prep: quantitative, logical, verbal. All in one place</div>
+                                        prep: quantitative, logical, verbal</div>
                                 </div>
                             </div>
                             <div style="display:flex;gap:.8rem;align-items:flex-start;">
                                 <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
                                 <div>
                                     <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">Mentor Connect</div>
-                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Talk to industry
-                                        alumni who've done what you want to do. Get real guidance, not generic advice
-                                    </div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Industry alumni
+                                        available for guidance and skill verification</div>
                                 </div>
                             </div>
                             <div style="display:flex;gap:.8rem;align-items:flex-start;">
                                 <span style="color:#4ade80;font-weight:700;flex-shrink:0;">✓</span>
                                 <div>
-                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">Placement Readiness
-                                        Score</div>
-                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Track your progress
-                                        weekly. Know exactly how prepared you are and what to fix before the drive</div>
+                                    <div style="font-weight:600;color:#e2e8f0;font-size:.9rem;">NAAC Data Export</div>
+                                    <div style="color:#64748b;font-size:.82rem;margin-top:.2rem;">Criterion 5.2 & 5.3
+                                        aligned, ready for your IQAC coordinator</div>
                                 </div>
                             </div>
                         </div>
@@ -2362,11 +2293,11 @@
                 </div>
             </div>
             <div style="margin-top:3rem;text-align:center;" class="reveal">
-                <a href="/placement_support_suite.html"
+                <a href="/institutions/placement_support_suite.html"
                     style="display:inline-flex;align-items:center;gap:.7rem;background:var(--navy);color:#fff;padding:.95rem 2.2rem;border-radius:12px;font-weight:700;font-size:.95rem;border:2px solid transparent;transition:all .25s cubic-bezier(.4,0,.2,1);"
                     onmouseover="this.style.background='#fff';this.style.color='var(--navy)';this.style.borderColor='var(--navy)'"
                     onmouseout="this.style.background='var(--navy)';this.style.color='#fff';this.style.borderColor='transparent'">
-                    Learn More About What's Inside EduPodX
+                    Learn More About the Student Placement Support Suite
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -2376,226 +2307,259 @@
         </div>
     </section>
 
-    <!-- ── Before / After ────────────────────────────────────────────────── -->
     <section id="bafore">
         <div class="max-w">
             <div class="reveal">
                 <div class="section-eyebrow">What Changes</div>
-                <h2 class="section-h2">Your placement journey,<br><em>before and after EduPodX.</em></h2>
+                <h2 class="section-h2">A day in your placement office,<br><em>before and after EduPodX.</em></h2>
             </div>
             <div class="ba-grid reveal">
-                <div class="ba-col-header ba-col-before">Without EduPodX</div>
+                <div class="ba-col-header ba-col-before">Before EduPodX</div>
                 <div class="ba-col-arrow">→</div>
-                <div class="ba-col-header ba-col-after">With EduPodX</div>
+                <div class="ba-col-header ba-col-after">After EduPodX</div>
 
-                <div class="ba-cell ba-cell-before">You're in 3rd year and still not sure whether you want a job, an
-                    MBA, or a startup. You pick 'placements' because everyone around you is doing it.</div>
+                <div class="ba-cell ba-cell-before">A final-year student comes to your office in October and says she
+                    doesn't know whether to sit for placements or apply for MS. You try to counsel her in 15 minutes.
+                </div>
                 <div class="ba-cell-mid"><span>→</span></div>
-                <div class="ba-cell ba-cell-after">You completed Career Explorer in Year 2. You walk into your placement
-                    drive knowing exactly why you want this role, and your interviewer can tell in the first two
-                    minutes.</div>
+                <div class="ba-cell ba-cell-after">That same student completed Career Explorer in Year 1. She built
+                    skills for her chosen path in next years. She comes to you with a plan, not a question.</div>
 
-                <div class="ba-cell ba-cell-before">You watch 5 YouTube videos on GD techniques. In the actual GD,
-                    someone interrupts you and you lose your thread. You don't get through.</div>
+                <div class="ba-cell ba-cell-before">You email students to remind them to practice for GDs. Most don't
+                    reply. You have no idea who is actually preparing.</div>
                 <div class="ba-cell-mid"><span>→</span></div>
-                <div class="ba-cell ba-cell-after">You've done 14 GD Coach sessions. Interruptions feel familiar. You
-                    stay composed, make your point, and the recruiter notices. You clear the round.</div>
+                <div class="ba-cell ba-cell-after">The dashboard shows you exactly who practiced GD this week, who
+                    completed skill verification, and who hasn't logged in since Monday.</div>
 
-                <div class="ba-cell ba-cell-before">Your resume says 'Python: Intermediate', and so does every other
-                    resume the recruiter is reading. You don't get shortlisted.</div>
+                <div class="ba-cell ba-cell-before">A recruiter asks for students with proven Python skills. You
+                    manually shortlist. Half don't qualify when tested on the day.</div>
                 <div class="ba-cell-mid"><span>→</span></div>
-                <div class="ba-cell ba-cell-after">Your profile shows Level 2 verified Python: a monitored live
-                    demonstration on record. The recruiter skips the screening test. You're already shortlisted.</div>
+                <div class="ba-cell ba-cell-after">You send the recruiter to your verified skill pool in the EduPodX
+                    portal. They filter by skill, verification level, and GD score. Shortlisted in 20 minutes.</div>
 
-                <div class="ba-cell ba-cell-before">You spend 40 minutes drafting a cold email to a recruiter. It still
-                    sounds awkward. You end up not sending it.</div>
+                <div class="ba-cell ba-cell-before">Your NAAC coordinator asks for placement data by Monday. You spend
+                    the weekend compiling Excel files from three different sources.</div>
                 <div class="ba-cell-mid"><span>→</span></div>
-                <div class="ba-cell ba-cell-after">You paste your draft into ProWrite. In 30 seconds, it reads
-                    professionally. You hit send. The recruiter responds the next morning.</div>
+                <div class="ba-cell ba-cell-after">Placement data: offer counts, sector-wise breakdown, skill completion
+                    rates, recruiter history, is exportable from the dashboard in minutes.</div>
             </div>
         </div>
     </section>
 
-    <!--
-<section id="proof">
-  <div class="proof-orb proof-orb-1"></div>
-  <div class="proof-orb proof-orb-2"></div>
-  <div class="proof-inner max-w">
-    <div class="reveal">
-      <div class="section-eyebrow" style="color:#93c5fd;">Student Results</div>
-      <h2 class="section-h2" style="color:#fff;">Students who prepared differently.<br><em style="color:#60a5fa;">In their own words.</em></h2>
-    </div>
-    <div class="testimonials-grid">
-      <div class="tcard reveal delay-1">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">I was in 2nd year when I did Career Explorer. Everyone around me was saying 'just do an internship, figure it out later.' But EduPodX made me actually simulate what a job vs. MBA path felt like day to day. I chose the job path, built my skills around it for 2 years, and walked into my placement drive knowing exactly why I was there. The recruiter told me I was the clearest candidate they'd interviewed all day.</p>
-        <div class="tcard-author">Sneha Rajan</div>
-        <div class="tcard-role">Final Year, CSE. Placed at Deloitte USI</div>
-        <span class="tcard-type tcard-student">Student</span>
-      </div>
-      <div class="tcard reveal delay-2">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">I used Career Explorer in second year when I was completely torn between MBA and a job. The simulation made me feel what each path was actually like. I chose the job path that day. Two years later, I walked into my placement interview knowing exactly why I was there. The recruiter noticed. I got the offer in round one.</p>
-        <div class="tcard-author">Sneha Rajan</div>
-        <div class="tcard-role">Final Year, CSE - Placed at Deloitte USI</div>
-        <span class="tcard-type tcard-student">Student</span>
-      </div>
-      <div class="tcard reveal delay-3">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">When EduPodX colleges send us candidates, the clarity shows up in the first two minutes. We've increased our intake from EduPodX-partner colleges by 40% this year because the quality of candidate confidence and direction is consistently higher. We now go straight to the verified pool, shortlisted in under an hour.</p>
-        <div class="tcard-author">Karthik Seshadri</div>
-        <div class="tcard-role">Campus Hiring Lead, Mphasis · Bangalore</div>
-        <span class="tcard-type tcard-recruiter">Recruiter</span>
-      </div>
-      <div class="tcard reveal delay-1">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">My biggest fear going into placements wasn't technical rounds. It was the GD. I'd never spoken up in a room full of people who all seemed more confident. GD Coach made me do it anyway. The first 5 sessions were uncomfortable. By session 12, I was the one driving the discussion. My campus GD felt easy by comparison, not because it was easy, but because I'd already done harder versions of it.</p>
-        <div class="tcard-author">Rahul Tiwari</div>
-        <div class="tcard-role">Final Year, ECE. Placed at Infosys Systems Engineering</div>
-        <span class="tcard-type tcard-student">Student</span>
-      </div>
-      <div class="tcard reveal delay-2">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">I had never spoken in front of strangers before GD Coach. The first session I froze for 20 seconds. After 14 sessions, I was the one keeping the GD moving when it went quiet. My campus GD was the first time in college I didn't feel afraid. I was experienced, not nervous.</p>
-        <div class="tcard-author">Arjun Menon</div>
-        <div class="tcard-role">Final Year, Mechanical Engineering - Placed at L&T Construction</div>
-        <span class="tcard-type tcard-student">Student</span>
-      </div>
-      <div class="tcard reveal delay-3">
-        <div class="tcard-quote">"</div>
-        <p class="tcard-text">My recruiter skipped the technical screening test for me because she said my EduPodX verified profile already showed what she needed. I didn't realise until then how much of hiring is just proving what you already know. The verification badge did that for me before I even walked in the door.</p>
-        <div class="tcard-author">Divya Krishnaswamy</div>
-        <div class="tcard-role">Pre-Final Year, CSE - Internship at Zoho Corporation</div>
-        <span class="tcard-type tcard-student">Student</span>
-      </div>
-    </div>
-
-    <div class="case-study reveal">
-      <div class="cs-header">Student Journey: From Confused Year 2 to Placed in First Drive</div>
-      <div class="cs-grid">
-        <div class="cs-col cs-col-before">
-          <div class="cs-col-title">Before EduPodX (Year 2)</div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">No career clarity. Job, MBA, or startup?</div></div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">GD confidence score: 3.1 out of 10</div></div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">Resume had 0 verified skills</div></div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">Professional emails took 30+ minutes to write</div></div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">No mentor, no industry connection</div></div>
-          <div class="cs-item"><div class="cs-item-dot before-dot"></div><div class="cs-item-text">Failed GD round in 2 mock drives</div></div>
-        </div>
-        <div class="cs-col">
-          <div class="cs-col-title after">After EduPodX (Placement Season)</div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">Chose job path in Year 2 via Career Explorer</div></div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">GD confidence score: 7.8 after 14 sessions</div></div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">3 Level 1–2 verified skill badges on profile</div></div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">ProWrite drafts in under 2 minutes</div></div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">Connected with 2 industry mentors via EduPodX</div></div>
-          <div class="cs-item"><div class="cs-item-dot after-dot"></div><div class="cs-item-text good">Placed in first campus drive, Round 1</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
-
-    <!--
-<section id="pricing">
-  pricing cards commented out for pilot phase
-</section>
--->
-
-    <!-- ── Waitlist ───────────────────────────────────────────────────────── -->
-    <section id="waitlist" style="background:var(--lgray);padding:7rem 4rem;">
-        <div class="max-w" style="display:flex;flex-direction:column;align-items:center;text-align:center;">
-
-            <div class="section-eyebrow">Pilot Programme · Limited Seats</div>
-            <h2 class="section-h2" style="max-width:700px;">We're opening EduPodX<br>to <em>30 founding students.</em>
-            </h2>
-            <p class="section-sub" style="margin:0 auto 1.5rem;max-width:580px;">
-                Before we open to everyone, we're inviting a small founding batch of 30 students to get full access,
-                free, and help us shape the platform with real feedback.
-            </p>
-
-            <!-- Perks strip -->
-            <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:3rem;">
-                <div
-                    style="display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--mgray);padding:.6rem 1.2rem;border-radius:99px;font-size:.85rem;font-weight:600;color:var(--navy);">
-                    <span style="color:var(--green);">✓</span> Full platform access. Free
+    <!-- <section id="proof">
+        <div class="proof-orb proof-orb-1"></div>
+        <div class="proof-orb proof-orb-2"></div>
+        <div class="proof-inner max-w">
+            <div class="reveal">
+                <div class="section-eyebrow" style="color:#93c5fd;">Results</div>
+                <h2 class="section-h2" style="color:#fff;">TPOs, students, and recruiters,<br><em
+                        style="color:#60a5fa;">in their own words.</em></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="tcard reveal delay-1">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">For the first three years of my career as a TPO, I had no idea which students
+                        were struggling until they failed their first campus GD. EduPodX's dashboard changed that
+                        completely. I can now see, on a Tuesday morning in July, exactly which students need a push, and
+                        I can act before they lose an opportunity they cannot get back.</p>
+                    <div class="tcard-author">Preethi Venkataraman</div>
+                    <div class="tcard-role">Training & Placement Officer, Sri Venkateswara College of Engineering,
+                        Chennai</div>
+                    <span class="tcard-type tcard-tpo">TPO</span>
                 </div>
-
-                <div
-                    style="display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--mgray);padding:.6rem 1.2rem;border-radius:99px;font-size:.85rem;font-weight:600;color:var(--navy);">
-                    <span style="color:var(--green);">✓</span> Locked-in founding price after pilot
+                <div class="tcard reveal delay-2">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">I used Career Explorer in second year when I was completely torn between MBA
+                        and a job. The simulation made me feel what each path was actually like. I chose the job path
+                        that day. Two years later, I walked into my placement interview knowing exactly why I was there.
+                        The recruiter noticed. I got the offer in round one.</p>
+                    <div class="tcard-author">Sneha Rajan</div>
+                    <div class="tcard-role">Final Year, CSE - Placed at Deloitte USI</div>
+                    <span class="tcard-type tcard-student">Student</span>
                 </div>
-                <div
-                    style="display:flex;align-items:center;gap:.5rem;background:#fff;border:1px solid var(--mgray);padding:.6rem 1.2rem;border-radius:99px;font-size:.85rem;font-weight:600;color:var(--navy);">
-                    <span style="color:var(--green);">✓</span> Direct access to the founding team
+                <div class="tcard reveal delay-3">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">When EduPodX colleges send us candidates, the clarity shows up in the first
+                        two minutes. We've increased our intake from EduPodX-partner colleges by 40% this year because
+                        the quality of candidate confidence and direction is consistently higher. We now go straight to
+                        the verified pool, shortlisted in under an hour.</p>
+                    <div class="tcard-author">Karthik Seshadri</div>
+                    <div class="tcard-role">Campus Hiring Lead, Mphasis · Bangalore</div>
+                    <span class="tcard-type tcard-recruiter">Recruiter</span>
+                </div>
+                <div class="tcard reveal delay-1">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">We onboarded EduPodX in June with zero expectations. By September, our GD pass
+                        rate in the first company drive had jumped from 34% to 59%. I didn't change anything else. Same
+                        students. Same recruiters. The only variable was EduPodX. That number got my principal's
+                        attention immediately.</p>
+                    <div class="tcard-author">Rajan Pillai</div>
+                    <div class="tcard-role">Head of Placements, Malabar Institute of Technology, Calicut</div>
+                    <span class="tcard-type tcard-tpo">TPO</span>
+                </div>
+                <div class="tcard reveal delay-2">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">I had never spoken in front of strangers before GD Coach. The first session I
+                        froze for 20 seconds. After 14 sessions, I was the one keeping the GD moving when it went quiet.
+                        My campus GD was the first time in college I didn't feel afraid. I was experienced, not nervous.
+                    </p>
+                    <div class="tcard-author">Arjun Menon</div>
+                    <div class="tcard-role">Final Year, Mechanical Engineering - Placed at L&T Construction</div>
+                    <span class="tcard-type tcard-student">Student</span>
+                </div>
+                <div class="tcard reveal delay-3">
+                    <div class="tcard-quote">"</div>
+                    <p class="tcard-text">My recruiter skipped the technical screening test for me because she said my
+                        EduPodX verified profile already showed what she needed. I didn't realise until then how much of
+                        hiring is just proving what you already know. The verification badge did that for me before I
+                        even walked in the door.</p>
+                    <div class="tcard-author">Divya Krishnaswamy</div>
+                    <div class="tcard-role">Pre-Final Year, CSE - Internship at Zoho Corporation</div>
+                    <span class="tcard-type tcard-student">Student</span>
                 </div>
             </div>
 
-            <!-- Waitlist card -->
-            <div class="waitlist-card"
-                style="background:#fff;border:2px solid var(--blue);border-radius:24px;max-width:520px;width:100%;padding:2.5rem 2.5rem;box-shadow:0 0 0 6px rgba(37,99,235,.07),0 24px 60px rgba(30,58,95,.1);">
-                <div
-                    style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(37,99,235,.08);border:1px solid rgba(37,99,235,.2);padding:.35rem 1rem;border-radius:99px;font-size:.75rem;font-weight:700;color:var(--blue);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;">
-                    <span
-                        style="width:7px;height:7px;background:var(--blue);border-radius:50%;animation:pulse 2s infinite;display:inline-block;"></span>
-                    Accepting applications now
-                </div>
-                <div
-                    style="font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--navy);line-height:1.3;margin-bottom:.5rem;">
-                    Join the Pilot Batch
-                </div>
-                <div style="font-size:.9rem;color:var(--slate);margin-bottom:2rem;line-height:1.6;">
-                    30 seats. Free access.<br>We'll confirm your spot within 24 hours.
-                </div>
-
-                <!-- Seat counter -->
-                <div class="seat-row"
-                    style="display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding:1rem 1.2rem;background:var(--lgray);border-radius:12px;">
-                    <div style="flex:1;background:var(--mgray);border-radius:99px;height:8px;overflow:hidden;">
-                        <div
-                            style="width:57%;height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa);border-radius:99px;">
+             Case Study
+             <div class="case-study reveal">
+                <div class="cs-header">Case Study: One College · One Semester · What Actually Changed</div>
+                <div class="cs-grid">
+                    <div class="cs-col cs-col-before">
+                        <div class="cs-col-title">Before (June 2024)</div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">Placement rate: 42%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">GD pass rate at first drive: 29%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">Career clarity sessions conducted: 0</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">0 students with verified skill badges</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">11 companies visited campus</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot before-dot"></div>
+                            <div class="cs-item-text">TPO tracking via Excel, no alerts</div>
                         </div>
                     </div>
-                    <div style="font-size:.82rem;font-weight:700;color:var(--navy);white-space:nowrap;"><span
-                            style="color:var(--blue);">17</span> / 30 seats filled</div>
+                    <div class="cs-col">
+                        <div class="cs-col-title after">After (December 2024)</div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">Placement rate: 64%, up 22 points</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">GD pass rate at first drive: 57%</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">78% of batch completed Career Explorer</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">186 students with Level 1–2 skill badges</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">21 companies via EduPodX recruiter portal</div>
+                        </div>
+                        <div class="cs-item">
+                            <div class="cs-item-dot after-dot"></div>
+                            <div class="cs-item-text good">Real-time dashboard, weekly early alerts</div>
+                        </div>
+                    </div>
                 </div>
+            </div> 
+        </div>
+    </section> -->
 
-                <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
-                    style="display:block;text-align:center;background:var(--blue);color:#fff;padding:1rem 2rem;border-radius:12px;font-weight:700;font-size:1.05rem;letter-spacing:.01em;box-shadow:0 8px 30px rgba(37,99,235,.35);transition:all .25s var(--ease2);"
-                    onmouseover="this.style.background='var(--blue2)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(37,99,235,.45)'"
-                    onmouseout="this.style.background='var(--blue)';this.style.transform='translateY(0)';this.style.boxShadow='0 8px 30px rgba(37,99,235,.35)'">
-                    Apply for Pilot Access →
-                </a>
-
-                <div style="margin-top:1.2rem;font-size:.78rem;color:var(--slate);text-align:center;">
-                    No payment required · Takes 2 minutes · College email preferred
+    <!-- ── Pricing ───────────────────────────────────────────────────────── -->
+    <!-- <section id="pricing">
+        <div class="max-w">
+            <div class="reveal" style="text-align:center;max-width:600px;margin:0 auto 4rem;">
+                <div class="section-eyebrow">Pricing</div>
+                <h2 class="section-h2">Simple, transparent pricing.<br><em>No surprises.</em></h2>
+                <p class="section-sub" style="margin:0 auto;">All plans include Career Explorer, GD Coach, VoiceUp,
+                    ProWrite, ALR, skill verification, and the college dashboard.</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pcard reveal delay-1">
+                    <div class="pcard-tier">Starter</div>
+                    <div class="pcard-range">100–249 Students</div>
+                    <div class="pcard-price">₹599<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹4/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Career Explorer (all 3 paths)</div>
+                    <div class="pcard-feature">GD Coach, unlimited sessions</div>
+                    <div class="pcard-feature">VoiceUp & ProWrite</div>
+                    <div class="pcard-feature">ALR aptitude practice</div>
+                    <div class="pcard-feature">College dashboard</div>
+                    <div class="pcard-feature">Placement tracker</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-outline">Get Started</a>
+                </div>
+                <div class="pcard featured reveal delay-2">
+                    <div class="pcard-badge">⭐ Most Popular</div>
+                    <div class="pcard-tier" style="color:var(--blue);">Growth</div>
+                    <div class="pcard-range">250–499 Students</div>
+                    <div class="pcard-price" style="color:var(--blue);">₹499<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹3/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Everything in Starter</div>
+                    <div class="pcard-feature">Recruiter portal access</div>
+                    <div class="pcard-feature">Early-warning alerts</div>
+                    <div class="pcard-feature">3-level skill verification</div>
+                    <div class="pcard-feature">Mentor Connect</div>
+                    <div class="pcard-feature">Dedicated account manager</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-filled">Get Started</a>
+                </div>
+                <div class="pcard reveal delay-3">
+                    <div class="pcard-tier">Enterprise</div>
+                    <div class="pcard-range">500+ Students</div>
+                    <div class="pcard-price">₹399<span>&thinsp;/student</span></div>
+                    <div class="pcard-period">per semester · ~₹2/day per student</div>
+                    <div class="pcard-divider"></div>
+                    <div class="pcard-feature">Everything in Growth</div>
+                    <div class="pcard-feature">Custom college branding</div>
+                    <div class="pcard-feature">API & NAAC data export</div>
+                    <div class="pcard-feature">Criterion 5.2 & 5.3 reports</div>
+                    <div class="pcard-feature">Priority onboarding support</div>
+                    <div class="pcard-feature">Annual contract: 10% additional off</div>
+                    <a href="javascript:void(0)"
+                        onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})"
+                        class="pcard-cta pcard-cta-outline">Get Started</a>
                 </div>
             </div>
-
-            <p style="margin-top:2.5rem;font-size:.85rem;color:var(--slate);max-width:480px;line-height:1.6;">
-                After the pilot closes, EduPodX will open publicly with a paid subscription. Founding batch students
-                keep their access at a permanently locked-in founding price.
-            </p>
-
+            <div class="pricing-note reveal">Semester = 6 months. Annual contracts receive an additional 10% discount.
+                All plans include Career Explorer, it is the foundation, not an upgrade.</div>
         </div>
-    </section>
+    </section> -->
 
-    <!-- ── Onboarding ─────────────────────────────────────────────────────── -->
-    <section id="onboarding" style="background:#fff">
+    <section id="onboarding" style="background:#fff;padding:7rem 4rem;">
         <div class="max-w">
             <div class="reveal" style="text-align:center;max-width:680px;margin:0 auto 4rem;">
                 <div class="section-eyebrow">Getting Started</div>
-                <h2 class="section-h2" style="text-align:center;">3 steps. <em>10 minutes.</em><br>You're inside
-                    EduPodX.</h2>
-                <p class="section-sub" style="margin:0 auto;text-align:center;">No forms to fill. No downloads. No
-                    waiting. From signing up to your first GD Coach session. Less than 10 minutes.</p>
+                <h2 class="section-h2" style="text-align:center;">3 steps. <em>One week.</em><br>Your students are live.
+                </h2>
+                <p class="section-sub" style="margin:0 auto;text-align:center;">From our first conversation to your
+                    students actively using EduPodX - the entire onboarding takes less than a week.</p>
             </div>
 
-            <div class="onboarding-grid reveal">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--mgray);border-radius:20px;overflow:hidden;position:relative;"
+                class="reveal">
 
-                <!-- connector line -->
                 <div
                     style="position:absolute;top:90px;left:calc(33.33% - 1px);width:2px;height:40px;background:linear-gradient(to bottom,var(--mgray),transparent);z-index:0;">
                 </div>
@@ -2613,14 +2577,14 @@
                             style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);">
                             Day 1</div>
                     </div>
-                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">Pick Your Plan
-                        & Sign Up</div>
-                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">Choose Basic, Pro, or Elite.
-                        Enter your college email for a 10% student discount. Payment takes 2 minutes via UPI, card, or
-                        net banking. No hidden fees, cancel anytime.</div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">We Have a
+                        Conversation</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">A 30-minute call with your
+                        EduPodX account manager. We understand your batch size, placement goals, and timeline. We
+                        configure the platform with your college branding before we leave.</div>
                     <div
                         style="margin-top:1.5rem;padding:.8rem 1rem;background:#dbeafe;border-radius:8px;font-size:.82rem;font-weight:600;color:var(--blue);display:flex;align-items:center;gap:.5rem;">
-                        <span>⏱</span> Takes 2 minutes
+                        <span>⏱</span> Takes 30 minutes
                     </div>
                 </div>
 
@@ -2634,15 +2598,14 @@
                             style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);">
                             Day 2-4</div>
                     </div>
-                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">Complete Your
-                        Career Explorer</div>
-                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">Your first session is Career
-                        Explorer, a 20-minute guided simulation across career paths. It gives you clarity on where
-                        you're heading and immediately personalises every tool on the platform around your chosen
-                        direction.</div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">We Set
+                        Everything Up</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">Your student list is
+                        uploaded, accounts are created, and the platform is configured. We handle all of it. Your team
+                        does not write a single line of code or fill a single form.</div>
                     <div
                         style="margin-top:1.5rem;padding:.8rem 1rem;background:#ccfbf1;border-radius:8px;font-size:.82rem;font-weight:600;color:var(--teal);display:flex;align-items:center;gap:.5rem;">
-                        <span>🧭</span> Most students say this alone is worth it
+                        <span>⚙️</span> Zero effort from your side
                     </div>
                 </div>
 
@@ -2656,53 +2619,42 @@
                             style="font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);">
                             Day 5-7</div>
                     </div>
-                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">Jump Into Your
-                        First GD Coach Session</div>
-                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">Start your first simulated
-                        GD. You'll get a score, a breakdown of where you held your ground and where you lost it, and a
-                        personalised improvement plan. The discomfort you feel in Session 1 is what goes away by Session
-                        10.</div>
+                    <div style="font-weight:700;font-size:1.1rem;color:var(--navy);margin-bottom:.8rem;">Your Students
+                        Go Live</div>
+                    <div style="font-size:.9rem;color:var(--slate);line-height:1.7;flex:1;">We run a 45-minute
+                        orientation session with your students, in person or online. Activation links go out. Career
+                        Explorer, GD Coach, and the full platform are live and ready to use.</div>
                     <div
                         style="margin-top:1.5rem;padding:.8rem 1rem;background:var(--lgreen);border-radius:8px;font-size:.82rem;font-weight:600;color:var(--green);display:flex;align-items:center;gap:.5rem;">
-                        <span>🚀</span> Most students do their first session within 24 hours
+                        <span>🚀</span> Students active within one week
                     </div>
                 </div>
             </div>
 
             <div style="margin-top:2rem;text-align:center;" class="reveal">
-                <p style="font-size:.9rem;color:var(--slate);">That's it. No lectures to attend. No batch timings to
-                    follow. Practice when you want, as often as you want.</p>
+                <p style="font-size:.9rem;color:var(--slate);">That is it. No lengthy procurement process. No technical
+                    integration burden. No waiting months to see results.</p>
             </div>
         </div>
     </section>
 
-    <!-- ── CTA ───────────────────────────────────────────────────────────── -->
     <section id="cta">
         <div class="cta-orb-1"></div>
         <div class="cta-orb-2"></div>
         <div class="cta-inner">
             <div class="reveal">
-                <h2 class="cta-h2">Your placement season<br>starts <em>now.</em></h2>
-                <p class="cta-sub">The students who get placed in the first campus drive are not the most talented ones.
-                    They're the ones who started early. GD confidence, career clarity, and a verified profile are built
-                    over months, not assembled in a panic the week before placement season. Apply for the pilot batch
-                    now and get full access free.</p>
-                <!--
-        <a href="javascript:void(0)" onclick="window.open('https://edupodx.com/signup','_blank')" class="btn-cta-primary">Start Free Trial</a>
-        <a href="javascript:void(0)" onclick="window.open('https://edupodx.com/demo','_blank')" class="btn-cta-outline">Try GD Coach Free First</a>
-      -->
+                <h2 class="cta-h2">Your next placement<br>season starts <em>today.</em></h2>
+                <p class="cta-sub">The window to build career clarity, GD confidence, and verified skills is the three
+                    years before placement season, not the three months of it. The colleges that start now will see it
+                    in their numbers next year.</p>
                 <div class="cta-actions">
-                    <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
-                        class="btn-cta-primary" style="padding:1rem 2.8rem;font-size:1.05rem;">Apply for Pilot Access
-                        →</a>
+                    <a href="https://forms.gle/1TEu8C1SSFZbcLpT7" target="_blank" rel="noopener noreferrer"
+                        class="btn-cta-primary">Get in Touch</a>
+                    <a href="mailto:contact@edupodx.com" class="btn-cta-outline">Schedule a Demo</a>
                 </div>
-                <p style="margin-top:1.2rem;font-size:.8rem;color:#475569;letter-spacing:.01em;">
-                    Applications are reviewed individually. Not all who apply will be accepted into the pilot batch.
-                </p>
                 <div class="cta-contacts">
                     <div class="cta-contact">
-                        <div class="cta-contact-label">Email Us</div>
+                        <div class="cta-contact-label">Email</div>
                         <div class="cta-contact-val">contact@edupodx.com</div>
                     </div>
                 </div>
@@ -2710,7 +2662,6 @@
         </div>
     </section>
 
-    <!-- ── Footer ────────────────────────────────────────────────────────── -->
     <footer>
         <div class="nav-logo footer-logos">
             <a href="/" aria-label="EduPodX Home" class="logo-stack">
@@ -2719,12 +2670,11 @@
                 <img src="/assets/logo/poditivity.png" alt="Poditivity" class="logo parent-logo">
             </a>
         </div>
-        <div class="footer-note">© 2026 EduPodX</div>
+        <div class="footer-note">From Confused Student to Confident Graduate, Step by Step.</div>
+        <div class="footer-note">© 2026 EduPodX · For Institutional Partners</div>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
     <script>
-        // ── Scroll reveal ─────────────────────────────────────────────────
         const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
         const io = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -2732,13 +2682,10 @@
             });
         }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
         reveals.forEach(el => io.observe(el));
-
-        // ── Nav scroll ────────────────────────────────────────────────────
         window.addEventListener('scroll', () => {
             document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
         });
 
-        // ── Counter animation ─────────────────────────────────────────────
         const counters = document.querySelectorAll('.counter');
         const cio = new IntersectionObserver((entries) => {
             entries.forEach(e => {
@@ -2761,7 +2708,6 @@
         }, { threshold: 0.5 });
         counters.forEach(c => cio.observe(c));
 
-        // ── Path switcher ─────────────────────────────────────────────────
         function switchPath(path) {
             document.querySelectorAll('.path-tab').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.path-panel').forEach(p => p.classList.remove('active'));
@@ -2777,7 +2723,6 @@
             }, 10);
         }
 
-        // ── Nav smooth scroll with offset ────────────────────────────────
         function scrollToSection(id) {
             const target = document.getElementById(id);
             if (!target) return;
@@ -2786,15 +2731,12 @@
             window.scrollTo({ top, behavior: 'smooth' });
         }
 
-        // data-target nav links (no external popup)
         document.querySelectorAll('a[data-target]').forEach(a => {
             a.addEventListener('click', function (e) {
                 e.preventDefault();
                 scrollToSection(this.dataset.target);
             });
         });
-
-        // href="#section" links (hero buttons, pricing CTAs, etc.)
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 const id = this.getAttribute('href').slice(1);
@@ -2816,32 +2758,36 @@
             });
         });
 
-        document.addEventListener("DOMContentLoaded", function () {
-
-            const hamburger = document.getElementById("hamburger");
-            const navLinks = document.querySelector(".nav-links");
-
-            hamburger.addEventListener("click", function () {
-                navLinks.classList.toggle("active");
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            document.querySelectorAll('.hero-orb').forEach((orb, i) => {
+                const speed = [0.15, 0.1, 0.2][i] || 0.1;
+                orb.style.transform = `translateY(${y * speed}px)`;
             });
-
-            document.querySelectorAll(".nav-links a").forEach(link => {
-                link.addEventListener("click", () => {
-                    navLinks.classList.remove("active");
-                });
-            });
-            document.addEventListener("click", function (e) {
-                if (!e.target.closest("#nav")) {
-                    navLinks.classList.remove("active");
-                }
-            });
-
-            window.addEventListener("scroll", () => {
-                navLinks.classList.remove("active");
-            });
-
         });
 
+        const toggle = document.getElementById('nav-toggle');
+        const navMenu = document.querySelector('.nav-links');
+
+        toggle.addEventListener('click', () => {
+            navMenu.classList.toggle('open');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('open');
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            const nav = document.getElementById('nav');
+            const toggle = document.getElementById('nav-toggle');
+
+            if (!nav.contains(e.target)) {
+                document.querySelector('.nav-links').classList.remove('open');
+            }
+        });
     </script>
 </body>
 
