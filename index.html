@@ -8,6 +8,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
         href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" />
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-T9DLWTHW');</script>
+    <!-- End Google Tag Manager -->
     <style>
         /* ── Reset & Base ─────────────────────────────────────────────────── */
         *,
@@ -538,33 +548,34 @@
 
         /* scrolling marquee */
 
-.logos-marquee{
-    overflow:hidden;
-    position:relative;
-    width:100%;
-    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
--webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-}
+        .logos-marquee {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
 
-.logos-track{
-    display:flex;
-    gap:3.5rem;
-    width:max-content;
-    animation:scrollLogos 28s linear infinite;
-}
+        .logos-track {
+            display: flex;
+            gap: 3.5rem;
+            width: max-content;
+            animation: scrollLogos 28s linear infinite;
+        }
 
-.logo-chip{
-    white-space:nowrap;
-}
+        .logo-chip {
+            white-space: nowrap;
+        }
 
-@keyframes scrollLogos{
-    from{
-        transform:translateX(0);
-    }
-    to{
-        transform:translateX(-50%);
-    }
-}
+        @keyframes scrollLogos {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
 
         /* ── Section base ─────────────────────────────────────────────────── */
         section {
@@ -805,9 +816,9 @@
         }
 
         .path-tab[data-path="higher"].active {
-    background: var(--teal);
-    border-color: var(--teal);
-}
+            background: var(--teal);
+            border-color: var(--teal);
+        }
 
         .path-tab[data-path="startup"].active {
             background: var(--amber);
@@ -1840,7 +1851,8 @@
                 box-shadow: 0 12px 40px rgba(30, 58, 95, .12);
             }
         }
-       .logo-stack {
+
+        .logo-stack {
             display: flex;
             align-items: center;
             gap: .6rem;
@@ -1848,7 +1860,8 @@
             color: rgba(255, 255, 255, .6);
             letter-spacing: .04em;
         }
-    .primary-logo {
+
+        .primary-logo {
             height: 34px;
         }
 
@@ -1868,11 +1881,15 @@
             .footer-logos .parent-logo {
                 height: 22px;
             }
-          }   
+        }
     </style>
 </head>
 
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T9DLWTHW" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <!-- ── Nav ─────────────────────────────────────────────────────────── -->
     <nav id="nav">
@@ -1897,8 +1914,7 @@
                     onclick="document.getElementById('onboarding').scrollIntoView({behavior:'smooth'})">How It Works</a>
             </li>
             <li><a href="/institutions/home.html">For Institutions</a></li>
-            <li><a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"    
+            <li><a href="https://forms.gle/NijUrnGvQwEppruD7" target="_blank" rel="noopener noreferrer"
                     class="nav-cta">Join Pilot</a></li>
         </ul>
     </nav>
@@ -1922,8 +1938,7 @@
                 all the way to a verified, job-ready profile in Final Year.
             </p>
             <div class="hero-actions">
-                <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
+                <a href="https://forms.gle/NijUrnGvQwEppruD7" target="_blank" rel="noopener noreferrer"
                     class="btn-primary">Start Free Trial</a>
                 <a href="javascript:void(0)"
                     onclick="document.getElementById('clarity').scrollIntoView({behavior:'smooth'})" class="btn-ghost">
@@ -1961,35 +1976,35 @@
 
     <!-- ── Logos ────────────────────────────────────────────────────────── -->
     <div id="logos">
-    <div class="logos-label">Mentors & hiring partners from</div>
+        <div class="logos-label">Mentors & hiring partners from</div>
 
-    <div class="logos-marquee">
-        <div class="logos-track">
+        <div class="logos-marquee">
+            <div class="logos-track">
 
-            <div class="logo-chip">Stanford University</div>
-            <div class="logo-chip">IIM</div>
-            <div class="logo-chip">HCL</div>
-            <div class="logo-chip">Amazon</div>
-            <div class="logo-chip">Harvard University</div>
-            <div class="logo-chip">T-Hub</div>
-            <div class="logo-chip">Google</div>
-            <div class="logo-chip">Cognizant</div>
-            <div class="logo-chip">Kia</div>
+                <div class="logo-chip">Stanford University</div>
+                <div class="logo-chip">IIM</div>
+                <div class="logo-chip">HCL</div>
+                <div class="logo-chip">Amazon</div>
+                <div class="logo-chip">Harvard University</div>
+                <div class="logo-chip">T-Hub</div>
+                <div class="logo-chip">Google</div>
+                <div class="logo-chip">Cognizant</div>
+                <div class="logo-chip">Kia</div>
 
-            <!-- duplicate for seamless loop -->
-            <div class="logo-chip">Stanford University</div>
-            <div class="logo-chip">IIM</div>
-            <div class="logo-chip">HCL</div>
-            <div class="logo-chip">Amazon</div>
-            <div class="logo-chip">Harvard University</div>
-            <div class="logo-chip">T-Hub</div>
-            <div class="logo-chip">Google</div>
-            <div class="logo-chip">Cognizant</div>
-            <div class="logo-chip">Kia</div>
+                <!-- duplicate for seamless loop -->
+                <div class="logo-chip">Stanford University</div>
+                <div class="logo-chip">IIM</div>
+                <div class="logo-chip">HCL</div>
+                <div class="logo-chip">Amazon</div>
+                <div class="logo-chip">Harvard University</div>
+                <div class="logo-chip">T-Hub</div>
+                <div class="logo-chip">Google</div>
+                <div class="logo-chip">Cognizant</div>
+                <div class="logo-chip">Kia</div>
 
+            </div>
         </div>
     </div>
-</div>
 
     <!-- ── Problem ──────────────────────────────────────────────────────── -->
     <section id="problem">
@@ -2016,7 +2031,8 @@
                         entirely."</div>
                     <div class="pain-body">You're not lazy. You're confused, and nobody around you has given you a way
                         to actually experience each path before committing. Unclear students give vague interviews.
-                        Vague interviews end in rejections. The confusion starts in Year 1 but hits you in Final Year.</div>
+                        Vague interviews end in rejections. The confusion starts in Year 1 but hits you in Final Year.
+                    </div>
                 </div>
                 <div class="pain-card reveal delay-3">
                     <div class="pain-num">03</div>
@@ -2082,7 +2098,8 @@
 
                 <div class="path-tabs">
                     <button class="path-tab active" data-path="job" onclick="switchPath('job')">💼 The Job Path</button>
-                    <button class="path-tab" data-path="higher" onclick="switchPath('higher')">🎓 Higher Education</button>
+                    <button class="path-tab" data-path="higher" onclick="switchPath('higher')">🎓 Higher
+                        Education</button>
                     <button class="path-tab" data-path="startup" onclick="switchPath('startup')">🚀
                         Entrepreneurship</button>
                 </div>
@@ -2130,59 +2147,59 @@
                 </div>
 
                 <div id="panel-higher" class="path-panel" data-path="higher">
-    <div class="path-info">
-        <div class="path-info-title">
-            What the Higher Education simulation shows you
-        </div>
+                    <div class="path-info">
+                        <div class="path-info-title">
+                            What the Higher Education simulation shows you
+                        </div>
 
-        <div class="path-info-body">
-            What pursuing a Master's or MBA actually involves — not just the
-            admission process, but the academic intensity, research exposure,
-            financial commitment, and career paths it unlocks.
-        </div>
+                        <div class="path-info-body">
+                            What pursuing a Master's or MBA actually involves — not just the
+                            admission process, but the academic intensity, research exposure,
+                            financial commitment, and career paths it unlocks.
+                        </div>
 
-        <ul class="path-outcomes">
-            <li>Should I pursue MS, MBA, or a specialised master's?</li>
-            <li>Which countries and universities fit my profile?</li>
-            <li>What exams, timelines, and preparation are required?</li>
-            <li>How does the ROI compare to starting a job now?</li>
-        </ul>
-    </div>
+                        <ul class="path-outcomes">
+                            <li>Should I pursue MS, MBA, or a specialised master's?</li>
+                            <li>Which countries and universities fit my profile?</li>
+                            <li>What exams, timelines, and preparation are required?</li>
+                            <li>How does the ROI compare to starting a job now?</li>
+                        </ul>
+                    </div>
 
-    <div class="impact-table">
+                    <div class="impact-table">
 
-        <div class="impact-row impact-head">
-            <div class="impact-cell">Higher Education Decision</div>
-            <div class="impact-cell">Without Clarity</div>
-            <div class="impact-cell">With Career Explorer</div>
-        </div>
+                        <div class="impact-row impact-head">
+                            <div class="impact-cell">Higher Education Decision</div>
+                            <div class="impact-cell">Without Clarity</div>
+                            <div class="impact-cell">With Career Explorer</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Study Abroad Planning</div>
-            <div class="impact-cell bad">Late preparation, weak profile</div>
-            <div class="impact-cell good">Early roadmap, stronger applications</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Study Abroad Planning</div>
+                            <div class="impact-cell bad">Late preparation, weak profile</div>
+                            <div class="impact-cell good">Early roadmap, stronger applications</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Exam Preparation</div>
-            <div class="impact-cell bad">Unplanned GRE/GMAT attempts</div>
-            <div class="impact-cell good">Clear timeline & preparation strategy</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Exam Preparation</div>
+                            <div class="impact-cell bad">Unplanned GRE/GMAT attempts</div>
+                            <div class="impact-cell good">Clear timeline & preparation strategy</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">University Shortlisting</div>
-            <div class="impact-cell bad">Random applications</div>
-            <div class="impact-cell good">Strategic, profile-matched universities</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">University Shortlisting</div>
+                            <div class="impact-cell bad">Random applications</div>
+                            <div class="impact-cell good">Strategic, profile-matched universities</div>
+                        </div>
 
-        <div class="impact-row">
-            <div class="impact-cell">Career Direction</div>
-            <div class="impact-cell bad">Degree without clear outcome</div>
-            <div class="impact-cell good">Degree aligned with career goals</div>
-        </div>
+                        <div class="impact-row">
+                            <div class="impact-cell">Career Direction</div>
+                            <div class="impact-cell bad">Degree without clear outcome</div>
+                            <div class="impact-cell good">Degree aligned with career goals</div>
+                        </div>
 
-    </div>
-</div>
+                    </div>
+                </div>
 
                 <div id="panel-startup" class="path-panel" data-path="startup">
                     <div class="path-info">
@@ -2561,8 +2578,7 @@
                             style="color:var(--blue);">17</span> / 30 seats filled</div>
                 </div>
 
-                <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
+                <a href="https://forms.gle/NijUrnGvQwEppruD7" target="_blank" rel="noopener noreferrer"
                     style="display:block;text-align:center;background:var(--blue);color:#fff;padding:1rem 2rem;border-radius:12px;font-weight:700;font-size:1.05rem;letter-spacing:.01em;box-shadow:0 8px 30px rgba(37,99,235,.35);transition:all .25s var(--ease2);"
                     onmouseover="this.style.background='var(--blue2)';this.style.transform='translateY(-2px)';this.style.boxShadow='0 14px 40px rgba(37,99,235,.45)'"
                     onmouseout="this.style.background='var(--blue)';this.style.transform='translateY(0)';this.style.boxShadow='0 8px 30px rgba(37,99,235,.35)'">
@@ -2692,8 +2708,7 @@
         <a href="javascript:void(0)" onclick="window.open('https://edupodx.com/demo','_blank')" class="btn-cta-outline">Try GD Coach Free First</a>
       -->
                 <div class="cta-actions">
-                    <a href="https://forms.gle/NijUrnGvQwEppruD7"
-                    target="_blank" rel="noopener noreferrer"
+                    <a href="https://forms.gle/NijUrnGvQwEppruD7" target="_blank" rel="noopener noreferrer"
                         class="btn-cta-primary" style="padding:1rem 2.8rem;font-size:1.05rem;">Apply for Pilot Access
                         →</a>
                 </div>
